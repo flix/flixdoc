@@ -8,7 +8,7 @@ import Data from './Data.js';
 class App extends Component {
 
     getNamespaces() {
-        return Object.keys(Data.namespaces).filter(s => s !== "");
+        return Object.keys(Data.namespaces);
     }
 
     render() {

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 class Menu extends Component {
 
     getNamespaces() {
-        return this.props.namespaces.sort((x, y) => x.localeCompare(y))
+        return this.props.namespaces.filter(s => s !== "").sort((x, y) => x.localeCompare(y))
     }
 
     getMenuItems() {
