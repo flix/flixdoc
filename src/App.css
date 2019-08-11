@@ -1,0 +1,119 @@
+body {
+    background-color: #fcfcfc;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18vw;
+    max-width: 20rem;
+    height: 100vh;
+
+    background-color: #4687a0;
+    box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.15);
+    padding-left: 3vw;
+    padding-right: 3vw;
+
+    line-height: 1.25;
+}
+
+.menu .title {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 1.3rem;
+    color: #ffffff;
+    text-align: center;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.menu .title a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.menu ul {
+    margin: 0 0 0 -15px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.menu ul li {
+    font-size: 0.95rem;
+    color: #000000;
+}
+
+.menu ul li a:link, .menu ul li a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.menu ul li a:hover, .menu ul li a:active {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.namespace {
+    padding-top: 2vh;
+    padding-left: 5rem;
+    padding-right: 5rem;
+
+    margin-left: 18vw;
+}
+
+.def-list {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.def-decl {
+    background-color: #ffffff;
+    border-radius: 0.1rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.signature {
+    font-family: "Fira Code", monospace;
+    font-size: 0.85rem;
+    margin-bottom: 0.1rem;
+}
+
+.comment {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 0.80rem;
+    color: #111111;
+    margin-left: 2rem;
+}
+
+.comment .code {
+    font-family: "Fira Code", monospace;
+    color: #111111;
+}
+
+.keyword {
+    display: inline-block;
+    width: 2rem;
+    color: #000000;
+    text-align: right;
+    padding-right: 0.5rem;
+}
+
+.name {
+    font-weight: bold;
+    color: #B12250;
+}
+
+.type {
+    color: #441ed4;
+}
+
+h1, h2, h3 {
+    font-family: 'Oswald', sans-serif !important;
+    font-weight: bold !important;
+}
