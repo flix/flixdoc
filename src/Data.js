@@ -2,7 +2,6 @@ export default {
     "title":"Flix Standard Library",
     "namespaces":{
         "Result":{
-            "namespace":"Result",
             "defs":[{
                 "name":"forall",
                 "tparams":[{
@@ -12,10 +11,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true` or if `r` is `Err(w)`.\n Otherwise returns `false`."
@@ -28,15 +27,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"x",
-                    "type":"a"
+                    "type":"t"
                 },{
                     "name":"y",
-                    "type":"a"
+                    "type":"t"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
-                "result":"a",
+                "result":"Result[t, e]",
                 "comment":"Returns `Ok(y)` if `r` is `Ok(x)`. Otherwise returns `r`."
             },{
                 "name":"count",
@@ -47,10 +46,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Int32",
                 "comment":"Returns `1` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`."
@@ -65,13 +64,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b"
+                    "type":"a -> t -> a"
                 },{
                     "name":"z",
                     "type":"a"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"a",
                 "comment":"Returns `f(z, v)` if `r` is `Ok(v)`. Otherwise returns `z`."
@@ -86,12 +85,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b"
+                    "type":"t1 -> t2"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t1, e]"
                 }],
-                "result":"a",
+                "result":"Result[t2, e]",
                 "comment":"Returns `Ok(f(v))` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`."
             },{
                 "name":"toOption",
@@ -102,9 +101,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
-                "result":"a",
+                "result":"Option[t]",
                 "comment":"Returns `Some(v)` if `r` is `Ok(v)`. Otherwise returns `None`."
             },{
                 "name":"eq",
@@ -115,10 +114,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r1",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 },{
                     "name":"r2",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if `r1` and `r2` and equal."
@@ -131,12 +130,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"t"
                 }],
-                "result":"a",
+                "result":"t",
                 "comment":"Returns `v` if `r` is `Ok(v)`. Otherwise returns `d`."
             },{
                 "name":"toList",
@@ -147,9 +146,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
-                "result":"a",
+                "result":"List[t]",
                 "comment":"Returns a one-element list of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty list."
             },{
                 "name":"toMap",
@@ -162,9 +161,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[(b, c), a]"
+                    "type":"Result[(k, v), e]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns a singleton map with the mapping `k -> v` if `o` is `Ok((k, v))`. Otherwise returns the empty map."
             },{
                 "name":"find",
@@ -175,12 +174,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
-                "result":"a",
+                "result":"Option[t]",
                 "comment":"Returns `Some(v)` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`."
             },{
                 "name":"toSet",
@@ -191,9 +190,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
-                "result":"a",
+                "result":"Set[t]",
                 "comment":"Returns a one-element set of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty set."
             },{
                 "name":"isOk",
@@ -204,7 +203,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` iff `r` is `Ok(v)`."
@@ -219,10 +218,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b"
+                    "type":"t -> a -> a"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 },{
                     "name":"z",
                     "type":"a"
@@ -240,12 +239,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Result[b, c]"
+                    "type":"t1 -> Result[t2, e]"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t1, e]"
                 }],
-                "result":"a",
+                "result":"Result[t2, e]",
                 "comment":"Returns `f(v)` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`."
             },{
                 "name":"exists",
@@ -256,10 +255,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `false`."
@@ -274,12 +273,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r1",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e1]"
                 },{
                     "name":"r2",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e2]"
                 }],
-                "result":"a",
+                "result":"Result[t, e2]",
                 "comment":"Returns `Ok(v)` if `r1` is `Ok(v)`. Otherwise returns `r2`."
             },{
                 "name":"isErr",
@@ -290,27 +289,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[a, b]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` iff `r` is `Err(w)`."
             }]
         },
-        "BufferedWriter":{
-            "namespace":"BufferedWriter",
-            "defs":[{
-                "name":"new",
-                "tparams":[],
-                "fparams":[{
-                    "name":"p",
-                    "type":"Path"
-                }],
-                "result":"BufferedWriter",
-                "comment":"Returns a new BufferedReader from the given Path `p`\n TODO: Consider choosing charsets and opening modes\n TODO: Currently this is opened for 'w' and truncates."
-            }]
-        },
         "Map":{
-            "namespace":"Map",
             "defs":[{
                 "name":"toList",
                 "tparams":[{
@@ -320,9 +305,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"List[(k, v)]",
                 "comment":"Returns the map `m` as a list of key-value pairs."
             },{
                 "name":"foldRight",
@@ -335,16 +320,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b"
+                    "type":"v -> b -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all values in `m` going from right to left.\n That is, the result is of the form: `f(v1, ...f(vn-1, f(vn, s)))`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all values in `m` going from right to left.\n\n That is, the result is of the form: `f(v1, ...f(vn-1, f(vn, s)))`."
             },{
                 "name":"exists",
                 "tparams":[{
@@ -354,13 +339,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if at least one mapping in `m` satisfies the predicate `f`.\n Returns `false` if `m` is the empty map."
+                "comment":"Returns `true` if and only if at least one mapping in `m` satisfies the predicate `f`.\n\n Returns `false` if `m` is the empty map."
             },{
                 "name":"insertWith",
                 "tparams":[{
@@ -370,19 +355,19 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> f(v, v1)` if `k -> v1` is in `m`.\n Otherwise, updates `m` with `k -> v`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> f(v, v1)` if `k -> v1` is in `m`.\n\n Otherwise, updates `m` with `k -> v`."
             },{
                 "name":"reduceLeftWithKey",
                 "tparams":[{
@@ -392,13 +377,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b)"
+                    "type":"k -> v -> k -> v -> (k, v)"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all mappings in `m` going from left to right until a single mapping `(k, v)` is obtained.  Returns `Some((k, v))`.\n That is, the result is of the form: `Some(f(...f(f(k1, v1, k2, v2), k3, v3)..., kn, vn))`\n Returns `None` if `m` is the empty map."
+                "result":"Option[(k, v)]",
+                "comment":"Applies `f` to all mappings in `m` going from left to right until a single mapping `(k, v)` is obtained.  Returns `Some((k, v))`.\n\n That is, the result is of the form: `Some(f(...f(f(k1, v1, k2, v2), k3, v3)..., kn, vn))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"intersectionWith",
                 "tparams":[{
@@ -408,15 +393,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`."
             },{
                 "name":"reduceRightWithKey",
@@ -427,13 +412,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b)"
+                    "type":"k -> v -> k -> v -> (k, v)"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all mappings in `m` going from right to left until a single mapping `(k, v)` is obtained.  Returns `Some((k, v))`.\n That is, the result is of the form: `Some(f(k1, v1, ...f(kn-2, vn-2, f(kn-1, vn-1, kn, vn))...))`\n Returns `None` if `m` is the empty map."
+                "result":"Option[(k, v)]",
+                "comment":"Applies `f` to all mappings in `m` going from right to left until a single mapping `(k, v)` is obtained.  Returns `Some((k, v))`.\n\n That is, the result is of the form: `Some(f(k1, v1, ...f(kn-2, vn-2, f(kn-1, vn-1, kn, vn))...))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"filter",
                 "tparams":[{
@@ -443,12 +428,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns a map of all mappings `k -> v` in `m` where `v` satisfies the predicate `f`."
             },{
                 "name":"getWithDefault",
@@ -459,16 +444,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns `v` if `k -> v` is in `m`.\n Otherwise, returns `d`."
+                "result":"v",
+                "comment":"Returns `v` if `k -> v` is in `m`.\n\n Otherwise, returns `d`."
             },{
                 "name":"differenceWith",
                 "tparams":[{
@@ -478,16 +463,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> Option[a]"
+                    "type":"v -> v -> Option[v]"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n When a key `k` is in both `m1` and `m2`, the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
+                "result":"Map[k, v]",
+                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n When a key `k` is in both `m1` and `m2`, the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
             },{
                 "name":"isEmpty",
                 "tparams":[{
@@ -497,7 +482,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if `m` is the empty map, i.e. `Map(Nil)`."
@@ -510,12 +495,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Option[(k, v)]",
                 "comment":"Optionally returns the first mapping of `m` that satisfies the predicate `f` when searching from left to right."
             },{
                 "name":"isProperSubmapOf",
@@ -526,10 +511,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if all mappings in `m1` occur in `m2` and `m1 != m2`."
@@ -542,12 +527,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Option[(k, v)]",
                 "comment":"Alias for `findLeft`."
             },{
                 "name":"update",
@@ -558,16 +543,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[a]"
+                    "type":"v -> Option[v]"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(v) = Some(v1).\n Otherwise, returns `m`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(v) = Some(v1). Otherwise, returns `m`."
             },{
                 "name":"count",
                 "tparams":[{
@@ -577,10 +562,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Int32",
                 "comment":"Returns the number of mappings in `m` that satisfy the predicate `f`."
@@ -595,15 +580,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> c -> b -> c"
+                    "type":"k -> b -> v -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Alias for `foldLeftWithKey`."
             },{
                 "name":"insert",
@@ -614,15 +599,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Updates `m` with `k -> v`."
             },{
                 "name":"findRight",
@@ -633,12 +618,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Option[(k, v)]",
                 "comment":"Optionally returns the first mapping of `m` that satisfies the predicate `f` when searching from right to left."
             },{
                 "name":"mapWithKey",
@@ -651,12 +636,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> c"
+                    "type":"k -> v1 -> v2"
                 },{
                     "name":"m",
-                    "type":"Map[b, a]"
+                    "type":"Map[k, v1]"
                 }],
-                "result":"a",
+                "result":"Map[k, v2]",
                 "comment":"Returns a map with mappings `k -> f(k, v)` for every `k -> v` in `m`."
             },{
                 "name":"reduce",
@@ -667,12 +652,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Option[v]",
                 "comment":"Alias for `reduceLeft`."
             },{
                 "name":"reduceLeft",
@@ -683,13 +668,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all values in `m` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(...f(f(v1, v2), v3)..., vn))`\n Returns `None` if `m` is the empty map."
+                "result":"Option[v]",
+                "comment":"Applies `f` to all values in `m` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(...f(f(v1, v2), v3)..., vn))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"foldRightWithKey",
                 "tparams":[{
@@ -701,16 +686,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> a -> a"
+                    "type":"k -> v -> b -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all key-value pairs in `m` going from right to left.\n That is, the result is of the form: `f(k1, v1, ...f(kn-1, vn-1, f(kn, vn, s)))`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all key-value pairs in `m` going from right to left.\n\n That is, the result is of the form: `f(k1, v1, ...f(kn-1, vn-1, f(kn, vn, s)))`."
             },{
                 "name":"memberOf",
                 "tparams":[{
@@ -720,10 +705,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if `m` contains the key `k`."
@@ -736,13 +721,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns `Some(v)` if `k -> v` is in `m`.\n Otherwise returns `None`."
+                "result":"Option[v]",
+                "comment":"Returns `Some(v)` if `k -> v` is in `m`.\n\n Otherwise returns `None`."
             },{
                 "name":"forall",
                 "tparams":[{
@@ -752,13 +737,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if all mappings in `m` satisfy the predicate `f`.\n Returns `true` if `m` is the empty map."
+                "comment":"Returns `true` if and only if all mappings in `m` satisfy the predicate `f`.\n\n Returns `true` if `m` is the empty map."
             },{
                 "name":"intersection",
                 "tparams":[{
@@ -768,13 +753,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns the left-biased intersection of `m1` and `m2`.\n That is, key collisions are resolved by taking the mapping from `m1`."
+                "result":"Map[k, v]",
+                "comment":"Returns the left-biased intersection of `m1` and `m2`.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
                 "name":"adjustWithKey",
                 "tparams":[{
@@ -784,16 +769,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b"
+                    "type":"k -> v -> v"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`.\n Otherwise, returns `m`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`. Otherwise, returns `m`."
             },{
                 "name":"foldLeft",
                 "tparams":[{
@@ -805,16 +790,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b"
+                    "type":"b -> v -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all values in `m` going from left to right.\n That is, the result is of the form: `f(...f(f(s, v1), v2)..., vn)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all values in `m` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, v1), v2)..., vn)`."
             },{
                 "name":"filterWithKey",
                 "tparams":[{
@@ -824,12 +809,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns a map of all mappings `k -> v` in `m` where `(k, v)` satisfies the predicate `f`."
             },{
                 "name":"fold",
@@ -842,15 +827,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b"
+                    "type":"b -> v -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"differenceWithKey",
@@ -861,16 +846,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> Option[b]"
+                    "type":"k -> v -> v -> Option[v]"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n When a key `k` is in both `m1` and `m2`, `k` and the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
+                "result":"Map[k, v]",
+                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n When a key `k` is in both `m1` and `m2`, `k` and the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
             },{
                 "name":"insertWithKey",
                 "tparams":[{
@@ -880,19 +865,19 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b"
+                    "type":"k -> v -> v -> v"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> f(k, v, v1)` if `k -> v1` is in `m`.\n Otherwise, updates `m` with `k -> v`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> f(k, v, v1)` if `k -> v1` is in `m`.\n\n Otherwise, updates `m` with `k -> v`."
             },{
                 "name":"difference",
                 "tparams":[{
@@ -902,13 +887,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n That is, returns the map `m1` with the keys removed that are in `m2`."
+                "result":"Map[k, v]",
+                "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n That is, returns the map `m1` with the keys removed that are in `m2`."
             },{
                 "name":"valuesOf",
                 "tparams":[{
@@ -918,9 +903,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"List[v]",
                 "comment":"Returns the values of `m`."
             },{
                 "name":"union",
@@ -931,13 +916,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Returns the left-biased union of `m1` and `m2`.\n That is, key collisions are resolved by taking the mapping from `m1`."
+                "result":"Map[k, v]",
+                "comment":"Returns the left-biased union of `m1` and `m2`.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
                 "name":"map",
                 "tparams":[{
@@ -949,12 +934,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b"
+                    "type":"v1 -> v2"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v1]"
                 }],
-                "result":"a",
+                "result":"Map[k, v2]",
                 "comment":"Returns a map with mappings `k -> f(v)` for every `k -> v` in `m`."
             },{
                 "name":"singleton",
@@ -965,13 +950,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 }],
-                "result":"a",
-                "comment":"Returns the singleton map where key `k` is mapped to value `v`.\n `@{k -> v}` is syntactic sugar for `singleton` (`@{k -> v} = singleton(k, v)`)."
+                "result":"Map[k, v]",
+                "comment":"Returns the singleton map where key `k` is mapped to value `v`.\n\n `Map#{k -> v}` is syntactic sugar for `singleton` (`Map#{k -> v} = singleton(k, v)`)."
             },{
                 "name":"foldLeftWithKey",
                 "tparams":[{
@@ -983,16 +968,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> c -> a"
+                    "type":"k -> b -> v -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all key-value pairs in `m` going from left to right.\n That is, the result is of the form: `f(...f(k2, f(k1, s, v1), v2)..., vn)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all key-value pairs in `m` going from left to right.\n\n That is, the result is of the form: `f(...f(k2, f(k1, s, v1), v2)..., vn)`."
             },{
                 "name":"toSet",
                 "tparams":[{
@@ -1002,9 +987,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Set[(k, v)]",
                 "comment":"Returns the map `m` as a set of key-value pairs."
             },{
                 "name":"reduceRight",
@@ -1015,13 +1000,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all values in `m` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(v1, ...f(vn-2, f(vn-1, vn))...))`\n Returns `None` if `m` is the empty map."
+                "result":"Option[v]",
+                "comment":"Applies `f` to all values in `m` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(v1, ...f(vn-2, f(vn-1, vn))...))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"reduceWithKey",
                 "tparams":[{
@@ -1031,12 +1016,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b)"
+                    "type":"k -> v -> k -> v -> (k, v)"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Option[(k, v)]",
                 "comment":"Alias for `reduceLeftWithKey`."
             },{
                 "name":"unionWith",
@@ -1047,15 +1032,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"v -> v -> v"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`."
             },{
                 "name":"size",
@@ -1066,7 +1051,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Int32",
                 "comment":"Returns the size of `m`."
@@ -1079,10 +1064,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if `m1` and `m2` and equal, i.e. they have the same mappings."
@@ -1095,9 +1080,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Set[k]",
                 "comment":"Returns the keys of `m`."
             },{
                 "name":"empty",
@@ -1107,8 +1092,8 @@ export default {
                     "name":"v"
                 }],
                 "fparams":[],
-                "result":"a",
-                "comment":"Returns the empty map.\n `@{}` is syntactic sugar for `empty` (`@{} = empty()`)."
+                "result":"Map[17678, 17679]",
+                "comment":"Returns the empty map.\n\n `Map#{}` is syntactic sugar for `empty` (`Map#{} = empty()`)."
             },{
                 "name":"replace",
                 "tparams":[{
@@ -1118,16 +1103,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"x",
-                    "type":"(a, b)"
+                    "type":"(k, v)"
                 },{
                     "name":"y",
-                    "type":"(a, b)"
+                    "type":"(k, v)"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Replaces the mapping `fst(x) -> snd(x)` with `fst(y) -> snd(y)` if `fst(x) -> snd(x)` is in `m`.\n Otherwise, returns `m`.\n Note: The returned map may be smaller than `m`."
+                "result":"Map[k, v]",
+                "comment":"Replaces the mapping `fst(x) -> snd(x)` with `fst(y) -> snd(y)` if `fst(x) -> snd(x)` is in `m`. Otherwise, returns `m`.\n\n Note: The returned map may be smaller than `m`."
             },{
                 "name":"unionWithKey",
                 "tparams":[{
@@ -1137,15 +1122,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b"
+                    "type":"k -> v -> v -> v"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values."
             },{
                 "name":"isSubmapOf",
@@ -1156,10 +1141,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "comment":"Returns `true` if and only if all mappings in `m1` occur in `m2`."
@@ -1172,13 +1157,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":""
+                "result":"Map[k, v]",
+                "comment":"Removes the mapping `k` from the map `m`."
             },{
                 "name":"adjust",
                 "tparams":[{
@@ -1188,16 +1173,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a"
+                    "type":"v -> v"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> f(v)` if `k -> v` is in `m`.\n Otherwise, returns `m`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> f(v)` if `k -> v` is in `m`.\n\n Otherwise, returns `m`."
             },{
                 "name":"updateWithKey",
                 "tparams":[{
@@ -1207,16 +1192,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Option[b]"
+                    "type":"k -> v -> Option[v]"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
-                "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(k, v) = Some(v1).\n Otherwise, returns `m`."
+                "result":"Map[k, v]",
+                "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(k, v) = Some(v1). Otherwise, returns `m`."
             },{
                 "name":"intersectionWithKey",
                 "tparams":[{
@@ -1226,20 +1211,19 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b"
+                    "type":"k -> v -> v -> v"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values."
             }]
         },
         "List":{
-            "namespace":"List",
             "defs":[{
                 "name":"dropWhile",
                 "tparams":[{
@@ -1252,7 +1236,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns `xs` without the longest prefix that satisfies the predicate `f`."
             },{
                 "name":"reduceRight",
@@ -1266,8 +1250,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n Returns `None` if `xs` is empty."
+                "result":"Option[a]",
+                "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"foldLeft",
                 "tparams":[{
@@ -1280,13 +1264,13 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
             },{
                 "name":"mapWithIndex",
                 "tparams":[{
@@ -1301,8 +1285,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the result of applying `f` to every element in `xs` along with that element's index.\n That is, the result is of the form: `f(x1, 0) :: f(x2, 1) :: ...`."
+                "result":"List[b]",
+                "comment":"Returns the result of applying `f` to every element in `xs` along with that element's index.\n\n That is, the result is of the form: `f(x1, 0) :: f(x2, 1) :: ...`."
             },{
                 "name":"reduceLeft",
                 "tparams":[{
@@ -1315,8 +1299,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`\n Returns `None` if `xs` is empty."
+                "result":"Option[a]",
+                "comment":"Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"intersperse",
                 "tparams":[{
@@ -1329,7 +1313,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns `xs` with `a` inserted between every two adjacent elements."
             },{
                 "name":"findRight",
@@ -1343,7 +1327,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left."
             },{
                 "name":"toSet",
@@ -1354,7 +1338,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the list `xs` as a set."
             },{
                 "name":"isInfixOf",
@@ -1382,8 +1366,8 @@ export default {
                     "name":"n",
                     "type":"Int32"
                 }],
-                "result":"a",
-                "comment":"Returns a list with the element `a` repeated `n` times.\n Returns `Nil` if `n < 0`."
+                "result":"List[a]",
+                "comment":"Returns a list with the element `a` repeated `n` times.\n\n Returns `Nil` if `n < 0`."
             },{
                 "name":"rotateLeft",
                 "tparams":[{
@@ -1396,8 +1380,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `xs` with its elements rotated `n` positions to the left.\n That is, returns a new list where the first `n mod length(xs)` elements in `xs`\n are the last `n mod length(xs)` elements of the new list."
+                "result":"List[a]",
+                "comment":"Returns `xs` with its elements rotated `n` positions to the left.\n\n That is, returns a new list where the first `n mod length(xs)` elements in `xs`\n are the last `n mod length(xs)` elements of the new list."
             },{
                 "name":"isSuffixOf",
                 "tparams":[{
@@ -1426,15 +1410,15 @@ export default {
                     "type":"c -> a -> b -> c"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`\n starting with the initial value `c` and going from left to right."
             },{
                 "name":"flatten",
@@ -1445,7 +1429,7 @@ export default {
                     "name":"xs",
                     "type":"List[List[a]]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns the concatenation of the elements in `xs`."
             },{
                 "name":"fold",
@@ -1459,12 +1443,12 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"slice",
@@ -1481,8 +1465,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive).\n That is, an element at index `i` in `xs` is part of the returned sublist if and only if `i >= b` and `i < e`.\n Note: Indices that are out of bounds in `xs` are not considered (i.e. slice(b, e, xs) = slice(max(0,b), min(length(xs),e), xs))."
+                "result":"List[a]",
+                "comment":"Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive).\n\n That is, an element at index `i` in `xs` is part of the returned sublist if and only if `i >= b` and `i < e`.\n Note: Indices that are out of bounds in `xs` are not considered (i.e. slice(b, e, xs) = slice(max(0,b), min(length(xs),e), xs))."
             },{
                 "name":"foldRight2",
                 "tparams":[{
@@ -1497,15 +1481,15 @@ export default {
                     "type":"a -> b -> c -> c"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`\n starting with the initial value `c` and going from right to left."
             },{
                 "name":"intercalate",
@@ -1519,8 +1503,8 @@ export default {
                     "name":"ys",
                     "type":"List[List[a]]"
                 }],
-                "result":"a",
-                "comment":"Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.\n That is, returns y1 :: x1 ... xn :: y2 :: ... yn-1 :: x1 :: ... :: xn :: yn :: Nil."
+                "result":"List[a]",
+                "comment":"Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.\n\n That is, returns `y1 :: x1 ... xn :: y2 :: ... yn-1 :: x1 :: ... :: xn :: yn :: Nil`."
             },{
                 "name":"transpose",
                 "tparams":[{
@@ -1530,8 +1514,8 @@ export default {
                     "name":"xs",
                     "type":"List[List[a]]"
                 }],
-                "result":"a",
-                "comment":"Returns the transpose of `xs`.\n Returns `xs` if the dimensions of the elements of `xs` are mismatched."
+                "result":"List[List[a]]",
+                "comment":"Returns the transpose of `xs`.\n\n Returns `xs` if the dimensions of the elements of `xs` are mismatched."
             },{
                 "name":"unzip",
                 "tparams":[{
@@ -1543,7 +1527,7 @@ export default {
                     "name":"xs",
                     "type":"List[(a, b)]"
                 }],
-                "result":"a",
+                "result":"(List[a], List[b])",
                 "comment":"Returns a pair of lists, the first containing all first components in `xs`\n and the second containing all second components in `xs`."
             },{
                 "name":"zipWith",
@@ -1562,10 +1546,10 @@ export default {
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
-                "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
+                "result":"List[c]",
+                "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"scan",
                 "tparams":[{
@@ -1578,12 +1562,12 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[b]",
                 "comment":"Alias for `scanLeft`."
             },{
                 "name":"findMap",
@@ -1599,8 +1583,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the first non-None result of applying the partial function `f` to each element of `xs`.\n Returns `None` if every element of `xs` is `None`."
+                "result":"Option[b]",
+                "comment":"Returns the first non-None result of applying the partial function `f` to each element of `xs`.\n\n Returns `None` if every element of `xs` is `None`."
             },{
                 "name":"range",
                 "tparams":[],
@@ -1611,8 +1595,8 @@ export default {
                     "name":"e",
                     "type":"Int32"
                 }],
-                "result":"Int32",
-                "comment":"Returns a list of all integers between `b` (inclusive) and `e` (exclusive).\n Returns `Nil` if `b >= e`."
+                "result":"List[Int32]",
+                "comment":"Returns a list of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns `Nil` if `b >= e`."
             },{
                 "name":"rotateRight",
                 "tparams":[{
@@ -1625,8 +1609,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `xs` with its elements rotated `n` positions to the right.\n That is, returns a new list where the last `n mod length(xs)` elements in `xs`\n are the first `n mod length(xs)` elements of the new list."
+                "result":"List[a]",
+                "comment":"Returns `xs` with its elements rotated `n` positions to the right.\n\n That is, returns a new list where the last `n mod length(xs)` elements in `xs`\n are the first `n mod length(xs)` elements of the new list."
             },{
                 "name":"head",
                 "tparams":[{
@@ -1636,8 +1620,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `Some(x)` if `x` is the first element of `xs`.\n Returns `None` if `xs` is empty."
+                "result":"Option[a]",
+                "comment":"Returns `Some(x)` if `x` is the first element of `xs`.\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"isEmpty",
                 "tparams":[{
@@ -1673,7 +1657,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns `xs` with every occurrence of `x` replaced by `y`."
             },{
                 "name":"isPrefixOf",
@@ -1701,8 +1685,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the first `n` elements of `xs`.\n Returns `xs` if `n > length(xs)`.\n Returns `Nil` if `n < 0`."
+                "result":"List[a]",
+                "comment":"Returns the first `n` elements of `xs`.\n\n Returns `xs` if `n > length(xs)`.\n Returns `Nil` if `n < 0`."
             },{
                 "name":"partition",
                 "tparams":[{
@@ -1715,8 +1699,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns a pair of lists `(ys, zs)`.\n `ys` contains all elements of `xs` that satisfy the predicate `f`.\n `zs` contains all elements of `xs` that do not satisfy the predicate `f`."
+                "result":"(List[a], List[a])",
+                "comment":"Returns a pair of lists `(ys, zs)`.\n\n `ys` contains all elements of `xs` that satisfy the predicate `f`.\n `zs` contains all elements of `xs` that do not satisfy the predicate `f`."
             },{
                 "name":"scanLeft",
                 "tparams":[{
@@ -1729,13 +1713,13 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Accumulates the result of applying `f` to `xs` going left to right.\n That is, the result is of the form: `s :: f(s, x1) :: f(f(s, x1), x2)  ...`."
+                "result":"List[b]",
+                "comment":"Accumulates the result of applying `f` to `xs` going left to right.\n\n That is, the result is of the form: `s :: f(s, x1) :: f(f(s, x1), x2)  ...`."
             },{
                 "name":"filter",
                 "tparams":[{
@@ -1748,7 +1732,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns a list of every element in `xs` that satisfies the predicate `f`."
             },{
                 "name":"indexOf",
@@ -1763,7 +1747,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Int32",
-                "comment":"Returns the position of `a` in `xs`.\n Returns -1 if `a` does not exist in `xs`."
+                "comment":"Returns the position of `a` in `xs`.\n\n Returns `-1` if `a` does not exist in `xs`."
             },{
                 "name":"groupBy",
                 "tparams":[{
@@ -1776,8 +1760,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Partitions `xs` into sublists such that for any two elements `x` and `y` in a sublist, `f(x, y)` is true.\n A sublist is created by iterating through the remaining elements of `xs` from left to right and adding an\n element to the sublist if and only if doing so creates no conflicts with the elements already in the sublist."
+                "result":"List[List[a]]",
+                "comment":"Partitions `xs` into sublists such that for any two elements `x` and `y` in a sublist, `f(x, y)` is true.\n\n A sublist is created by iterating through the remaining elements of `xs` from left to right and adding an\n element to the sublist if and only if doing so creates no conflicts with the elements already in the sublist."
             },{
                 "name":"flatMap",
                 "tparams":[{
@@ -1787,12 +1771,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> List[a]"
+                    "type":"a -> List[b]"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[b]",
                 "comment":"Returns the result of applying `f` to every element in `xs` and concatenating the results."
             },{
                 "name":"append",
@@ -1806,8 +1790,8 @@ export default {
                     "name":"ys",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `ys` appended to `xs`.\n The infix operator `:::` is an alias for `append` (`xs ::: ys = append(xs, ys)`)."
+                "result":"List[a]",
+                "comment":"Returns `ys` appended to `xs`.\n\n The infix operator `:::` is an alias for `append` (`xs ::: ys = append(xs, ys)`)."
             },{
                 "name":"last",
                 "tparams":[{
@@ -1817,8 +1801,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `Some(x)` if `x` is the last element of `xs`.\n Returns `None` if `xs` is empty."
+                "result":"Option[a]",
+                "comment":"Returns `Some(x)` if `x` is the last element of `xs`.\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"findLeft",
                 "tparams":[{
@@ -1831,7 +1815,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right."
             },{
                 "name":"count",
@@ -1870,8 +1854,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns all subsequences of `xs` in lexicographical order by element indices in `xs`.\n That is, `xs` is the first subsequence and `Nil` is the last subsequence."
+                "result":"List[List[a]]",
+                "comment":"Returns all subsequences of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first subsequence and `Nil` is the last subsequence."
             },{
                 "name":"fold2",
                 "tparams":[{
@@ -1886,15 +1870,15 @@ export default {
                     "type":"c -> a -> b -> c"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Alias for `foldLeft2`."
             },{
                 "name":"patch",
@@ -1914,8 +1898,8 @@ export default {
                     "name":"ys",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `ys` with the `n` elements starting at index `i` replaced with the elements of `xs`.\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `ys` then no patching is done at these indices.\n If `xs` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `ys`, then the element at index `j` in `xs` is used."
+                "result":"List[a]",
+                "comment":"Returns `ys` with the `n` elements starting at index `i` replaced with the elements of `xs`.\n\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `ys` then no patching is done at these indices.\n If `xs` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `ys`, then the element at index `j` in `xs` is used."
             },{
                 "name":"filterMap",
                 "tparams":[{
@@ -1930,7 +1914,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[b]",
                 "comment":"Collects the results of applying the partial function `f` to every element in `xs`."
             },{
                 "name":"find",
@@ -1944,7 +1928,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Alias for `findLeft`."
             },{
                 "name":"length",
@@ -1970,7 +1954,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n Returns `false` if `xs` is empty."
+                "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n\n Returns `false` if `xs` is empty."
             },{
                 "name":"foldRight",
                 "tparams":[{
@@ -1983,13 +1967,13 @@ export default {
                     "type":"a -> b -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from right to left.\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from right to left.\n\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`."
             },{
                 "name":"memberOf",
                 "tparams":[{
@@ -2003,7 +1987,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns true if and only if `xs` contains the element `a`."
+                "comment":"Returns `true` if and only if `xs` contains the element `a`."
             },{
                 "name":"scanRight",
                 "tparams":[{
@@ -2016,13 +2000,13 @@ export default {
                     "type":"a -> b -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Accumulates the result of applying `f` to `xs` going right to left.\n That is, the result is of the form: `... f(xn-1, f(xn, s)) :: f(xn, s) :: s`."
+                "result":"List[b]",
+                "comment":"Accumulates the result of applying `f` to `xs` going right to left.\n\n That is, the result is of the form: `... f(xn-1, f(xn, s)) :: f(xn, s) :: s`."
             },{
                 "name":"reverse",
                 "tparams":[{
@@ -2032,7 +2016,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns the reverse of `xs`."
             },{
                 "name":"reduce",
@@ -2046,7 +2030,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Alias for `reduceLeft`."
             },{
                 "name":"update",
@@ -2063,8 +2047,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `xs` with the element at index `i` replaced by `a`.\n Returns `xs` if `i < 0` or `i > length(xs)-1`."
+                "result":"List[a]",
+                "comment":"Returns `xs` with the element at index `i` replaced by `a`.\n\n Returns `xs` if `i < 0` or `i > length(xs)-1`."
             },{
                 "name":"span",
                 "tparams":[{
@@ -2077,8 +2061,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns a pair of lists `(ys, zs)`.\n `ys` is the longest prefix of `xs` that satisfies the predicate `f`.\n `zs` is the remainder of `xs`."
+                "result":"(List[a], List[a])",
+                "comment":"Returns a pair of lists `(ys, zs)`.\n\n `ys` is the longest prefix of `xs` that satisfies the predicate `f`.\n `zs` is the remainder of `xs`."
             },{
                 "name":"permutations",
                 "tparams":[{
@@ -2088,8 +2072,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns all permutations of `xs` in lexicographical order by element indices in `xs`.\n That is, `xs` is the first permutation and `reverse(xs)` is the last permutation."
+                "result":"List[List[a]]",
+                "comment":"Returns all permutations of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first permutation and `reverse(xs)` is the last permutation."
             },{
                 "name":"zip",
                 "tparams":[{
@@ -2102,10 +2086,10 @@ export default {
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
-                "comment":"Returns a list where the element at index `i` is `(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
+                "result":"List[(a, b)]",
+                "comment":"Returns a list where the element at index `i` is `(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"map2",
                 "tparams":[{
@@ -2123,10 +2107,10 @@ export default {
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
-                "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list.\n Functionally equivalent to zipWith."
+                "result":"List[c]",
+                "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list.\n Functionally equivalent to zipWith."
             },{
                 "name":"takeWhile",
                 "tparams":[{
@@ -2139,7 +2123,7 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns the longest prefix of `xs` that satisfies the predicate `f`."
             },{
                 "name":"forall",
@@ -2154,7 +2138,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n Returns `true` if `xs` is empty."
+                "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n\n Returns `true` if `xs` is empty."
             },{
                 "name":"toMap",
                 "tparams":[{
@@ -2166,8 +2150,8 @@ export default {
                     "name":"xs",
                     "type":"List[(a, b)]"
                 }],
-                "result":"a",
-                "comment":"Returns the association list `xs` as a map.\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
+                "result":"Map[a, b]",
+                "comment":"Returns the association list `xs` as a map.\n\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"flatMap2",
                 "tparams":[{
@@ -2185,9 +2169,9 @@ export default {
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
-                "result":"a",
+                "result":"List[c]",
                 "comment":"Concatenates the results of applying `f` pairwise to the elements of `xs` and `ys`."
             },{
                 "name":"map",
@@ -2203,8 +2187,8 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the result of applying `f` to every element in `xs`.\n That is, the result is of the form: `f(x1) :: f(x2) :: ...`."
+                "result":"List[b]",
+                "comment":"Returns the result of applying `f` to every element in `xs`.\n\n That is, the result is of the form: `f(x1) :: f(x2) :: ...`."
             },{
                 "name":"drop",
                 "tparams":[{
@@ -2217,12 +2201,11 @@ export default {
                     "name":"xs",
                     "type":"List[a]"
                 }],
-                "result":"a",
-                "comment":"Returns `xs` without the first `n` elements.\n Returns `Nil` if `n > length(xs)`.\n Returns `xs` if `n < 0`."
+                "result":"List[a]",
+                "comment":"Returns `xs` without the first `n` elements.\n\n Returns `Nil` if `n > length(xs)`.\n Returns `xs` if `n < 0`."
             }]
         },
         "Char":{
-            "namespace":"Char",
             "defs":[{
                 "name":"isLetter",
                 "tparams":[],
@@ -2325,7 +2308,6 @@ export default {
             }]
         },
         "Set":{
-            "namespace":"Set",
             "defs":[{
                 "name":"eq",
                 "tparams":[{
@@ -2360,8 +2342,8 @@ export default {
                     "name":"x",
                     "type":"a"
                 }],
-                "result":"a",
-                "comment":"Returns the singleton set containing `x`.\n `#{x}` is syntactic sugar for `singleton` (`#{x} = singleton(x)`)."
+                "result":"Set[a]",
+                "comment":"Returns the singleton set containing `x`.\n\n `Set#{x}` is syntactic sugar for `singleton` (`Set#{x} = singleton(x)`)."
             },{
                 "name":"fold",
                 "tparams":[{
@@ -2374,12 +2356,12 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"subsets",
@@ -2390,7 +2372,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[Set[a]]",
                 "comment":"Returns all subsets of `xs`."
             },{
                 "name":"reduceLeft",
@@ -2404,7 +2386,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`\n Returns `None` if `xs` is the empty set."
             },{
                 "name":"toList",
@@ -2415,7 +2397,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns the set `xs` as a list."
             },{
                 "name":"difference",
@@ -2429,7 +2411,7 @@ export default {
                     "name":"ys",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the difference of `xs` and `ys`, i.e. `xs - ys`."
             },{
                 "name":"empty",
@@ -2437,8 +2419,8 @@ export default {
                     "name":"a"
                 }],
                 "fparams":[],
-                "result":"a",
-                "comment":"Returns the empty set.\n `#{}` is syntactic sugar for `empty` (`#{} = empty()`)."
+                "result":"Set[17199]",
+                "comment":"Returns the empty set.\n\n `Set#{}` is syntactic sugar for `empty` (`Set#{} = empty()`)."
             },{
                 "name":"reduce",
                 "tparams":[{
@@ -2451,7 +2433,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Alias for `reduceLeftOpt`."
             },{
                 "name":"count",
@@ -2480,7 +2462,7 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n Returns `true` if `xs` is the empty set."
+                "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n\n Returns `true` if `xs` is the empty set."
             },{
                 "name":"flatMap",
                 "tparams":[{
@@ -2490,12 +2472,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Set[a]"
+                    "type":"a -> Set[b]"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[b]",
                 "comment":"Returns the result of applying `f` to every element in `xs` and taking the union."
             },{
                 "name":"union",
@@ -2509,7 +2491,7 @@ export default {
                     "name":"ys",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the union of `xs` and `ys`."
             },{
                 "name":"insert",
@@ -2523,7 +2505,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Adds `x` to `xs`."
             },{
                 "name":"exists",
@@ -2538,7 +2520,7 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n Returns `false` if `xs` is the empty set."
+                "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n\n Returns `false` if `xs` is the empty set."
             },{
                 "name":"map",
                 "tparams":[{
@@ -2548,13 +2530,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a"
+                    "type":"a -> b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
-                "comment":"Returns the result of applying `f` to every element in `xs`.\n Note: The returned set may be smaller than `xs`."
+                "result":"Set[b]",
+                "comment":"Returns the result of applying `f` to every element in `xs`.\n\n Note: The returned set may be smaller than `xs`."
             },{
                 "name":"foldLeft",
                 "tparams":[{
@@ -2567,13 +2549,13 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
             },{
                 "name":"partition",
                 "tparams":[{
@@ -2586,8 +2568,8 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
-                "comment":"Returns a pair of sets `(ys, zs)`.\n `ys` contains all elements of `xs` that satisfy the predicate `f`.\n `zs` contains all elements of `xs` that do not satisfy the predicate `f`."
+                "result":"(Set[a], Set[a])",
+                "comment":"Returns a pair of sets `(ys, zs)`."
             },{
                 "name":"flatten",
                 "tparams":[{
@@ -2597,7 +2579,7 @@ export default {
                     "name":"xs",
                     "type":"Set[Set[a]]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the union of the elements in `xs`."
             },{
                 "name":"delete",
@@ -2611,7 +2593,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Removes `x` from `xs`."
             },{
                 "name":"toMap",
@@ -2624,8 +2606,8 @@ export default {
                     "name":"xs",
                     "type":"Set[(a, b)]"
                 }],
-                "result":"a",
-                "comment":"Returns the association set `xs` as a map.\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
+                "result":"Map[a, b]",
+                "comment":"Returns the association set `xs` as a map.\n\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"find",
                 "tparams":[{
@@ -2638,7 +2620,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Alias for `findLeft`."
             },{
                 "name":"isSubsetOf",
@@ -2666,7 +2648,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left."
             },{
                 "name":"findLeft",
@@ -2680,7 +2662,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right."
             },{
                 "name":"foldRight",
@@ -2694,13 +2676,13 @@ export default {
                     "type":"a -> b -> b"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
-                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from right to left.\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`."
+                "result":"b",
+                "comment":"Applies `f` to a start value `s` and all elements in `xs` going from right to left.\n\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`."
             },{
                 "name":"filter",
                 "tparams":[{
@@ -2713,7 +2695,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the set of all elements of `xs` that satisfy the predicate `f`."
             },{
                 "name":"reduceRight",
@@ -2727,7 +2709,7 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n Returns `None` if `xs` is the empty set."
             },{
                 "name":"replace",
@@ -2744,8 +2726,8 @@ export default {
                     "name":"xs",
                     "type":"Set[a]"
                 }],
-                "result":"a",
-                "comment":"Replaces the element `x` with `y` if `x` is in `xs`.\n Otherwise, returns `xs`.\n Note: The returned set may be smaller than `xs`."
+                "result":"Set[a]",
+                "comment":"Replaces the element `x` with `y` if `x` is in `xs`. Otherwise, returns `xs`.\n\n Note: The returned set may be smaller than `xs`."
             },{
                 "name":"memberOf",
                 "tparams":[{
@@ -2797,12 +2779,11 @@ export default {
                     "name":"ys",
                     "type":"Set[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns the intersection of `xs` and `ys`."
             }]
         },
         "Int32":{
-            "namespace":"Int32",
             "defs":[{
                 "name":"logicalRightShift",
                 "tparams":[],
@@ -3046,7 +3027,6 @@ export default {
             }]
         },
         "Console":{
-            "namespace":"Console",
             "defs":[{
                 "name":"print",
                 "tparams":[],
@@ -3069,53 +3049,361 @@ export default {
                 "name":"readLine",
                 "tparams":[],
                 "fparams":[],
-                "result":"Str",
+                "result":"Option[Str]",
                 "comment":"Alias for `Console.StdIn.readLine`."
             }]
         },
-        "Path":{
-            "namespace":"Path",
+        "Random":{
             "defs":[{
-                "name":"new",
+                "name":"nextBool",
+                "tparams":[],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                }],
+                "result":"Bool",
+                "comment":"Returns the next pseudorandom boolean from the given random number generator `r`."
+            },{
+                "name":"newWithSeed",
                 "tparams":[],
                 "fparams":[{
                     "name":"s",
-                    "type":"Str"
+                    "type":"Int64"
                 }],
-                "result":"Path",
-                "comment":"Returns a Path from the given string `s`."
+                "result":"Random",
+                "comment":"Returns a fresh random number generator initialized with the given seed `s`."
             },{
-                "name":"exists",
+                "name":"nextFloat32",
                 "tparams":[],
                 "fparams":[{
-                    "name":"p",
-                    "type":"Path"
+                    "name":"r",
+                    "type":"Random"
                 }],
-                "result":"Bool",
-                "comment":"Checks whether the given path `p` exists"
+                "result":"Float32",
+                "comment":"Returns the next pseudorandom 32-bit floating point number from the given random number generator `r`."
             },{
-                "name":"extension",
+                "name":"nextInt64",
                 "tparams":[],
                 "fparams":[{
-                    "name":"p",
-                    "type":"Path"
+                    "name":"r",
+                    "type":"Random"
                 }],
-                "result":"Str",
-                "comment":"Returns the extension of the given path `p`."
+                "result":"Int64",
+                "comment":"Returns the next pseudorandom 64-bit integer value from the given random number generator `r`."
+            },{
+                "name":"nextNatWithMax",
+                "tparams":[],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                },{
+                    "name":"m",
+                    "type":"Int32"
+                }],
+                "result":"Int32",
+                "comment":"Returns the next pseudorandom 32-bit integer value between `0` and `m` (exclusive) using the given random number generator `r`."
+            },{
+                "name":"new",
+                "tparams":[],
+                "fparams":[],
+                "result":"Random",
+                "comment":"Returns a fresh random number generator."
+            },{
+                "name":"choose",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                },{
+                    "name":"a",
+                    "type":"Array[a]"
+                }],
+                "result":"Option[a]",
+                "comment":"Returns a pseudorandom element from the given array `a` using the random number generator `r`.\n\n Returns `None` if the given array `a` is empty."
+            },{
+                "name":"nextGaussian",
+                "tparams":[],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                }],
+                "result":"Float64",
+                "comment":"Returns the next pseudorandom Gaussian distributed 64-bit floating point number."
+            },{
+                "name":"nextInt32",
+                "tparams":[],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                }],
+                "result":"Int32",
+                "comment":"Returns the next pseudorandom 32-bit integer value from the given random number generator `r`."
+            },{
+                "name":"nextFloat64",
+                "tparams":[],
+                "fparams":[{
+                    "name":"r",
+                    "type":"Random"
+                }],
+                "result":"Float64",
+                "comment":"Returns the next pseudorandom 64-bit floating point number from the given random number generator `r`."
+            }]
+        },
+        "Int64":{
+            "defs":[{
+                "name":"rotateRight",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"distance",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
+            },{
+                "name":"min",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"y",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns the smaller of `x` and `y`."
+            },{
+                "name":"maxValue",
+                "tparams":[],
+                "fparams":[],
+                "result":"Int64",
+                "comment":"Returns the maximum number representable by an `Int64`."
+            },{
+                "name":"flipBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"position",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
+            },{
+                "name":"lowestOneBitPosition",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
+            },{
+                "name":"dist",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"y",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
+            },{
+                "name":"highestOneBitPosition",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
+            },{
+                "name":"clearBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"position",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
+            },{
+                "name":"reverse",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
+            },{
+                "name":"numberOfTrailingZeros",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 64 if x=0."
+            },{
+                "name":"getBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"position",
+                    "type":"Int32"
+                }],
+                "result":"Int32",
+                "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)."
+            },{
+                "name":"signum",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
+            },{
+                "name":"highestOneBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
+            },{
+                "name":"bitCount",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
+            },{
+                "name":"lowestOneBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
+            },{
+                "name":"compare",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"y",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
+            },{
+                "name":"logicalRightShift",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"distance",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 6 bits of `distance` are considered (ie. `distance % 64`).\n A zero is shifted into the leftmost position regardless of sign extension."
+            },{
+                "name":"numberOfLeadingZeros",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int32",
+                "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 64 if x=0."
+            },{
+                "name":"max",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"y",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns the larger of `x` and `y`."
+            },{
+                "name":"setBit",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"position",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
+            },{
+                "name":"minValue",
+                "tparams":[],
+                "fparams":[],
+                "result":"Int64",
+                "comment":"Returns the minimum number representable by an `Int64`."
+            },{
+                "name":"size",
+                "tparams":[],
+                "fparams":[],
+                "result":"Int32",
+                "comment":"Returns the number of bits used to represent an `Int64`."
+            },{
+                "name":"rotateLeft",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                },{
+                    "name":"distance",
+                    "type":"Int32"
+                }],
+                "result":"Int64",
+                "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
+            },{
+                "name":"abs",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int64"
+                }],
+                "result":"Int64",
+                "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
             }]
         },
         "Console.StdIn":{
-            "namespace":"Console.StdIn",
             "defs":[{
                 "name":"readLine",
                 "tparams":[],
                 "fparams":[],
-                "result":"Str",
+                "result":"Option[Str]",
                 "comment":"Returns the next line read from the standard input stream."
             }]
         },
         "Tuple3":{
-            "namespace":"Tuple3",
             "defs":[{
                 "name":"eq",
                 "tparams":[{
@@ -3137,7 +3425,6 @@ export default {
             }]
         },
         "Duration":{
-            "namespace":"Duration",
             "defs":[{
                 "name":"oneMinute",
                 "tparams":[],
@@ -3183,7 +3470,6 @@ export default {
             }]
         },
         "Timer":{
-            "namespace":"Timer",
             "defs":[{
                 "name":"hours",
                 "tparams":[],
@@ -3191,7 +3477,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` hours."
             },{
                 "name":"milliseconds",
@@ -3200,7 +3486,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` milliseconds."
             },{
                 "name":"microseconds",
@@ -3209,7 +3495,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` microseconds."
             },{
                 "name":"minutes",
@@ -3218,7 +3504,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` minutes."
             },{
                 "name":"days",
@@ -3227,7 +3513,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` days."
             },{
                 "name":"nanoseconds",
@@ -3236,7 +3522,7 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` nanoseconds."
             },{
                 "name":"seconds",
@@ -3245,12 +3531,11 @@ export default {
                     "name":"n",
                     "type":"Int64"
                 }],
-                "result":"Unit",
+                "result":"Channel[Unit]",
                 "comment":"Returns a channel that receives the Unit value after `n` seconds."
             }]
         },
         "Option":{
-            "namespace":"Option",
             "defs":[{
                 "name":"getWithDefault",
                 "tparams":[{
@@ -3290,7 +3575,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[b]",
                 "comment":"Returns `Some(f(v))` if `o` is `Some(v)`. Otherwise returns `None`."
             },{
                 "name":"flatMap",
@@ -3301,12 +3586,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[a]"
+                    "type":"a -> Option[b]"
                 },{
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[b]",
                 "comment":"Returns `f(v)` if `o` is `Some(v)`. Otherwise returns `None`."
             },{
                 "name":"foldRight",
@@ -3323,9 +3608,9 @@ export default {
                     "type":"Option[a]"
                 },{
                     "name":"z",
-                    "type":"a"
+                    "type":"b"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Returns `f(v, z)` if `o` is `Some(v)`. Otherwise returns `z`."
             },{
                 "name":"count",
@@ -3356,7 +3641,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Returns `Some(y)` if `o` is `Some(x)`. Otherwise returns `o`."
             },{
                 "name":"forall",
@@ -3371,7 +3656,7 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Bool",
-                "comment":"Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true` or if `o` is `None`.\n Otherwise returns `false`."
+                "comment":"Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true` or if `o` is `None`.\n\n Otherwise returns `false`."
             },{
                 "name":"map2",
                 "tparams":[{
@@ -3389,9 +3674,9 @@ export default {
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
-                "result":"a",
+                "result":"Option[c]",
                 "comment":"Returns `Some(f(v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
             },{
                 "name":"find",
@@ -3405,7 +3690,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Returns `o` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`."
             },{
                 "name":"unzip",
@@ -3418,7 +3703,7 @@ export default {
                     "name":"o",
                     "type":"Option[(a, b)]"
                 }],
-                "result":"a",
+                "result":"(Option[a], Option[b])",
                 "comment":"Returns `(Some(v1), Some(v2))` if `o` is `Some((v1, v2))`. Otherwise returns `(None, None)`."
             },{
                 "name":"zip",
@@ -3432,9 +3717,9 @@ export default {
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
-                "result":"a",
+                "result":"Option[(a, b)]",
                 "comment":"Returns `Some((v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
             },{
                 "name":"eq",
@@ -3459,9 +3744,9 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[(a, b)]"
+                    "type":"Option[(k, v)]"
                 }],
-                "result":"a",
+                "result":"Map[k, v]",
                 "comment":"Returns a singleton map with the mapping `k -> v` if `o` is `Some((k, v))`. Otherwise returns the empty map."
             },{
                 "name":"isEmpty",
@@ -3483,7 +3768,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"List[a]",
                 "comment":"Returns a one-element list of the value `v` if `o` is `Some(v)`. Otherwise returns the empty list."
             },{
                 "name":"filter",
@@ -3497,7 +3782,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Returns `o` if `o` is `Some(v)` and the predicate `f(v)` is true. Otherwise returns `None`."
             },{
                 "name":"exists",
@@ -3524,15 +3809,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> Option[a]"
+                    "type":"a -> b -> Option[c]"
                 },{
                     "name":"o1",
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
-                "result":"a",
+                "result":"Option[c]",
                 "comment":"Returns `f(v1, v2)` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
             },{
                 "name":"flatten",
@@ -3543,7 +3828,7 @@ export default {
                     "name":"o",
                     "type":"Option[Option[a]]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Returns `v` if `o` is `Some(v)`. Otherwise returns `None`."
             },{
                 "name":"toSet",
@@ -3554,7 +3839,7 @@ export default {
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Set[a]",
                 "comment":"Returns a one-element set of the value `v` if `o` is `Some(v)`. Otherwise returns the empty set."
             },{
                 "name":"foldLeft",
@@ -3568,12 +3853,12 @@ export default {
                     "type":"b -> a -> b"
                 },{
                     "name":"z",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"o",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Returns `f(z, v)` if `o` is `Some(v)`. Otherwise returns `z`."
             },{
                 "name":"withDefault",
@@ -3587,7 +3872,7 @@ export default {
                     "name":"o2",
                     "type":"Option[a]"
                 }],
-                "result":"a",
+                "result":"Option[a]",
                 "comment":"Returns `o1` if it is `Some(v)`. Otherwise returns `o2`."
             },{
                 "name":"isNone",
@@ -3603,7 +3888,6 @@ export default {
             }]
         },
         "Float64":{
-            "namespace":"Float64",
             "defs":[{
                 "name":"maxExponent",
                 "tparams":[],
@@ -3712,22 +3996,7 @@ export default {
             }]
         },
         "":{
-            "namespace":"",
             "defs":[{
-                "name":"gt",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"_x",
-                    "type":"a"
-                },{
-                    "name":"_y",
-                    "type":"a"
-                }],
-                "result":"Bool",
-                "comment":""
-            },{
                 "name":"uncurry",
                 "tparams":[{
                     "name":"a"
@@ -3738,15 +4007,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> c"
+                    "type":"a -> b -> c"
                 },{
                     "name":"x",
                     "type":"a"
                 },{
                     "name":"y",
-                    "type":"a"
+                    "type":"b"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Returns the result of uncurrying the function `f`.\n That is, given the function `f: a -> b -> c`, returns a function `(a, b) -> c`"
             },{
                 "name":"identity",
@@ -3770,7 +4039,7 @@ export default {
                     "name":"p",
                     "type":"(a, b)"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Returns the second component of `t`."
             },{
                 "name":"assertEq!",
@@ -3785,7 +4054,7 @@ export default {
                     "type":"a"
                 }],
                 "result":"Bool",
-                "comment":"Asserts that the given values `x` and `y` are equal."
+                "comment":"Asserts that the given values `x` and `y` are equal.\n\n NB: For internal use only."
             },{
                 "name":"⊕",
                 "tparams":[],
@@ -3821,7 +4090,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a"
+                    "type":"b -> c"
                 },{
                     "name":"g",
                     "type":"a -> b"
@@ -3829,38 +4098,10 @@ export default {
                     "name":"x",
                     "type":"a"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Backwards function composition. Applies the function on the right first.\n\n Given the functions `f: b -> c` and `g: a -> b` returns a function `a -> c`"
             },{
-                "name":"le",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"_x",
-                    "type":"a"
-                },{
-                    "name":"_y",
-                    "type":"a"
-                }],
-                "result":"Bool",
-                "comment":""
-            },{
-                "name":"ge",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"_x",
-                    "type":"a"
-                },{
-                    "name":"_y",
-                    "type":"a"
-                }],
-                "result":"Bool",
-                "comment":""
-            },{
-                "name":"curry",
+                "name":"flip",
                 "tparams":[{
                     "name":"a"
                 },{
@@ -3873,47 +4114,12 @@ export default {
                     "type":"a -> b -> c"
                 },{
                     "name":"x",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"y",
                     "type":"a"
                 }],
-                "result":"a",
-                "comment":"Returns the result of currying the function `f`.\n That is, given the function `f: (a, b) -> c`, returns a function `a -> b -> c`"
-            },{
-                "name":"lt",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"_x",
-                    "type":"a"
-                },{
-                    "name":"_y",
-                    "type":"a"
-                }],
-                "result":"Bool",
-                "comment":"Returns `true` if `x` is strictly less than `y`."
-            },{
-                "name":"flip",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                },{
-                    "name":"c"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"b -> a -> c"
-                },{
-                    "name":"x",
-                    "type":"a"
-                },{
-                    "name":"y",
-                    "type":"a"
-                }],
-                "result":"a",
+                "result":"c",
                 "comment":"Returns the function `f` with input arguments swapped.\n That is, given the function `f: (a, b) -> c`, returns a function `(b, a) -> c`"
             },{
                 "name":"→",
@@ -3941,12 +4147,12 @@ export default {
                     "type":"a -> b"
                 },{
                     "name":"g",
-                    "type":"b -> a"
+                    "type":"b -> c"
                 },{
                     "name":"x",
                     "type":"a"
                 }],
-                "result":"a",
+                "result":"c",
                 "comment":"Forwards function composition. Applies the function on the left first.\n\n Given the functions `f: a -> b` and `g: b -> c` returns a function `a -> c`"
             },{
                 "name":"<|",
@@ -3962,7 +4168,7 @@ export default {
                     "name":"x",
                     "type":"a"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Pipes the given value `x` into the function `f`.\n\n Given a value `x: a` and a function `f: a -> b` returns `f(x)`."
             },{
                 "name":"assert!",
@@ -3972,7 +4178,7 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "comment":"Asserts that the given boolean `b` is `true`."
+                "comment":"Asserts that the given boolean `b` is `true`.\n\n NB: For internal use only."
             },{
                 "name":"fst",
                 "tparams":[{
@@ -3997,12 +4203,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"x",
-                    "type":"(a, b)"
+                    "type":"(a1, a2)"
                 },{
                     "name":"f",
-                    "type":"(a, b) -> c"
+                    "type":"(a1, a2) -> b"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Pipes the given pair `p` into the function `f`.\n\n Given a pair `x: (a1, a1)` and a function `f: ((a1, a2)) -> b` returns `f(x)`."
             },{
                 "name":"<||",
@@ -4015,12 +4221,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"(a, b) -> c"
+                    "type":"(a1, a2) -> b"
                 },{
                     "name":"x",
-                    "type":"(a, b)"
+                    "type":"(a1, a2)"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Pipes the given pair `p` into the function `f`.\n\n Given a pair `x: (a1, a1)` and a function `f: ((a1, a2)) -> b` returns `f(x)`."
             },{
                 "name":"swap",
@@ -4033,7 +4239,7 @@ export default {
                     "name":"p",
                     "type":"(a, b)"
                 }],
-                "result":"a",
+                "result":"(b, a)",
                 "comment":"Returns the pair `p` with the components swapped.\n That is, returns `(y, x)` if `p = (x, y)`."
             },{
                 "name":"↔",
@@ -4059,7 +4265,7 @@ export default {
                     "type":"a"
                 },{
                     "name":"_",
-                    "type":"a"
+                    "type":"2873"
                 }],
                 "result":"a",
                 "comment":"Returns the constant function with return value `y`.\n That is, returns `f` such that `f(x) = y` for all inputs `x`."
@@ -4071,7 +4277,7 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "comment":"Asserts that the given boolean `b` is `false`."
+                "comment":"Asserts that the given boolean `b` is `false`.\n\n NB: For internal use only."
             },{
                 "name":"∧",
                 "tparams":[],
@@ -4098,7 +4304,7 @@ export default {
                     "name":"f",
                     "type":"a -> b"
                 }],
-                "result":"a",
+                "result":"b",
                 "comment":"Pipes the given value `x` into the function `f`.\n\n Given a value `x: a` and a function `f: a -> b` returns `f(x)`."
             },{
                 "name":"↑",
@@ -4112,10 +4318,41 @@ export default {
                 }],
                 "result":"Bool",
                 "comment":"Alias for the Sheffer stroke."
+            },{
+                "name":"isNull",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                }],
+                "result":"Bool",
+                "comment":"Returns `true` if the given value `x` is `null`.\n\n NB: For internal use only."
+            },{
+                "name":"curry",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"c"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> c"
+                },{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"y",
+                    "type":"b"
+                }],
+                "result":"c",
+                "comment":"Returns the result of currying the function `f`.\n That is, given the function `f: (a, b) -> c`, returns a function `a -> b -> c`"
             }]
         },
         "Console.StdOut":{
-            "namespace":"Console.StdOut",
             "defs":[{
                 "name":"newLine",
                 "tparams":[],
@@ -4149,7 +4386,6 @@ export default {
             }]
         },
         "Float32":{
-            "namespace":"Float32",
             "defs":[{
                 "name":"positiveInfinity",
                 "tparams":[],
@@ -4258,7 +4494,6 @@ export default {
             }]
         },
         "Ticker":{
-            "namespace":"Ticker",
             "defs":[{
                 "name":"milliseconds",
                 "tparams":[],
@@ -4329,7 +4564,7 @@ export default {
                     "name":"ticker",
                     "type":"Ticker"
                 }],
-                "result":"Int32",
+                "result":"Channel[Int32]",
                 "comment":""
             },{
                 "name":"microseconds",
@@ -4343,7 +4578,6 @@ export default {
             }]
         },
         "Tuple4":{
-            "namespace":"Tuple4",
             "defs":[{
                 "name":"eq",
                 "tparams":[{
@@ -4367,7 +4601,6 @@ export default {
             }]
         },
         "Tuple2":{
-            "namespace":"Tuple2",
             "defs":[{
                 "name":"eq",
                 "tparams":[{
@@ -4387,7 +4620,6 @@ export default {
             }]
         },
         "BigInt":{
-            "namespace":"BigInt",
             "defs":[{
                 "name":"signum",
                 "tparams":[],
@@ -4396,7 +4628,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Int32",
-                "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
+                "comment":"Returns `1` if `x > 0`, `-1` if `x < 0`, and `0` if `x = 0`."
             },{
                 "name":"min",
                 "tparams":[],
@@ -4468,7 +4700,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Int32",
-                "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
+                "comment":"Returns `1` if `x > y`, `-1` if `x < y`, and `0` if `x = y`."
             },{
                 "name":"abs",
                 "tparams":[],
@@ -4501,7 +4733,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n The bits of x have positions: 0 (rightmost bit), 1, 2, ..."
+                "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n\n The bits of x have positions: 0 (rightmost bit), 1, 2, ..."
             },{
                 "name":"max",
                 "tparams":[],
@@ -4517,7 +4749,6 @@ export default {
             }]
         },
         "Int16":{
-            "namespace":"Int16",
             "defs":[{
                 "name":"lowestOneBitPosition",
                 "tparams":[],
@@ -4761,7 +4992,6 @@ export default {
             }]
         },
         "String":{
-            "namespace":"String",
             "defs":[{
                 "name":"toUpperCase",
                 "tparams":[],
@@ -4841,7 +5071,7 @@ export default {
                     "name":"s",
                     "type":"Str"
                 }],
-                "result":"Char",
+                "result":"List[Char]",
                 "comment":"Returns the given string `s` as a list of characters."
             },{
                 "name":"concat",
@@ -4857,265 +5087,7 @@ export default {
                 "comment":"Returns the string `s1` followed by the string `s2`."
             }]
         },
-        "Int64":{
-            "namespace":"Int64",
-            "defs":[{
-                "name":"rotateRight",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"distance",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
-            },{
-                "name":"min",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"y",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns the smaller of `x` and `y`."
-            },{
-                "name":"maxValue",
-                "tparams":[],
-                "fparams":[],
-                "result":"Int64",
-                "comment":"Returns the maximum number representable by an `Int64`."
-            },{
-                "name":"flipBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"position",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
-            },{
-                "name":"lowestOneBitPosition",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
-            },{
-                "name":"dist",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"y",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
-            },{
-                "name":"highestOneBitPosition",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
-            },{
-                "name":"clearBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"position",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
-            },{
-                "name":"reverse",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
-            },{
-                "name":"numberOfTrailingZeros",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 64 if x=0."
-            },{
-                "name":"getBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"position",
-                    "type":"Int32"
-                }],
-                "result":"Int32",
-                "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)."
-            },{
-                "name":"signum",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
-            },{
-                "name":"highestOneBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
-            },{
-                "name":"bitCount",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
-            },{
-                "name":"lowestOneBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
-            },{
-                "name":"compare",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"y",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
-            },{
-                "name":"logicalRightShift",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"distance",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 6 bits of `distance` are considered (ie. `distance % 64`).\n A zero is shifted into the leftmost position regardless of sign extension."
-            },{
-                "name":"numberOfLeadingZeros",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int32",
-                "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 64 if x=0."
-            },{
-                "name":"max",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"y",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns the larger of `x` and `y`."
-            },{
-                "name":"setBit",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"position",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
-            },{
-                "name":"minValue",
-                "tparams":[],
-                "fparams":[],
-                "result":"Int64",
-                "comment":"Returns the minimum number representable by an `Int64`."
-            },{
-                "name":"size",
-                "tparams":[],
-                "fparams":[],
-                "result":"Int32",
-                "comment":"Returns the number of bits used to represent an `Int64`."
-            },{
-                "name":"rotateLeft",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                },{
-                    "name":"distance",
-                    "type":"Int32"
-                }],
-                "result":"Int64",
-                "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
-            },{
-                "name":"abs",
-                "tparams":[],
-                "fparams":[{
-                    "name":"x",
-                    "type":"Int64"
-                }],
-                "result":"Int64",
-                "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
-            }]
-        },
-        "BufferedReader":{
-            "namespace":"BufferedReader",
-            "defs":[{
-                "name":"new",
-                "tparams":[],
-                "fparams":[{
-                    "name":"p",
-                    "type":"Path"
-                }],
-                "result":"BufferedReader",
-                "comment":"Returns a new BufferedReader from the given Path `p`\n TODO: Consider choosing charsets and opening modes"
-            }]
-        },
         "Console.StdErr":{
-            "namespace":"Console.StdErr",
             "defs":[{
                 "name":"flush",
                 "tparams":[],
@@ -5149,7 +5121,6 @@ export default {
             }]
         },
         "Int8":{
-            "namespace":"Int8",
             "defs":[{
                 "name":"size",
                 "tparams":[],
