@@ -113,6 +113,14 @@ body {
     color: #441ed4;
 }
 
+.effect {
+    color: #d4671e;
+}
+
+.spacer {
+    color: #6d6d6d;
+}
+
 h1, h2, h3 {
     font-family: 'Oswald', sans-serif !important;
     font-weight: bold !important;

@@ -42,6 +42,26 @@ class DefBox extends Component {
     }
 
     /**
+     * Returns the return type.
+     */
+    getEffectSpacer() {
+        if (this.props.def.effect === "Pure")
+            return <span/>
+        else
+            return <span className="spacer"> &amp; </span>
+    }
+
+    /**
+     * Returns the effect type.
+     */
+    getFormattedEffectType() {
+        if (this.props.def.effect === "Pure")
+            return <span/>
+        else
+            return <span className="effect">{this.props.def.effect}</span>
+    }
+
+    /**
      * Formats the given documentation comment.
      */
     getFormattedComment(comment) {
@@ -86,6 +106,8 @@ class DefBox extends Component {
                 <span className="tparams">{this.getFormattedTypeParams()}</span>
                 <span className="fparams">{this.getFormattedFormalParams()}</span>
                 <span className="result">: {this.getFormattedReturnType()}</span>
+                <span className="spacer">{this.getEffectSpacer()}</span>
+                <span className="effect">{this.getFormattedEffectType()}</span>
             </div>
             <div className="comment">
                 {this.getFormattedComment(this.props.def.comment)}
