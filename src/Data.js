@@ -810,610 +810,6 @@ export default {
                 "comment":"Returns the foreground color of the given color `c`."
             }]
         },
-        "Validation":{
-            "defs":[{
-                "name":"lift5",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 5-ary function `f` to the values in `v1`, `v2`, ... `v5`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v5` are `Failure(xs1)`."
-            },{
-                "name":"lift10",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t10"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"t6"
-                },{
-                    "name":"t7"
-                },{
-                    "name":"t8"
-                },{
-                    "name":"t9"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & l"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                },{
-                    "name":"v6",
-                    "type":"Validation[t6, e]"
-                },{
-                    "name":"v7",
-                    "type":"Validation[t7, e]"
-                },{
-                    "name":"v8",
-                    "type":"Validation[t8, e]"
-                },{
-                    "name":"v9",
-                    "type":"Validation[t9, e]"
-                },{
-                    "name":"v10",
-                    "type":"Validation[t10, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 10-ary function `f` to the values in `v1`, `v2`, ... `v10`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v10` are `Failure(xs1)`."
-            },{
-                "name":"sequence",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"xs",
-                    "type":"List[Validation[a, b]]"
-                }],
-                "result":"Validation[List[t], e]",
-                "effect":"Pure",
-                "comment":"Returns `Success(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Success(v_i)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated."
-            },{
-                "name":"withDefault",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"v1",
-                    "type":"Validation[a, b]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[a, b]"
-                }],
-                "result":"Validation[t, e]",
-                "effect":"Pure",
-                "comment":"Returns `v1` if it is `Success(v)`. Otherwise returns `v2`."
-            },{
-                "name":"lift4",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> u & f"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 4-ary function `f` to the values in `v1`, `v2`, `v3` and `v4`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, `v3` and `v4` are `Failure(xs1)`."
-            },{
-                "name":"lift2",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> u & d"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the binary function `f` to the values in `v1` and `v2`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if either or both of `v1` or `v2` are `Failure(xs1)`."
-            },{
-                "name":"lift9",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"t6"
-                },{
-                    "name":"t7"
-                },{
-                    "name":"t8"
-                },{
-                    "name":"t9"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & k"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                },{
-                    "name":"v6",
-                    "type":"Validation[t6, e]"
-                },{
-                    "name":"v7",
-                    "type":"Validation[t7, e]"
-                },{
-                    "name":"v8",
-                    "type":"Validation[t8, e]"
-                },{
-                    "name":"v9",
-                    "type":"Validation[t9, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 9-ary function `f` to the values in `v1`, `v2`, ... `v9`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v9` are `Failure(xs1)`."
-            },{
-                "name":"toOption",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"v",
-                    "type":"Validation[b, a]"
-                }],
-                "result":"Option[t]",
-                "effect":"Pure",
-                "comment":"Converts a Validation to an Option.\n\n Returns `Some(t)` if `v` is `Success(t)`.\n Returns `None` otherwise."
-            },{
-                "name":"ap",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"v1",
-                    "type":"Validation[a -> c & d, b]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[a, b]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the function in `v1` to the value in `v2`."
-            },{
-                "name":"traverse",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                },{
-                    "name":"e"
-                },{
-                    "name":"f"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> Validation[b, d] & c"
-                },{
-                    "name":"xs",
-                    "type":"List[a]"
-                }],
-                "result":"Validation[List[b], e]",
-                "effect":"f",
-                "comment":"Returns `Success(v1 :: v2 :: ... v :: vn)` if each of `f(xs_i)` is `Success(v_i)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated."
-            },{
-                "name":"forall",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> Bool"
-                },{
-                    "name":"v",
-                    "type":"Validation[a, b]"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` if `v` is `Success(t)` and `f(t)` is true or if `v` is `Failure`."
-            },{
-                "name":"map",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> b & c"
-                },{
-                    "name":"v",
-                    "type":"Validation[a, b]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Returns `Success(f(v))` if `o` is `Success(v)`. Otherwise returns `v`."
-            },{
-                "name":"lift8",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"t6"
-                },{
-                    "name":"t7"
-                },{
-                    "name":"t8"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & j"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                },{
-                    "name":"v6",
-                    "type":"Validation[t6, e]"
-                },{
-                    "name":"v7",
-                    "type":"Validation[t7, e]"
-                },{
-                    "name":"v8",
-                    "type":"Validation[t8, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 8-ary function `f` to the values in `v1`, `v2`, ... `v8`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v8` are `Failure(xs1)`."
-            },{
-                "name":"lift7",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"t6"
-                },{
-                    "name":"t7"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & i"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                },{
-                    "name":"v6",
-                    "type":"Validation[t6, e]"
-                },{
-                    "name":"v7",
-                    "type":"Validation[t7, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 7-ary function `f` to the values in `v1`, `v2`, ... `v7`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v7` are `Failure(xs1)`."
-            },{
-                "name":"toResult",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"v",
-                    "type":"Validation[b, a]"
-                }],
-                "result":"Result[t, Nel[e]]",
-                "effect":"Pure",
-                "comment":"Converts a Validation to a Result.\n\n Returns `Ok(t)` if `v` is `Success(t)`.\n Returns `Err(e)` if `v` is `Failure(e)`."
-            },{
-                "name":"toList",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"v",
-                    "type":"Validation[b, a]"
-                }],
-                "result":"List[t]",
-                "effect":"Pure",
-                "comment":"Converts a Validation to a List.\n\n Returns `t :: Nil` if `v` is `Success(v)`.\n Returns `Nil` if `v` is `Failure(e)`."
-            },{
-                "name":"getWithDefault",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"v",
-                    "type":"Validation[a, b]"
-                },{
-                    "name":"d",
-                    "type":"a"
-                }],
-                "result":"t",
-                "effect":"Pure",
-                "comment":"Returns `t` if `v` is `Success(t).` Otherwise returns `d`."
-            },{
-                "name":"exists",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> Bool"
-                },{
-                    "name":"v",
-                    "type":"Validation[a, b]"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` if and only if `v` is `Success(t)` and `f(t)` is true.\n\n Returns `false` if `v` is `Failure`."
-            },{
-                "name":"lift6",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"t6"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & h"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                },{
-                    "name":"v4",
-                    "type":"Validation[t4, e]"
-                },{
-                    "name":"v5",
-                    "type":"Validation[t5, e]"
-                },{
-                    "name":"v6",
-                    "type":"Validation[t6, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the 6-ary function `f` to the values in `v1`, `v2`, ... `v6`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v6` are `Failure(xs1)`."
-            },{
-                "name":"lift3",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> u & e"
-                },{
-                    "name":"v1",
-                    "type":"Validation[t1, e]"
-                },{
-                    "name":"v2",
-                    "type":"Validation[t2, e]"
-                },{
-                    "name":"v3",
-                    "type":"Validation[t3, e]"
-                }],
-                "result":"Validation[u, e]",
-                "effect":"f",
-                "comment":"Applies the ternary function `f` to the values in `v1`, `v2` and `v3`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2` and `v3` are `Failure(xs1)`."
-            }]
-        },
         "Map":{
             "defs":[{
                 "name":"toList",
@@ -2569,6 +1965,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs` along with that element's index.\n\n That is, the result is of the form: `f(x1, 0) :: f(x2, 1) :: ...`."
             },{
                 "name":"reduceLeft",
@@ -2628,6 +2026,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns `xs` with its elements rotated `n` positions to the left.\n\n That is, returns a new list where the first `n mod length(xs)` elements in `xs`\n are the last `n mod length(xs)` elements of the new list."
             },{
                 "name":"isSuffixOf",
@@ -2851,6 +2251,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Alias for `scanLeft`."
             },{
                 "name":"dropWhile",
@@ -2910,6 +2312,8 @@ export default {
                 }],
                 "result":"List[Int32]",
                 "effect":"Pure",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns a list of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns `Nil` if `b >= e`."
             },{
                 "name":"rotateRight",
@@ -2925,6 +2329,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns `xs` with its elements rotated `n` positions to the right.\n\n That is, returns a new list where the last `n mod length(xs)` elements in `xs`\n are the first `n mod length(xs)` elements of the new list."
             },{
                 "name":"head",
@@ -2937,6 +2343,8 @@ export default {
                 }],
                 "result":"Option[a]",
                 "effect":"Pure",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the first element of `xs`.\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"isEmpty",
@@ -2949,6 +2357,8 @@ export default {
                 }],
                 "result":"Bool",
                 "effect":"Pure",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `xs` is the empty list, i.e. `Nil`."
             },{
                 "name":"unfoldWithOkIter",
@@ -2991,6 +2401,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns `xs` with every occurrence of `x` replaced by `y`."
             },{
                 "name":"isPrefixOf",
@@ -3058,6 +2470,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Accumulates the result of applying `f` to `xs` going left to right.\n\n That is, the result is of the form: `s :: f(s, x1) :: f(f(s, x1), x2)  ...`."
             },{
                 "name":"filter",
@@ -3088,6 +2502,8 @@ export default {
                 }],
                 "result":"Int32",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns the position of `a` in `xs`.\n\n Returns `-1` if `a` does not exist in `xs`."
             },{
                 "name":"groupBy",
@@ -3122,6 +2538,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"time(f) * List.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs` and concatenating the results."
             },{
                 "name":"append",
@@ -3137,6 +2555,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns `ys` appended to `xs`.\n\n The infix operator `:::` is an alias for `append` (`xs ::: ys = append(xs, ys)`)."
             },{
                 "name":"last",
@@ -3149,6 +2569,8 @@ export default {
                 }],
                 "result":"Option[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the last element of `xs`.\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"findLeft",
@@ -3164,6 +2586,8 @@ export default {
                 }],
                 "result":"Option[a]",
                 "effect":"Pure",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"count",
@@ -3288,6 +2712,8 @@ export default {
                 }],
                 "result":"Option[a]",
                 "effect":"Pure",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"length",
@@ -3300,6 +2726,8 @@ export default {
                 }],
                 "result":"Int32",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns the length of `xs`."
             },{
                 "name":"unfold",
@@ -3361,6 +2789,8 @@ export default {
                 }],
                 "result":"Option[a]",
                 "effect":"Pure",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"toArray",
@@ -3425,6 +2855,8 @@ export default {
                 }],
                 "result":"Bool",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `xs` contains the element `a`."
             },{
                 "name":"scanRight",
@@ -3447,6 +2879,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Accumulates the result of applying `f` to `xs` going right to left.\n\n That is, the result is of the form: `... f(xn-1, f(xn, s)) :: f(xn, s) :: s`."
             },{
                 "name":"reverse",
@@ -3459,6 +2893,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the reverse of `xs`."
             },{
                 "name":"reduce",
@@ -3494,6 +2930,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"i",
+                "space":"i",
                 "comment":"Returns `xs` with the element at index `i` replaced by `a`.\n\n Returns `xs` if `i < 0` or `i > length(xs)-1`."
             },{
                 "name":"span",
@@ -3538,6 +2976,8 @@ export default {
                 }],
                 "result":"List[(a, b)]",
                 "effect":"Pure",
+                "time":"Int32.min(List.length(xs), List.length(ys))",
+                "space":"Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Returns a list where the element at index `i` is `(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"map2",
@@ -3592,6 +3032,8 @@ export default {
                 }],
                 "result":"List[a]",
                 "effect":"Pure",
+                "time":"n",
+                "space":"n",
                 "comment":"Returns a list with the element `a` repeated `n` times.\n\n Returns `Nil` if `n < 0`."
             },{
                 "name":"takeWhile",
@@ -3679,6 +3121,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs`.\n\n That is, the result is of the form: `f(x1) :: f(x2) :: ...`."
             },{
                 "name":"drop",
@@ -7290,6 +6734,679 @@ export default {
                 "comment":"Applies `f` to a start value `i` and all key-value pairs in the mutable map `m` going from right to left.\n\n That is, the result is of the form: `f(k1, v1, ...f(kn-1, vn-1, f(kn, vn, i)))`."
             }]
         },
+        "PartialOrder":{
+            "defs":[{
+                "name":"safe2",
+                "tparams":[{
+                    "name":"a1"
+                },{
+                    "name":"a2"
+                },{
+                    "name":"c1"
+                },{
+                    "name":"c2"
+                }],
+                "fparams":[{
+                    "name":"fa",
+                    "type":"b -> b -> a"
+                }],
+                "result":"c1 -> c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The safety law asserts that the abstract function `fa` is an over-approximation of the concrete\n function `fc` according to the partial order `leq` and abstraction functions `alpha1` and `alpha2`.\n\n NB: This particular law is for binary functions."
+            },{
+                "name":"monotone2",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"c"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> b -> c"
+                }],
+                "result":"a -> a -> Bool -> b -> b -> Bool -> c -> c -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The monotonicity law asserts that a function `f` is order-preserving w.r.t.\n the partial order `dom` on its domain and the partial order `codom` on its co-domain.\n\n NB: This particular law is for binary functions."
+            },{
+                "name":"safe1",
+                "tparams":[{
+                    "name":"a1"
+                },{
+                    "name":"a2"
+                },{
+                    "name":"c1"
+                },{
+                    "name":"c2"
+                }],
+                "fparams":[{
+                    "name":"fa",
+                    "type":"b -> a"
+                }],
+                "result":"c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The safety law asserts that the abstract function `fa` is an over-approximation of the concrete\n function `fc` according to the partial order `leq` and abstraction function `alpha`.\n\n NB: This particular law is for unary functions."
+            },{
+                "name":"monotone1",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b"
+                }],
+                "result":"a -> a -> Bool -> b -> b -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The monotonicity law asserts that a function `f` is order-preserving w.r.t.\n the partial order `dom` on its domain and the partial order `codom` on its co-domain.\n\n NB: This particular law is for unary functions."
+            }]
+        },
+        "Validation":{
+            "defs":[{
+                "name":"lift5",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 5-ary function `f` to the values in `v1`, `v2`, ... `v5`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v5` are `Failure(xs1)`."
+            },{
+                "name":"lift10",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t10"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"t6"
+                },{
+                    "name":"t7"
+                },{
+                    "name":"t8"
+                },{
+                    "name":"t9"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & l"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                },{
+                    "name":"v6",
+                    "type":"Validation[t6, e]"
+                },{
+                    "name":"v7",
+                    "type":"Validation[t7, e]"
+                },{
+                    "name":"v8",
+                    "type":"Validation[t8, e]"
+                },{
+                    "name":"v9",
+                    "type":"Validation[t9, e]"
+                },{
+                    "name":"v10",
+                    "type":"Validation[t10, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 10-ary function `f` to the values in `v1`, `v2`, ... `v10`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v10` are `Failure(xs1)`."
+            },{
+                "name":"sequence",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"List[Validation[a, b]]"
+                }],
+                "result":"Validation[List[t], e]",
+                "effect":"Pure",
+                "comment":"Returns `Success(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Success(v_i)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated."
+            },{
+                "name":"withDefault",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"v1",
+                    "type":"Validation[a, b]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[a, b]"
+                }],
+                "result":"Validation[t, e]",
+                "effect":"Pure",
+                "comment":"Returns `v1` if it is `Success(v)`. Otherwise returns `v2`."
+            },{
+                "name":"lift4",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> u & f"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 4-ary function `f` to the values in `v1`, `v2`, `v3` and `v4`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, `v3` and `v4` are `Failure(xs1)`."
+            },{
+                "name":"lift2",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> u & d"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the binary function `f` to the values in `v1` and `v2`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if either or both of `v1` or `v2` are `Failure(xs1)`."
+            },{
+                "name":"lift9",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"t6"
+                },{
+                    "name":"t7"
+                },{
+                    "name":"t8"
+                },{
+                    "name":"t9"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & k"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                },{
+                    "name":"v6",
+                    "type":"Validation[t6, e]"
+                },{
+                    "name":"v7",
+                    "type":"Validation[t7, e]"
+                },{
+                    "name":"v8",
+                    "type":"Validation[t8, e]"
+                },{
+                    "name":"v9",
+                    "type":"Validation[t9, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 9-ary function `f` to the values in `v1`, `v2`, ... `v9`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v9` are `Failure(xs1)`."
+            },{
+                "name":"toOption",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"Validation[b, a]"
+                }],
+                "result":"Option[t]",
+                "effect":"Pure",
+                "comment":"Converts a Validation to an Option.\n\n Returns `Some(t)` if `v` is `Success(t)`.\n Returns `None` otherwise."
+            },{
+                "name":"ap",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"v1",
+                    "type":"Validation[a -> c & d, b]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[a, b]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the function in `v1` to the value in `v2`."
+            },{
+                "name":"traverse",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Validation[b, d] & c"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Validation[List[b], e]",
+                "effect":"f",
+                "comment":"Returns `Success(v1 :: v2 :: ... v :: vn)` if each of `f(xs_i)` is `Success(v_i)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated."
+            },{
+                "name":"forall",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"Validation[a, b]"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"Returns `true` if `v` is `Success(t)` and `f(t)` is true or if `v` is `Failure`."
+            },{
+                "name":"map",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b & c"
+                },{
+                    "name":"v",
+                    "type":"Validation[a, b]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Returns `Success(f(v))` if `o` is `Success(v)`. Otherwise returns `v`."
+            },{
+                "name":"lift8",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"t6"
+                },{
+                    "name":"t7"
+                },{
+                    "name":"t8"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & j"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                },{
+                    "name":"v6",
+                    "type":"Validation[t6, e]"
+                },{
+                    "name":"v7",
+                    "type":"Validation[t7, e]"
+                },{
+                    "name":"v8",
+                    "type":"Validation[t8, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 8-ary function `f` to the values in `v1`, `v2`, ... `v8`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v8` are `Failure(xs1)`."
+            },{
+                "name":"lift7",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"t6"
+                },{
+                    "name":"t7"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & i"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                },{
+                    "name":"v6",
+                    "type":"Validation[t6, e]"
+                },{
+                    "name":"v7",
+                    "type":"Validation[t7, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 7-ary function `f` to the values in `v1`, `v2`, ... `v7`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v7` are `Failure(xs1)`."
+            },{
+                "name":"toResult",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"Validation[b, a]"
+                }],
+                "result":"Result[t, Nel[e]]",
+                "effect":"Pure",
+                "comment":"Converts a Validation to a Result.\n\n Returns `Ok(t)` if `v` is `Success(t)`.\n Returns `Err(e)` if `v` is `Failure(e)`."
+            },{
+                "name":"toList",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"Validation[b, a]"
+                }],
+                "result":"List[t]",
+                "effect":"Pure",
+                "comment":"Converts a Validation to a List.\n\n Returns `t :: Nil` if `v` is `Success(v)`.\n Returns `Nil` if `v` is `Failure(e)`."
+            },{
+                "name":"getWithDefault",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"Validation[a, b]"
+                },{
+                    "name":"d",
+                    "type":"a"
+                }],
+                "result":"t",
+                "effect":"Pure",
+                "comment":"Returns `t` if `v` is `Success(t).` Otherwise returns `d`."
+            },{
+                "name":"exists",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"Validation[a, b]"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"Returns `true` if and only if `v` is `Success(t)` and `f(t)` is true.\n\n Returns `false` if `v` is `Failure`."
+            },{
+                "name":"lift6",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"t6"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & h"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                },{
+                    "name":"v4",
+                    "type":"Validation[t4, e]"
+                },{
+                    "name":"v5",
+                    "type":"Validation[t5, e]"
+                },{
+                    "name":"v6",
+                    "type":"Validation[t6, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the 6-ary function `f` to the values in `v1`, `v2`, ... `v6`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v6` are `Failure(xs1)`."
+            },{
+                "name":"lift3",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> u & e"
+                },{
+                    "name":"v1",
+                    "type":"Validation[t1, e]"
+                },{
+                    "name":"v2",
+                    "type":"Validation[t2, e]"
+                },{
+                    "name":"v3",
+                    "type":"Validation[t3, e]"
+                }],
+                "result":"Validation[u, e]",
+                "effect":"f",
+                "comment":"Applies the ternary function `f` to the values in `v1`, `v2` and `v3`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2` and `v3` are `Failure(xs1)`."
+            }]
+        },
         "Instant":{
             "defs":[{
                 "name":"now",
@@ -9148,6 +9265,18 @@ export default {
         },
         "":{
             "defs":[{
+                "name":"reflexive",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"e -> e -> Bool"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The reflexivity law asserts that any element is less than or equal to itself."
+            },{
                 "name":"panic",
                 "tparams":[{
                     "name":"a"
@@ -9159,6 +9288,18 @@ export default {
                 "result":"a",
                 "effect":"Pure",
                 "comment":"Panics (crashes) the current process with the given message `m`."
+            },{
+                "name":"decreasing",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"h",
+                    "type":"e -> BigInt"
+                }],
+                "result":"e -> e -> Bool -> e -> e -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The decreasing law asserts that if an element `x` is strictly less than an element `y` then\n the height assigned to `x` is stricty greater than the height assigned to `y`."
             },{
                 "name":"uncurry",
                 "tparams":[{
@@ -9210,29 +9351,6 @@ export default {
                 "effect":"Pure",
                 "comment":"Returns the function `f` with input arguments swapped.\n That is, given the function `f: (a, b) -> c`, returns a function `(b, a) -> c`"
             },{
-                "name":">>",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                },{
-                    "name":"c"
-                },{
-                    "name":"e1"
-                },{
-                    "name":"e2"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> b & c"
-                },{
-                    "name":"g",
-                    "type":"b -> a & c"
-                }],
-                "result":"a -> c & (e1 ∧ e2)",
-                "effect":"Pure",
-                "comment":"Forwards function composition. Applies the function on the left first.\n\n Given the functions `f: a -> b` and `g: b -> c` returns a function `a -> c`"
-            },{
                 "name":"snd",
                 "tparams":[{
                     "name":"a"
@@ -9260,27 +9378,6 @@ export default {
                 "result":"a",
                 "effect":"Pure",
                 "comment":"Returns the first component of `t`."
-            },{
-                "name":"||>",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                },{
-                    "name":"c"
-                },{
-                    "name":"e"
-                }],
-                "fparams":[{
-                    "name":"x",
-                    "type":"(a, b)"
-                },{
-                    "name":"f",
-                    "type":"(a, b) -> c & d"
-                }],
-                "result":"c",
-                "effect":"e",
-                "comment":"Pipes the given pair `x` into the function `f`.\n\n Given a pair `x` and a function `f` returns `f(x)`."
             },{
                 "name":"swap",
                 "tparams":[{
@@ -9310,6 +9407,20 @@ export default {
                 "effect":"Pure",
                 "comment":"Returns the constant function with return value `y`.\n That is, returns `f` such that `f(x) = y` for all inputs `x`."
             },{
+                "name":"commutative",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> b"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The commutative law asserts that for a binary operator `f` the result of `f(x, y)` is equal to `f(y, x)`."
+            },{
                 "name":"|>",
                 "tparams":[{
                     "name":"a"
@@ -9329,6 +9440,98 @@ export default {
                 "effect":"e",
                 "comment":"Pipes the given value `x` into the function `f`.\n\n Given a value `x` and a function `f` returns `f(x)`."
             },{
+                "name":"antiSymmetric",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"e -> e -> Bool"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The anti-symmetry law asserts that if `x` is less than or equal to `y` and vice versa then the\n two elements must be equal."
+            },{
+                "name":">>",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"c"
+                },{
+                    "name":"e1"
+                },{
+                    "name":"e2"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b & c"
+                },{
+                    "name":"g",
+                    "type":"b -> a & c"
+                }],
+                "result":"a -> c & (e1 ∧ e2)",
+                "effect":"Pure",
+                "comment":"Forwards function composition. Applies the function on the left first.\n\n Given the functions `f: a -> b` and `g: b -> c` returns a function `a -> c`"
+            },{
+                "name":"||>",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"c"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"(a, b)"
+                },{
+                    "name":"f",
+                    "type":"(a, b) -> c & d"
+                }],
+                "result":"c",
+                "effect":"e",
+                "comment":"Pipes the given pair `x` into the function `f`.\n\n Given a pair `x` and a function `f` returns `f(x)`."
+            },{
+                "name":"transitive",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"e -> e -> Bool"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The transitivity law asserts that if `x` less than or equal to `y` and `y` is less than or equal\n to `z` then `x` must be less than or equal to `z`."
+            },{
+                "name":"time",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"_f",
+                    "type":"a -> Int32"
+                }],
+                "result":"Int32",
+                "effect":"Pure",
+                "comment":"Meta-programming facility to express the time complexity of a function `f`."
+            },{
+                "name":"associative",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> a"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The associative law asserts that for a binary operator `f` the result of `f(x, f(y, z))` is equal to `f(f(x, y), z)`."
+            },{
                 "name":"curry",
                 "tparams":[{
                     "name":"a"
@@ -9346,6 +9549,87 @@ export default {
                 "result":"a -> b -> c & e",
                 "effect":"Pure",
                 "comment":"Returns the result of currying the function `f`.\n That is, given the function `f: (a, b) -> c`, returns a function `a -> b -> c`"
+            },{
+                "name":"nonNegative",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"h",
+                    "type":"e -> BigInt"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":"The non-negative law asserts that the co-domain of `h` is non-negative."
+            },{
+                "name":"space",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"_f",
+                    "type":"a -> Int32"
+                }],
+                "result":"Int32",
+                "effect":"Pure",
+                "comment":"Meta-programming facility to express the space complexity of a function `f`."
+            }]
+        },
+        "Bounded":{
+            "defs":[{
+                "name":"leastElement",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊥",
+                    "type":"e"
+                }],
+                "result":"e -> e -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The least element law asserts that the bottom element `⊥` is the smallest element of a partial order `⊑`."
+            },{
+                "name":"strict2",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"c"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> c"
+                }],
+                "result":"a -> b -> c -> Bool",
+                "effect":"Pure",
+                "comment":"The strictness law asserts that a function `f` between two orders must preserve bottoms: `bot` and `cobot`.\n\n NB: This particular law is for binary functions."
+            },{
+                "name":"greatestElement",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊤",
+                    "type":"e"
+                }],
+                "result":"e -> e -> Bool -> Bool",
+                "effect":"Pure",
+                "comment":"The greatest element law asserts that the top element `⊤` is the largest element of a partial order `⊑`."
+            },{
+                "name":"strict1",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b"
+                }],
+                "result":"a -> b -> Bool",
+                "effect":"Pure",
+                "comment":"The strictness law asserts that a function `f` between two orders must preserve bottoms: `bot` and `cobot`.\n\n NB: This particular law is for unary functions."
             }]
         },
         "Channel":{
@@ -10774,6 +11058,33 @@ export default {
                 "result":"Int32",
                 "effect":"Pure",
                 "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 31 (leftmost bit)\n                         -1 if x = 0"
+            }]
+        },
+        "JoinLattice":{
+            "defs":[{
+                "name":"upperBound",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"a -> a -> Bool"
+                }],
+                "result":"e -> e -> e -> Bool",
+                "effect":"Pure",
+                "comment":"The upper bound law asserts that the least upper bound operator returns an element that is\n greater than or equal to each of its arguments."
+            },{
+                "name":"leastUpperBound",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"a -> a -> Bool"
+                }],
+                "result":"e -> e -> e -> Bool",
+                "effect":"Pure",
+                "comment":"The least upper bound law asserts that the least upper bound operator returns the smallest\n element that is larger than its two arguments."
             }]
         },
         "Console":{
@@ -12993,6 +13304,33 @@ export default {
                 "comment":"Get the system line separator."
             }]
         },
+        "MeetLattice":{
+            "defs":[{
+                "name":"greatestLowerBound",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"a -> a -> Bool"
+                }],
+                "result":"e -> e -> e -> Bool",
+                "effect":"Pure",
+                "comment":"The greatest lower bound law asserts that the greatest lower bound operator returns the\n largest element that is smaller than its two arguments."
+            },{
+                "name":"lowerBound",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"a -> a -> Bool"
+                }],
+                "result":"e -> e -> e -> Bool",
+                "effect":"Pure",
+                "comment":"The lower bound law asserts that the greatest lower bound operator returns an element that\n is less than or equal to each of its arguments."
+            }]
+        },
         "Core.Io.OutputStream":{
             "defs":[{
                 "name":"new",
@@ -14104,6 +14442,21 @@ export default {
                 "result":"Result[Int64, String]",
                 "effect":"Pure",
                 "comment":"Parse the string `s` as an Int64, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
+            }]
+        },
+        "TotalOrder":{
+            "defs":[{
+                "name":"totality",
+                "tparams":[{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"⊑",
+                    "type":"e -> e -> Bool"
+                }],
+                "result":"Bool",
+                "effect":"Pure",
+                "comment":""
             }]
         },
         "Console.Color.Default":{

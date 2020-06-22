@@ -62,6 +62,39 @@ class DefBox extends Component {
     }
 
     /**
+     * Returns the time and space complexity.
+     */
+    getFormattedComplexity() {
+        if (this.props.def.time || this.props.def.space) {
+            return <div className="complexity">
+                <span>Time: {this.getFormattedTimeComplexity()}, </span>
+                <span>Space: {this.getFormattedSpaceComplexity()}</span>
+            </div>
+        }
+        return undefined
+    }
+
+    /**
+     * Returns the time complexity.
+     */
+    getFormattedTimeComplexity() {
+        if (this.props.def.time) {
+            return <span className="time">O({this.props.def.time})</span>
+        }
+        return undefined
+    }
+
+    /**
+     * Returns the space complexity.
+     */
+    getFormattedSpaceComplexity() {
+        if (this.props.def.space) {
+            return <span className="space">O({this.props.def.space})</span>
+        }
+        return undefined
+    }
+
+    /**
      * Formats the given documentation comment.
      */
     getFormattedComment(comment) {
@@ -112,6 +145,7 @@ class DefBox extends Component {
             <div className="comment">
                 {this.getFormattedComment(this.props.def.comment)}
             </div>
+            {this.getFormattedComplexity()}
         </div>
     }
 

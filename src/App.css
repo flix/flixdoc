@@ -96,6 +96,26 @@ body {
     color: #111111;
 }
 
+.complexity {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 0.70rem;
+    color: #111111;
+    margin-left: 2rem;
+    margin-top: 0.4rem;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 0.4rem;
+}
+
+.complexity .time {
+    font-family: "Fira Code", monospace;
+    color: #747474;
+}
+
+.complexity .space {
+    font-family: "Fira Code", monospace;
+    color: #747474;
+}
+
 .keyword {
     display: inline-block;
     width: 2rem;
