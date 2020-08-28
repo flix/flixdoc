@@ -67,6 +67,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 10-ary function `f` to the values in `r1`, `r2`, ... `r10`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r10` are `Err(e)`."
             },{
                 "name":"mapErr",
@@ -88,6 +90,8 @@ export default {
                 }],
                 "result":"Result[t, e2]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Err(f(e))` if `r` is `Err(e)`. Returns `Ok(v)` if `r` is `Ok(v)`."
             },{
                 "name":"lift8",
@@ -144,31 +148,9 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 8-ary function `f` to the values in `r1`, `r2`, ... `r8`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r8` are `Err(e)`."
-            },{
-                "name":"foldLeft",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"e"
-                },{
-                    "name":"f"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"b -> a -> b & c"
-                },{
-                    "name":"z",
-                    "type":"a"
-                },{
-                    "name":"r",
-                    "type":"Result[b, a]"
-                }],
-                "result":"a",
-                "effect":"f",
-                "comment":"Returns `f(z, v)` if `r` is `Ok(v)`. Otherwise returns `z`."
             },{
                 "name":"lift5",
                 "tparams":[{
@@ -209,6 +191,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 5-ary function `f` to the values in `r1`, `r2`, ... `r5`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r5` are `Err(e)`."
             },{
                 "name":"lift9",
@@ -270,6 +254,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 9-ary function `f` to the values in `r1`, `r2`, ... `r9`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r9` are `Err(e)`."
             },{
                 "name":"toOption",
@@ -283,7 +269,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Option[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some(v)` if `r` is `Ok(v)`. Otherwise returns `None`."
             },{
                 "name":"getWithDefault",
@@ -300,8 +288,24 @@ export default {
                     "type":"a"
                 }],
                 "result":"t",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `v` if `r` is `Ok(v)`. Otherwise returns `d`."
+            },{
+                "name":"sequence",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"List[Result[a, b]]"
+                }],
+                "result":"Result[List[a], e]",
+                "effect":"true",
+                "comment":"Returns `Ok(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Ok(v_i)`.\n Otherwise returns the first `Err` encountered."
             },{
                 "name":"lift6",
                 "tparams":[{
@@ -347,6 +351,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 6-ary function `f` to the values in `r1`, `r2`, ... `r6`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r6` are `Err(e)`."
             },{
                 "name":"foreach",
@@ -363,7 +369,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies `f` to `v` if `r` is `Ok(v)`. Otherwise does nothing.\n\n The function `f` must be impure."
             },{
                 "name":"forall",
@@ -380,7 +388,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true` or if `r` is `Err(w)`.\n Otherwise returns `false`.\n\n The function `f` must be pure."
             },{
                 "name":"replace",
@@ -400,7 +410,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Result[t, e]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Ok(y)` if `r` is `Ok(x)`. Otherwise returns `r`."
             },{
                 "name":"lift3",
@@ -432,7 +444,57 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the ternary function `f` to the values in `r1`, `r2` and `r3`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2` and `r3` are `Err(e)`."
+            },{
+                "name":"foldRightM",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> Result[b, c] & d"
+                },{
+                    "name":"s",
+                    "type":"a"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Result[b, e]",
+                "effect":"f",
+                "comment":"Returns the result of applying `f` to a start value `s` and the elements in `xs`\n going from right to left.\n\n If at any step applying `f` fails (i.e. it produces a `Err(e)` value) the traversal\n of `xs` is short-circuited and `Err(e)` is returned.\n\n If `f` is successfully applied to all elements in `xs` the result is of the form:\n `Ok(f(x1, ...f(xn-1, f(xn, s))...))`."
+            },{
+                "name":"foldLeftM",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"c -> a -> Result[c, b] & d"
+                },{
+                    "name":"s",
+                    "type":"a"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Result[b, e]",
+                "effect":"f",
+                "comment":"Returns the result of applying `f` to a start value `s` and the elements in `xs`\n going from left to right.\n\n If at any step applying `f` fails (i.e. it produces a `Err(e)` value) the traversal\n of `xs` is short-circuited and `Err(e)` is returned.\n\n If `f` is successfully applied to all elements in `xs` the result is of the form:\n `Ok(f(...f(f(s, x1), x2)..., xn))`."
             },{
                 "name":"ap",
                 "tparams":[{
@@ -453,6 +515,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"Result.foldLeft(_ -> f -> time(f), 1, r1)",
+                "space":"Result.foldLeft(_ -> f -> time(f), 1, r1)",
                 "comment":"Applies the function in `r1` to the value in `r2`."
             },{
                 "name":"lift7",
@@ -504,6 +568,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 7-ary function `f` to the values in `r1`, `r2`, ... `r7`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, ... `r7` are `Err(e)`."
             },{
                 "name":"lift4",
@@ -540,6 +606,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 4-ary function `f` to the values in `r1`, `r2`, `r3` and `r4`.\n\n Returns the first `Err(e)` value if any of `r1`, `r2`, `r3` and `r4` are `Err(e)`."
             },{
                 "name":"count",
@@ -556,8 +624,57 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `1` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`.\n\n The function `f` must be pure."
+            },{
+                "name":"foldLeft",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> a -> b & c"
+                },{
+                    "name":"z",
+                    "type":"a"
+                },{
+                    "name":"r",
+                    "type":"Result[b, a]"
+                }],
+                "result":"a",
+                "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Returns `f(z, v)` if `r` is `Ok(v)`. Otherwise returns `z`."
+            },{
+                "name":"traverse",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Result[b, c] & d"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Result[List[b], e]",
+                "effect":"f",
+                "comment":"Returns `Some(v1 :: v2 :: ... v :: vn)` if each of `f(xs_i)` is `Ok(v_i)`.\n Otherwise returns the first `Err` encountered."
             },{
                 "name":"toList",
                 "tparams":[{
@@ -570,7 +687,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"List[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a one-element list of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty list."
             },{
                 "name":"toMap",
@@ -586,7 +705,9 @@ export default {
                     "type":"Result[(b, c), a]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a singleton map with the mapping `k -> v` if `o` is `Ok((k, v))`. Otherwise returns the empty map."
             },{
                 "name":"find",
@@ -603,7 +724,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Option[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Some(v)` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`.\n\n The function `f` must be pure."
             },{
                 "name":"toSet",
@@ -617,7 +740,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Set[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a one-element set of the value `v` if `r` is `Ok(v)`. Otherwise returns the empty set."
             },{
                 "name":"isOk",
@@ -631,8 +756,31 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` iff `r` is `Ok(v)`."
+            },{
+                "name":"traverseX",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Result[b, c] & d"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Result[Unit, e]",
+                "effect":"f",
+                "comment":"Returns `Ok()` if each of `f(xs_i)` is `Ok(_)`. Otherwise returns `None`.\n\n This function is the \"forgetful\" version of `traverse`, use it when the you want the effect\n of applying `f` to each element but do not care about collecting the results."
             },{
                 "name":"foldRight",
                 "tparams":[{
@@ -656,6 +804,8 @@ export default {
                 }],
                 "result":"a",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `f(v, z)` if `r` is `Ok(v)`. Otherwise returns `z`."
             },{
                 "name":"flatMap",
@@ -677,6 +827,8 @@ export default {
                 }],
                 "result":"Result[t2, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `f(v)` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`."
             },{
                 "name":"exists",
@@ -693,7 +845,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if `r` is `Ok(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `false`.\n\n The function `f` must be pure."
             },{
                 "name":"lift2",
@@ -720,6 +874,8 @@ export default {
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the binary function `f` to the values in `r1` and `r2`.\n\n Returns the first `Err(e)` value if either of `r1` and `r2` are `Err(e)`."
             },{
                 "name":"map",
@@ -741,6 +897,8 @@ export default {
                 }],
                 "result":"Result[t2, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Ok(f(v))` if `r` is `Ok(v)`. Returns `Err(w)` if `r` is `Err(w)`."
             },{
                 "name":"withDefault",
@@ -759,7 +917,9 @@ export default {
                     "type":"Result[b, e2]"
                 }],
                 "result":"Result[t, e2]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Ok(v)` if `r1` is `Ok(v)`. Otherwise returns `r2`."
             },{
                 "name":"isErr",
@@ -773,7 +933,9 @@ export default {
                     "type":"Result[b, a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` iff `r` is `Err(w)`."
             }]
         },
@@ -786,7 +948,7 @@ export default {
                     "type":"Ansi"
                 }],
                 "result":"(Int32, Int32, Int32)",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the RGB-triplet for the given color `c`.\n\n Based on the Ubuntu settings.\n\n See https://en.wikipedia.org/wiki/ANSI_escape_code#Colors"
             },{
                 "name":"downsample",
@@ -796,7 +958,7 @@ export default {
                     "type":"(Int32, Int32, Int32)"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Down sample the given color `c` to an ANSI color code."
             },{
                 "name":"toFG",
@@ -806,7 +968,7 @@ export default {
                     "type":"Ansi"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the foreground color of the given color `c`."
             }]
         },
@@ -823,7 +985,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"List[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Map.size(m)",
                 "comment":"Returns the map `m` as a list of key-value pairs."
             },{
                 "name":"foldRight",
@@ -864,7 +1028,7 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if and only if `m1` and `m2` and equal, i.e. they have the same mappings."
             },{
                 "name":"exists",
@@ -881,7 +1045,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Returns `true` if and only if at least one mapping in `m` satisfies the predicate `f`.\n\n Returns `false` if `m` is the empty map.\n\n The function `f` must be pure."
             },{
                 "name":"insertWith",
@@ -907,6 +1073,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> f(v, v1)` if `k -> v1` is in `m`.\n\n Otherwise, updates `m` with `k -> v`."
             },{
                 "name":"reduceLeftWithKey",
@@ -948,6 +1116,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"space(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`."
             },{
                 "name":"reduceRightWithKey",
@@ -983,7 +1153,9 @@ export default {
                     "type":"Map[k, b]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Map.size(m)",
                 "comment":"Returns a map of all mappings `k -> v` in `m` where `v` satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"getWithDefault",
@@ -1003,7 +1175,9 @@ export default {
                     "type":"Map[k, b]"
                 }],
                 "result":"v",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Map.size(m))",
+                "space":"1",
                 "comment":"Returns `v` if `k -> v` is in `m`.\n\n Otherwise, returns `d`."
             },{
                 "name":"differenceWith",
@@ -1026,6 +1200,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"Map.size(f) * Map.size(m2) * Int32.log2(Map.size(m1))",
+                "space":"space(f) * Map.size(m2) * Int32.log2(Map.size(m1))",
                 "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n When a key `k` is in both `m1` and `m2`, the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
             },{
                 "name":"isEmpty",
@@ -1039,7 +1215,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if and only if `m` is the empty map, i.e. `Map(Nil)`."
             },{
                 "name":"unfoldWithIter",
@@ -1053,7 +1231,7 @@ export default {
                     "type":"Unit ~> Option[(a, b)]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Build a map by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Some(k,v)` to signal a new key-value pair `k` and `v`.\n\n `next` should return `None` to signal the end of building the map."
             },{
                 "name":"unionWithKey",
@@ -1076,6 +1254,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"space(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values."
             },{
                 "name":"findLeft",
@@ -1092,7 +1272,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Optionally returns the first mapping of `m` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"isProperSubmapOf",
@@ -1109,7 +1291,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m1) + Map.size(m2)",
+                "space":"Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns `true` if and only if all mappings in `m1` occur in `m2` and `m1 != m2`."
             },{
                 "name":"find",
@@ -1126,7 +1310,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"update",
@@ -1149,6 +1335,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(v) = Some(v1)`. Otherwise, returns `m`."
             },{
                 "name":"count",
@@ -1165,7 +1353,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Returns the number of mappings in `m` that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"foldWithKey",
@@ -1209,7 +1399,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Map.size(m))",
+                "space":"Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> v`."
             },{
                 "name":"findRight",
@@ -1226,7 +1418,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Optionally returns the first mapping of `m` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"mapWithKey",
@@ -1248,6 +1442,8 @@ export default {
                 }],
                 "result":"Map[k, v2]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Map.size(m)",
                 "comment":"Returns a map with mappings `k -> f(k, v)` for every `k -> v` in `m`."
             },{
                 "name":"reduce",
@@ -1326,7 +1522,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Map.size(m))",
+                "space":"1",
                 "comment":"Returns `true` if and only if `m` contains the key `k`."
             },{
                 "name":"get",
@@ -1343,7 +1541,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Option[v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Map.size(m))",
+                "space":"1",
                 "comment":"Returns `Some(v)` if `k -> v` is in `m`.\n\n Otherwise returns `None`."
             },{
                 "name":"forall",
@@ -1360,7 +1560,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Returns `true` if and only if all mappings in `m` satisfy the predicate `f`.\n\n Returns `true` if `m` is the empty map.\n\n The function `f` must be pure."
             },{
                 "name":"intersection",
@@ -1377,7 +1579,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the left-biased intersection of `m1` and `m2`.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
                 "name":"adjustWithKey",
@@ -1400,6 +1604,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`. Otherwise, returns `m`."
             },{
                 "name":"foldLeft",
@@ -1440,7 +1646,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Map.size(m)",
                 "comment":"Returns a map of all mappings `k -> v` in `m` where `(k, v)` satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"fold",
@@ -1487,6 +1695,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"Map.size(f) * Map.size(m2) * Int32.log2(Map.size(m1))",
+                "space":"space(f) * Map.size(m2) * Int32.log2(Map.size(m1))",
                 "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n When a key `k` is in both `m1` and `m2`, `k` and the associated values are passed to the merge function `f`.\n If `f` returns `None` the mapping with `k` is thrown away (proper set difference).\n If `f` returns `Some(v)` the mapping `k -> v` is included in the result."
             },{
                 "name":"insertWithKey",
@@ -1512,6 +1722,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> f(k, v, v1)` if `k -> v1` is in `m`.\n\n Otherwise, updates `m` with `k -> v`."
             },{
                 "name":"difference",
@@ -1528,7 +1740,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m2) * Int32.log2(Map.size(m1))",
+                "space":"Map.size(m2) * Int32.log2(Map.size(m1))",
                 "comment":"Returns the difference of `m1` and `m2`, i.e. `m1 - m2`.\n\n That is, returns the map `m1` with the keys removed that are in `m2`."
             },{
                 "name":"valuesOf",
@@ -1542,7 +1756,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"List[v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Map.size(m)",
                 "comment":"Returns the values of `m`."
             },{
                 "name":"__cmp",
@@ -1559,7 +1775,7 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the result of a three-way comparison between `m1` and `m2`.\n\n Returns n < 0 if all mappings in `m1` are lexicographically smaller than `m2`.\n Returns n = 0 if all mappings `m1` are equal to `m2`.\n Returns n > 0 if all mappings in `m1` is lexicographically greater than `m1`."
             },{
                 "name":"union",
@@ -1576,7 +1792,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the left-biased union of `m1` and `m2`.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
                 "name":"map",
@@ -1598,6 +1816,8 @@ export default {
                 }],
                 "result":"Map[k, v2]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m)",
+                "space":"space(f) * Map.size(m)",
                 "comment":"Returns a map with mappings `k -> f(v)` for every `k -> v` in `m`."
             },{
                 "name":"singleton",
@@ -1614,7 +1834,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the singleton map where key `k` is mapped to value `v`.\n\n `Map#{k -> v}` is syntactic sugar for `singleton` (`Map#{k -> v} = singleton(k, v)`)."
             },{
                 "name":"foldLeftWithKey",
@@ -1652,7 +1874,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Set[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Map.size(m)",
                 "comment":"Returns the map `m` as a set of key-value pairs."
             },{
                 "name":"unfold",
@@ -1728,7 +1952,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Map.size(f) * Map.size(m)",
+                "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Applies `f` to every element of `xs`.\n\n The function `f` must be impure."
             },{
                 "name":"size",
@@ -1742,7 +1968,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Int32.log2(Map.size(m))",
                 "comment":"Returns the size of `m`."
             },{
                 "name":"unionWith",
@@ -1765,6 +1993,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"space(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`."
             },{
                 "name":"toMutable",
@@ -1778,7 +2008,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"MutMap[k, v]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `m` as a mutable set."
             },{
                 "name":"keysOf",
@@ -1792,7 +2024,9 @@ export default {
                     "type":"Map[k, v]"
                 }],
                 "result":"Set[k]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Map.size(m)",
                 "comment":"Returns the keys of `m`."
             },{
                 "name":"empty",
@@ -1803,7 +2037,9 @@ export default {
                 }],
                 "fparams":[],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the empty map.\n\n `Map#{}` is syntactic sugar for `empty` (`Map#{} = empty()`)."
             },{
                 "name":"isSubmapOf",
@@ -1820,7 +2056,9 @@ export default {
                     "type":"Map[k, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Map.size(m1)",
+                "space":"Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns `true` if and only if all mappings in `m1` occur in `m2`."
             },{
                 "name":"delete",
@@ -1837,7 +2075,9 @@ export default {
                     "type":"Map[a, b]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Map.size(m))",
+                "space":"Int32.log2(Map.size(m))",
                 "comment":"Removes the mapping `k` from the map `m`."
             },{
                 "name":"adjust",
@@ -1860,6 +2100,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> f(v)` if `k -> v` is in `m`.\n\n Otherwise, returns `m`."
             },{
                 "name":"updateWithKey",
@@ -1882,6 +2124,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
                 "comment":"Updates `m` with `k -> v1` if `k -> v` is in `m` and `f(k, v) = Some(v1)`. Otherwise, returns `m`."
             },{
                 "name":"intersectionWithKey",
@@ -1904,6 +2148,8 @@ export default {
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
+                "time":"time(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
+                "space":"space(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the intersection of `m1` and `m2` where key collisions are resolved with the merge function `f`, taking both the key and values."
             }]
         },
@@ -1995,7 +2241,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the list `xs` as a set."
             },{
                 "name":"isInfixOf",
@@ -2010,7 +2258,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `xs` is an infix of `ys`."
             },{
                 "name":"rotateLeft",
@@ -2025,7 +2275,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns `xs` with its elements rotated `n` positions to the left.\n\n That is, returns a new list where the first `n mod length(xs)` elements in `xs`\n are the last `n mod length(xs)` elements of the new list."
@@ -2042,7 +2292,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"Int32.max(List.length(xs), List.length(ys))",
                 "comment":"Returns `true` if and only if `xs` is a suffix of `ys`."
             },{
                 "name":"foldLeft2",
@@ -2070,6 +2322,8 @@ export default {
                 }],
                 "result":"c",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`\n starting with the initial value `c` and going from left to right."
             },{
                 "name":"flatten",
@@ -2081,7 +2335,9 @@ export default {
                     "type":"List[List[a]]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the concatenation of the elements in `xs`."
             },{
                 "name":"fold",
@@ -2121,7 +2377,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns the sublist of `xs` from index `b` (inclusive) to index `e` (exclusive).\n\n That is, an element at index `i` in `xs` is part of the returned sublist if and only if `i >= b` and `i < e`.\n Note: Indices that are out of bounds in `xs` are not considered (i.e. slice(b, e, xs) = slice(max(0,b), min(length(xs),e), xs))."
             },{
                 "name":"foldRight2",
@@ -2149,6 +2407,8 @@ export default {
                 }],
                 "result":"c",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `xs` and `ys`\n starting with the initial value `c` and going from right to left."
             },{
                 "name":"intercalate",
@@ -2163,7 +2423,9 @@ export default {
                     "type":"List[List[a]]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(ys) * List.length(xs)",
+                "space":"List.length(ys) * List.length(xs)",
                 "comment":"Returns the concatenation of the elements in `ys` with the elements of `xs` inserted between every two adjacent elements.\n\n That is, returns `y1 :: x1 ... xn :: y2 :: ... yn-1 :: x1 :: ... :: xn :: yn :: Nil`."
             },{
                 "name":"transpose",
@@ -2175,7 +2437,9 @@ export default {
                     "type":"List[List[a]]"
                 }],
                 "result":"List[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs) * List.length(xs)",
+                "space":"List.length(xs) * List.length(xs)",
                 "comment":"Returns the transpose of `xs`.\n\n Returns `xs` if the dimensions of the elements of `xs` are mismatched."
             },{
                 "name":"foreach",
@@ -2190,7 +2454,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies `f` to every element of `xs`.\n\n The function `f` must be impure."
             },{
                 "name":"unzip",
@@ -2204,7 +2470,9 @@ export default {
                     "type":"List[(a, b)]"
                 }],
                 "result":"(List[a], List[b])",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns a pair of lists, the first containing all first components in `xs`\n and the second containing all second components in `xs`."
             },{
                 "name":"zipWith",
@@ -2229,6 +2497,8 @@ export default {
                 }],
                 "result":"List[c]",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"scan",
@@ -2251,8 +2521,6 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
-                "time":"time(f) * List.length(xs)",
-                "space":"space(f) * List.length(xs)",
                 "comment":"Alias for `scanLeft`."
             },{
                 "name":"dropWhile",
@@ -2267,7 +2535,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns `xs` without the longest prefix that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"unfoldWithIter",
@@ -2279,7 +2549,7 @@ export default {
                     "type":"Unit ~> Option[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Build a list by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Some(a)` to signal a new list element `a`.\n\n `next` should return `None` to signal the end of building the list."
             },{
                 "name":"findMap",
@@ -2299,6 +2569,8 @@ export default {
                 }],
                 "result":"Option[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns the first non-None result of applying the partial function `f` to each element of `xs`.\n\n Returns `None` if every element of `xs` is `None`."
             },{
                 "name":"range",
@@ -2311,7 +2583,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"List[Int32]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"e - b",
                 "space":"e - b",
                 "comment":"Returns a list of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns `Nil` if `b >= e`."
@@ -2328,7 +2600,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns `xs` with its elements rotated `n` positions to the right.\n\n That is, returns a new list where the last `n mod length(xs)` elements in `xs`\n are the first `n mod length(xs)` elements of the new list."
@@ -2342,7 +2614,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"1",
                 "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the first element of `xs`.\n\n Returns `None` if `xs` is empty."
@@ -2356,7 +2628,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"1",
                 "space":"1",
                 "comment":"Returns true if and only if `xs` is the empty list, i.e. `Nil`."
@@ -2372,7 +2644,7 @@ export default {
                     "type":"Unit ~> Result[Option[a], e]"
                 }],
                 "result":"Result[List[a], e]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Build a list by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Ok(Some(a)` to signal a new list element `Ok(a)`.\n\n `next` should return `Ok(None)` to signal the end of building the list.\n\n `next` should return `Err(e)` to signal that an error occurred. The function returns `Err(e)`."
             },{
                 "name":"toString",
@@ -2382,7 +2654,9 @@ export default {
                     "type":"List[Char]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the list of characters `xs` as a string."
             },{
                 "name":"replace",
@@ -2400,7 +2674,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns `xs` with every occurrence of `x` replaced by `y`."
@@ -2417,7 +2691,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `xs` is a prefix of `ys`."
             },{
                 "name":"take",
@@ -2432,7 +2708,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"n",
                 "comment":"Returns the first `n` elements of `xs`.\n\n Returns `xs` if `n > length(xs)`.\n Returns `Nil` if `n < 0`."
             },{
                 "name":"partition",
@@ -2447,7 +2725,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"(List[a], List[a])",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns a pair of lists `(ys, zs)`.\n\n `ys` contains all elements of `xs` that satisfy the predicate `f`.\n `zs` contains all elements of `xs` that do not satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"scanLeft",
@@ -2470,8 +2750,6 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
-                "time":"time(f) * List.length(xs)",
-                "space":"space(f) * List.length(xs)",
                 "comment":"Accumulates the result of applying `f` to `xs` going left to right.\n\n That is, the result is of the form: `s :: f(s, x1) :: f(f(s, x1), x2)  ...`."
             },{
                 "name":"filter",
@@ -2486,7 +2764,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns a list of every element in `xs` that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"indexOf",
@@ -2501,7 +2781,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"1",
                 "comment":"Returns the position of `a` in `xs`.\n\n Returns `-1` if `a` does not exist in `xs`."
@@ -2518,7 +2798,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Partitions `xs` into sublists such that for any two elements `x` and `y` in a sublist, `f(x, y)` is true.\n\n A sublist is created by iterating through the remaining elements of `xs` from left to right and adding an\n element to the sublist if and only if doing so creates no conflicts with the elements already in the sublist.\n\n The function `f` must be pure."
             },{
                 "name":"flatMap",
@@ -2554,7 +2836,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns `ys` appended to `xs`.\n\n The infix operator `:::` is an alias for `append` (`xs ::: ys = append(xs, ys)`)."
@@ -2568,7 +2850,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the last element of `xs`.\n\n Returns `None` if `xs` is empty."
@@ -2585,7 +2867,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"time(f) * List.length(xs)",
                 "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
@@ -2602,7 +2884,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns the number of elements in `xs` that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"subsequences",
@@ -2614,7 +2898,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs) * List.length(xs)",
+                "space":"List.length(xs) * List.length(xs)",
                 "comment":"Returns all subsequences of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first subsequence and `Nil` is the last subsequence."
             },{
                 "name":"fold2",
@@ -2642,6 +2928,8 @@ export default {
                 }],
                 "result":"c",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Alias for `foldLeft2`."
             },{
                 "name":"patch",
@@ -2662,7 +2950,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"List.length(ys)",
                 "comment":"Returns `ys` with the `n` elements starting at index `i` replaced with the elements of `xs`.\n\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `ys` then no patching is done at these indices.\n If `xs` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `ys`, then the element at index `j` in `xs` is used."
             },{
                 "name":"filterMap",
@@ -2682,6 +2972,8 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Collects the results of applying the partial function `f` to every element in `xs`."
             },{
                 "name":"__eq",
@@ -2696,7 +2988,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if and only if `xs` and `ys` and equal."
             },{
                 "name":"find",
@@ -2711,7 +3003,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"time(f) * List.length(xs)",
                 "space":"space(f)",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
@@ -2725,7 +3017,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"1",
                 "comment":"Returns the length of `xs`."
@@ -2761,7 +3053,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns `xs` with `a` inserted between every two adjacent elements."
             },{
                 "name":"init",
@@ -2773,7 +3067,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the sublist of `xs` without the last element.\n Returns `None` if the list `xs` is `Nil`."
             },{
                 "name":"findRight",
@@ -2788,7 +3084,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"time(f) * List.length(xs)",
                 "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
@@ -2802,7 +3098,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the list `xs` as an array."
             },{
                 "name":"exists",
@@ -2817,7 +3115,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n\n Returns `false` if `xs` is empty.\n\n The function `f` must be pure."
             },{
                 "name":"foldRight",
@@ -2854,7 +3154,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"1",
                 "comment":"Returns `true` if and only if `xs` contains the element `a`."
@@ -2879,8 +3179,6 @@ export default {
                 }],
                 "result":"List[b]",
                 "effect":"e",
-                "time":"time(f) * List.length(xs)",
-                "space":"space(f) * List.length(xs)",
                 "comment":"Accumulates the result of applying `f` to `xs` going right to left.\n\n That is, the result is of the form: `... f(xn-1, f(xn, s)) :: f(xn, s) :: s`."
             },{
                 "name":"reverse",
@@ -2892,7 +3190,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns the reverse of `xs`."
@@ -2929,7 +3227,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"i",
                 "space":"i",
                 "comment":"Returns `xs` with the element at index `i` replaced by `a`.\n\n Returns `xs` if `i < 0` or `i > length(xs)-1`."
@@ -2946,7 +3244,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"(List[a], List[a])",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns a pair of lists `(ys, zs)`.\n\n `ys` is the longest prefix of `xs` that satisfies the predicate `f`.\n `zs` is the remainder of `xs`.\n\n The function `f` must be pure."
             },{
                 "name":"permutations",
@@ -2958,7 +3258,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.factorial(List.length(xs))",
+                "space":"Int32.factorial(List.length(xs))",
                 "comment":"Returns all permutations of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first permutation and `reverse(xs)` is the last permutation."
             },{
                 "name":"zip",
@@ -2975,7 +3277,7 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[(a, b)]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"Int32.min(List.length(xs), List.length(ys))",
                 "space":"Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Returns a list where the element at index `i` is `(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
@@ -3002,6 +3304,8 @@ export default {
                 }],
                 "result":"List[c]",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Returns a list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list.\n Functionally equivalent to zipWith."
             },{
                 "name":"sortWith",
@@ -3016,7 +3320,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs) * Int32.log2(List.length(xs))",
+                "space":"List.length(xs)",
                 "comment":"Sort list `xs` with the comparing function `cmp`.\n\n The sort implementation is a mergesort.\n Acknowledgement: derived from Thomas Nordin's `sortBy` in the Haskell base libraries."
             },{
                 "name":"repeat",
@@ -3031,7 +3337,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
                 "time":"n",
                 "space":"n",
                 "comment":"Returns a list with the element `a` repeated `n` times.\n\n Returns `Nil` if `n < 0`."
@@ -3048,7 +3354,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f) * List.length(xs)",
                 "comment":"Returns the longest prefix of `xs` that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"forall",
@@ -3063,7 +3371,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * List.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n\n Returns `true` if `xs` is empty.\n\n The function `f` must be pure."
             },{
                 "name":"toMap",
@@ -3077,7 +3387,9 @@ export default {
                     "type":"List[(a, b)]"
                 }],
                 "result":"Map[a, b]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Returns the association list `xs` as a map.\n\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"flatMap2",
@@ -3102,6 +3414,8 @@ export default {
                 }],
                 "result":"List[c]",
                 "effect":"e",
+                "time":"time(f) * Int32.min(List.length(xs), List.length(ys))",
+                "space":"space(f) * Int32.min(List.length(xs), List.length(ys))",
                 "comment":"Concatenates the results of applying `f` pairwise to the elements of `xs` and `ys`."
             },{
                 "name":"map",
@@ -3137,7 +3451,9 @@ export default {
                     "type":"List[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"List.length(xs) - n",
                 "comment":"Returns `xs` without the first `n` elements.\n\n Returns `Nil` if `n > length(xs)`.\n Returns `xs` if `n < 0`."
             }]
         },
@@ -3152,7 +3468,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `xs` is the empty set."
             },{
                 "name":"toMutable",
@@ -3164,7 +3482,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"MutSet[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `xs` as a mutable set."
             },{
                 "name":"fold",
@@ -3198,7 +3518,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[Set[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$7544))))",
+                "space":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$7544))))",
                 "comment":"Returns all subsets of `xs`."
             },{
                 "name":"reduceLeft",
@@ -3227,7 +3549,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs)",
+                "space":"Set.size(xs)",
                 "comment":"Returns the set `xs` as a list."
             },{
                 "name":"__eq",
@@ -3242,7 +3566,7 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if and only if `xs` and `ys` are equal, i.e. they have the same elements."
             },{
                 "name":"difference",
@@ -3257,7 +3581,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs) * Int32.log2(Set.size(ys))",
+                "space":"Set.size(xs) * Int32.log2(Set.size(ys))",
                 "comment":"Returns the difference of `xs` and `ys`, i.e. `xs - ys`."
             },{
                 "name":"empty",
@@ -3266,7 +3592,9 @@ export default {
                 }],
                 "fparams":[],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the empty set.\n\n `Set#{}` is syntactic sugar for `empty` (`Set#{} = empty()`)."
             },{
                 "name":"reduce",
@@ -3298,7 +3626,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Returns the number of elements in `xs` that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"forall",
@@ -3313,7 +3643,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`.\n\n Returns `true` if `xs` is the empty set.\n\n The function `f` must be pure."
             },{
                 "name":"flatMap",
@@ -3333,6 +3665,8 @@ export default {
                 }],
                 "result":"Set[b]",
                 "effect":"e",
+                "time":"time(f) * Set.size(xs) * Int32.log2(Set.size(xs))",
+                "space":"space(f) * Set.size(xs) * Int32.log2(Set.size(xs))",
                 "comment":"Returns the result of applying `f` to every element in `xs` and taking the union."
             },{
                 "name":"union",
@@ -3347,7 +3681,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(ys) * Int32.log2(Set.size(xs))",
+                "space":"Set.size(ys) * Int32.log2(Set.size(xs))",
                 "comment":"Returns the union of `xs` and `ys`."
             },{
                 "name":"insert",
@@ -3362,7 +3698,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Set.size(xs))",
+                "space":"Int32.log2(Set.size(xs))",
                 "comment":"Adds `x` to `xs`."
             },{
                 "name":"exists",
@@ -3377,7 +3715,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`.\n\n Returns `false` if `xs` is the empty set.\n\n The function `f` must be pure."
             },{
                 "name":"map",
@@ -3397,6 +3737,8 @@ export default {
                 }],
                 "result":"Set[b]",
                 "effect":"e",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Set.size(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs`.\n\n Note: The returned set may be smaller than `xs`."
             },{
                 "name":"foldLeft",
@@ -3433,7 +3775,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"(Set[a], Set[a])",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs) * Int32.log2(Set.size(xs))",
+                "space":"Set.size(xs) * Int32.log2(Set.size(xs))",
                 "comment":"Returns a pair of sets `(ys, zs)`.\n\n `ys` contains all elements of `xs` that satisfy the predicate `f`.\n `zs` contains all elements of `xs` that do not satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"flatten",
@@ -3445,7 +3789,9 @@ export default {
                     "type":"Set[Set[a]]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs) * Int32.log2(Set.size(xs))",
+                "space":"Set.size(xs) * Int32.log2(Set.size(xs))",
                 "comment":"Returns the union of the elements in `xs`."
             },{
                 "name":"singleton",
@@ -3457,7 +3803,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the singleton set containing `x`.\n\n `Set#{x}` is syntactic sugar for `singleton` (`Set#{x} = singleton(x)`)."
             },{
                 "name":"unfold",
@@ -3488,7 +3836,7 @@ export default {
                     "type":"Unit ~> Option[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Build a set by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Some(a)` to signal a value pair `a`.\n\n `next` should return `None` to signal the end of building the set."
             },{
                 "name":"delete",
@@ -3503,7 +3851,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Set.size(xs))",
+                "space":"Int32.log2(Set.size(xs))",
                 "comment":"Removes `x` from `xs`."
             },{
                 "name":"toMap",
@@ -3517,7 +3867,9 @@ export default {
                     "type":"Set[(a, b)]"
                 }],
                 "result":"Map[a, b]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs)",
+                "space":"Set.size(xs)",
                 "comment":"Returns the association set `xs` as a map.\n\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"find",
@@ -3532,7 +3884,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"isSubsetOf",
@@ -3547,7 +3901,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs)",
+                "space":"Set.size(xs) * Int32.log2(Set.size(ys))",
                 "comment":"Returns true if and only if every element in `xs` appears in `ys`."
             },{
                 "name":"findRight",
@@ -3562,7 +3918,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"findLeft",
@@ -3577,7 +3935,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"foldRight",
@@ -3614,7 +3974,7 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the result of a three-way comparison between `xs` and `ys`.\n\n Returns n < 0 if `xs` is lexicographically smaller than `ys`.\n Returns n = 0 if `xs` is equal to `ys`.\n Returns n > 0 if `xs` is lexicographically greater than `ys`."
             },{
                 "name":"filter",
@@ -3629,7 +3989,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Set.size(xs)",
+                "space":"space(f) * Set.size(xs)",
                 "comment":"Returns the set of all elements of `xs` that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"reduceRight",
@@ -3664,7 +4026,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Set.size(xs))",
+                "space":"Int32.log2(Set.size(xs))",
                 "comment":"Replaces the element `x` with `y` if `x` is in `xs`. Otherwise, returns `xs`.\n\n Note: The returned set may be smaller than `xs`."
             },{
                 "name":"memberOf",
@@ -3679,7 +4043,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(Set.size(xs))",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is a member of `xs`."
             },{
                 "name":"size",
@@ -3691,7 +4057,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs)",
+                "space":"1",
                 "comment":"Returns the size of `xs`."
             },{
                 "name":"isProperSubsetOf",
@@ -3706,7 +4074,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(xs)",
+                "space":"Set.size(xs) * Int32.log2(Set.size(ys))",
                 "comment":"Returns true if and only if every element in `xs` appears in `ys` and `xs != ys`."
             },{
                 "name":"intersection",
@@ -3721,7 +4091,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Set.size(ys) * Int32.log2(Set.size(xs))",
+                "space":"Set.size(ys) * Int32.log2(Set.size(xs))",
                 "comment":"Returns the intersection of `xs` and `ys`."
             },{
                 "name":"range",
@@ -3734,7 +4106,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Set[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns a set of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns `empty()` if `b >= e`."
             },{
                 "name":"foreach",
@@ -3749,7 +4123,9 @@ export default {
                     "type":"Set[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Set.size(f) * Set.size(xs)",
+                "space":"space(f) * Int32.log2(Set.size(xs))",
                 "comment":"Applies `f` to every element of `xs`.\n\n The function `f` must be impure."
             }]
         },
@@ -3762,7 +4138,7 @@ export default {
                     "type":"Array[Int8]"
                 }],
                 "result":"InputStream",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Creates an `InputStream` from the buffer `b`."
             },{
                 "name":"new",
@@ -3772,7 +4148,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[InputStream, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Creates an `InputStream` reading from the file `f`."
             },{
                 "name":"readBuffer",
@@ -3785,7 +4161,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Int32, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Reads a number of bytes from `s` into `b`.\n\n Returns the number of bytes read.\n\n Returns `-1` if end of stream has been reached."
             },{
                 "name":"readBufferWithOffset",
@@ -3804,7 +4180,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Int32, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Reads a number of bytes from `s` into `b`, starting at index `o`, reading at most `l` bytes.\n\n Returns the number of bytes read.\n\n Returns `-1` if end of stream has been reached."
             },{
                 "name":"readByte",
@@ -3814,7 +4190,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Int32, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Reads a single byte from `s`.\n\n Returns `-1` if end of stream has been reached."
             },{
                 "name":"close",
@@ -3824,7 +4200,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Closes `s` and frees the resource."
             },{
                 "name":"available",
@@ -3834,7 +4210,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Int32, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the number of bytes available in `s`."
             },{
                 "name":"readAll",
@@ -3844,7 +4220,7 @@ export default {
                     "type":"InputStream"
                 }],
                 "result":"Result[Array[Int8], IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Read the whole stream into a byte array"
             }]
         },
@@ -3857,7 +4233,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `1` if `x > 0`, `-1` if `x < 0`, and `0` if `x = 0`."
             },{
                 "name":"clampToInt64",
@@ -3873,7 +4249,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Int64`.\n\n Returns `x` clamped within the Int64 range `minimum` to `maximum`."
             },{
                 "name":"min",
@@ -3886,7 +4262,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"gcd",
@@ -3899,7 +4275,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the greatest common non-negative divisor of `x` and `y`."
             },{
                 "name":"clampToInt8",
@@ -3915,7 +4291,7 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`."
             },{
                 "name":"tryToFloat64",
@@ -3925,7 +4301,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Float64]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Float64]`.\n\n Returns `Some(x as Float64)` if the numeric value of `x` is within the range of Float32.\n\n Warning: even if `x` is in the range of Float64 it may lose precision.\n\n Returns `None` if the numeric value of `x` is outside the range of Float64\n (i.e 4.9E-324 to 1.7976931348623157E308)."
             },{
                 "name":"tryToFloat32",
@@ -3935,8 +4311,18 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Float32]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Float32]`.\n\n Returns `Some(x as Float32)` if the numeric value of `x` is within the range of Float32.\n\n Warning: even if `x` is in the range of Float32 it may lose precision.\n\n Returns `None` if the numeric value of `x` is outside the range of Float32\n (i.e. 1.4E-45 to 3.4028235E38)."
+            },{
+                "name":"log2",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"BigInt"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "comment":"Returns the integer binary logarithm of `x`."
             },{
                 "name":"fromString",
                 "tparams":[],
@@ -3945,7 +4331,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[BigInt, String]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Parse the string `s` as an BigInt, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
             },{
                 "name":"toString",
@@ -3955,7 +4341,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"compare",
@@ -3968,7 +4354,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `1` if `x > y`, `-1` if `x < y`, and `0` if `x = y`."
             },{
                 "name":"abs",
@@ -3978,7 +4364,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the absolute value of `x`."
             },{
                 "name":"tryToInt8",
@@ -3988,7 +4374,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127)."
             },{
                 "name":"clampToFloat32",
@@ -4004,7 +4390,7 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to a `Float32`.\n\n Returns `x` clamped within the Float32 range `minimum` to `maximum`."
             },{
                 "name":"tryToInt16",
@@ -4014,7 +4400,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Int16]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Int16]`.\n\n Returns `Some(x as Int16)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int16\n (i.e. -32768 to 32767)."
             },{
                 "name":"clampToInt32",
@@ -4030,7 +4416,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Int32`.\n\n Returns `x` clamped within the Int32 range `minimum` to `maximum`."
             },{
                 "name":"getBit",
@@ -4043,7 +4429,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n\n The bits of x have positions: 0 (rightmost bit), 1, 2, ..."
             },{
                 "name":"max",
@@ -4056,7 +4442,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"clearBit",
@@ -4069,7 +4455,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `x` with the bit at position `position` cleared (to 0)."
             },{
                 "name":"clampToInt16",
@@ -4085,7 +4471,7 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Int16`.\n\n Returns `x` clamped within the Int16 range `minimum` to `maximum`."
             },{
                 "name":"dist",
@@ -4098,7 +4484,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the distance between `x` and `y`."
             },{
                 "name":"clampToFloat64",
@@ -4114,7 +4500,7 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to a `Float64`.\n\n Returns `x` clamped within the Float64 range `minimum` to `maximum`."
             },{
                 "name":"flipBit",
@@ -4127,7 +4513,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `x` with the bit at position `position` flipped."
             },{
                 "name":"tryToInt32",
@@ -4137,7 +4523,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Int32]`.\n\n Returns `Some(x as Int32)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int32\n (i.e. -2147483648 to 2147483647)."
             },{
                 "name":"tryToInt64",
@@ -4147,7 +4533,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Option[Int64]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Convert `x` to an `Option[Int64]`.\n\n Returns `Some(x as Int64)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int64\n (i.e. -9223372036854775808 to 9223372036854775807)."
             },{
                 "name":"setBit",
@@ -4160,7 +4546,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `x` with the bit at position `position` set (to 1)."
             }]
         },
@@ -4175,7 +4561,9 @@ export default {
                     "type":"Array[Array[a]]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(arrs)",
+                "space":"Array.length(arrs)",
                 "comment":"Returns the concatenation of the arrays of in the array `arrs`."
             },{
                 "name":"takeWhile",
@@ -4190,7 +4578,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Alias for `takeWhileLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"reverse!",
@@ -4202,7 +4592,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Reverse the array `a`, mutating it in place."
             },{
                 "name":"drop",
@@ -4217,7 +4609,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) - n",
+                "space":"Array.length(a) - n",
                 "comment":"Alias for `dropLeft`."
             },{
                 "name":"formatWith",
@@ -4235,7 +4629,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"String",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Render the array `a` as a String. Elements are rendered with the\n function `f` and seperated with the string `sep`."
             },{
                 "name":"zip",
@@ -4252,7 +4648,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[(a, b)]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Int32.min(Array.length(a), Array.length(b))",
+                "space":"Int32.min(Array.length(a), Array.length(b))",
                 "comment":"Returns an array where the element at index `i` is `(x, y)` where\n `x` is the element at index `i` in `a` and `y` is the element at index `i` in `b`.\n\n If either `a` or `b` becomes depleted, then no further elements are added to the resulting array."
             },{
                 "name":"indexOfLeft",
@@ -4267,7 +4665,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Optionally returns the position of the first occurence of `x` in `a`\n searching from left to right."
             },{
                 "name":"range",
@@ -4280,7 +4680,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Array[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns an array of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns `[]` if `b >= e`."
             },{
                 "name":"intersperse",
@@ -4295,7 +4697,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns `a` with `x` inserted between every two adjacent elements."
             },{
                 "name":"reduceLeft",
@@ -4306,13 +4710,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all elements in `a` going from left to right until a single value `v` is obtained.  Returns `Some(v)`.\n\n Returns `None` if `a` is empty."
             },{
                 "name":"get",
@@ -4327,7 +4731,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"a",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the element at position `i` in the array `a`.\n\n Equivalent to the expression `a[i]`."
             },{
                 "name":"foldRight",
@@ -4340,7 +4746,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> c -> c & e"
                 },{
                     "name":"s",
                     "type":"a"
@@ -4349,7 +4755,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `s` and all elements in `a` going from right to left.\n\n That is, the result is of the form: `f(a[0], ...f(a[n-1], f(a[n], s))...)`."
             },{
                 "name":"foreachAccum",
@@ -4369,7 +4775,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"st",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Apply the effectful function `f` to all the elements in the array `a` and the accumulator `s`.\n The function returns the final value of the accumulator `s`."
             },{
                 "name":"memberOf",
@@ -4384,7 +4792,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `a` contains the element `x`."
             },{
                 "name":"foreach",
@@ -4399,7 +4809,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Apply the effectful function `f` to all the elements in the array `a`."
             },{
                 "name":"zipWith",
@@ -4423,7 +4835,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[c]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f) * Int32.min(Array.length(a), Array.length(b))",
                 "comment":"Returns an array where the element at index `i` is `f(x, y)` where\n `x` is the element at index `i` in `a` and `y` is the element at index `i` in `b`.\n\n If either `a` or `b` becomes depleted, then no further elements are added to the resulting array."
             },{
                 "name":"takeWhileRight",
@@ -4438,7 +4852,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the longest suffix of `a` that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"length",
@@ -4450,7 +4866,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the length of the array `a`."
             },{
                 "name":"init",
@@ -4467,7 +4885,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * len",
+                "space":"space(f) * len",
                 "comment":"Build an array of length `len` by applying `f` to the successive indices."
             },{
                 "name":"forall",
@@ -4482,7 +4902,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if all elements in `a` satisfy the predicate `f`.\n\n Returns `true` if `a` is empty."
             },{
                 "name":"dropRight",
@@ -4497,7 +4919,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) - n",
+                "space":"Array.length(a) - n",
                 "comment":"Returns a copy of array `a`, dropping the last `n` elements.\n\n Returns `[]` if `n > length(a)`."
             },{
                 "name":"updateSequence",
@@ -4515,7 +4939,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns a copy of `a` with the elements starting at index `i` replaced by `sub`."
             },{
                 "name":"count",
@@ -4530,7 +4956,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Returns the number of elements in `a` that satisfy the predicate `f`."
             },{
                 "name":"sameElements",
@@ -4545,7 +4973,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Returns `true` if arrays `a` and `b` have the same elements, i.e. are structurally equal."
             },{
                 "name":"toSet",
@@ -4557,7 +4987,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns the array `a` as a set."
             },{
                 "name":"toMap",
@@ -4571,7 +5003,9 @@ export default {
                     "type":"Array[(a, b)]"
                 }],
                 "result":"Map[a, b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns the association list `xs` as a map.\n\n If `xs` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"scan",
@@ -4584,7 +5018,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
                     "type":"b"
@@ -4593,7 +5027,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `scanLeft`."
             },{
                 "name":"fold",
@@ -4606,7 +5040,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"c -> a -> c & e"
                 },{
                     "name":"s",
                     "type":"a"
@@ -4615,7 +5049,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"foldLeft2",
@@ -4630,7 +5064,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"d -> a -> b -> d & e"
                 },{
                     "name":"c",
                     "type":"a"
@@ -4642,7 +5076,9 @@ export default {
                     "type":"Array[b]"
                 }],
                 "result":"c",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f)",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `a` and `b`\n starting with the initial value `c` and going from left to right."
             },{
                 "name":"foldRight2",
@@ -4657,7 +5093,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c -> c & d"
+                    "type":"a -> b -> d -> d & e"
                 },{
                     "name":"c",
                     "type":"a"
@@ -4669,7 +5105,9 @@ export default {
                     "type":"Array[b]"
                 }],
                 "result":"c",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f)",
                 "comment":"Accumulates the result of applying `f` pairwise to the elements of `a` and `b`\n starting with the initial value `c` and going from right to left."
             },{
                 "name":"map2",
@@ -4693,7 +5131,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[c]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f) * Int32.min(Array.length(a), Array.length(b))",
                 "comment":"Returns an array where the element at index `i` is `f(a[i], b[i])`.\n\n If either `a` or `b` becomes depleted, then no further elements are added to the resulting array."
             },{
                 "name":"update",
@@ -4711,7 +5151,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns a copy of `a` with the element at index `i` replaced by `x`.\n\n Returns a shallow copy of `a` if `i < 0` or `i > length(xs)-1`."
             },{
                 "name":"findMap",
@@ -4724,13 +5166,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 }],
                 "result":"Option[b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Returns the first non-None result of applying the partial function `f` to each element of `xs`.\n\n Returns `None` if every element of `xs` is `None`."
             },{
                 "name":"foreachWithIndex",
@@ -4745,7 +5189,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Apply the effectful function `f` to all the elements in the array `a`."
             },{
                 "name":"transpose",
@@ -4757,7 +5203,9 @@ export default {
                     "type":"Array[Array[a]]"
                 }],
                 "result":"Array[Array[a]]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) * Array.length(a)",
+                "space":"Array.length(a) * Array.length(a)",
                 "comment":"Returns the transpose of `a`.\n\n Returns `a` if the dimensions of the elements of `a` are mismatched."
             },{
                 "name":"map",
@@ -4776,7 +5224,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the result of applying `f` to every element in `a`.\n\n The result is a new array."
             },{
                 "name":"takeLeft",
@@ -4791,7 +5241,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"n",
                 "comment":"Returns a fresh array taking first `n` elements of `a`.\n\n Returns `a` if `n > length(xs)`."
             },{
                 "name":"takeRight",
@@ -4806,7 +5258,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"n",
                 "comment":"Returns a fresh array taking last `n` elements of `a`.\n\n Returns `a` if `n > length(xs)`."
             },{
                 "name":"flatMap",
@@ -4825,7 +5279,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the result of applying `f` to every element in `a` and concatenating the results."
             },{
                 "name":"mapWithIndex",
@@ -4844,7 +5300,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the result of applying `f` to every element in `a` along with that element's index.\n\n That is, the result is of the form: `[ f(a[0], 0), f(a[1], 1), ... ]`."
             },{
                 "name":"transform!",
@@ -4859,7 +5317,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Apply `f` to every element in array `a`. Array `a` is mutated."
             },{
                 "name":"reverse",
@@ -4871,7 +5331,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns the reverse of `a`."
             },{
                 "name":"replace",
@@ -4889,7 +5351,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns a copy of `a` with every occurrence of `x` replaced by `y`."
             },{
                 "name":"isPrefixOf",
@@ -4904,7 +5368,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a1)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `a1` is a prefix of `a2`."
             },{
                 "name":"rotateRight",
@@ -4919,7 +5385,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"Array.length(a)",
                 "comment":"Rotate the contents of array `a` by `n` steps to the right."
             },{
                 "name":"indexOf",
@@ -4934,7 +5402,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Alias for `IndexOfLeft`"
             },{
                 "name":"indices",
@@ -4949,7 +5419,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Return the positions of the all the occurences of `x` in `a`."
             },{
                 "name":"head",
@@ -4961,7 +5433,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the first element of `a`.\n\n Returns `None` if `a` is empty."
             },{
                 "name":"findIndexOf",
@@ -4976,7 +5450,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Alias for `findIndexOfLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"last",
@@ -4988,7 +5464,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some(x)` if `x` is the last element of `a`.\n\n Returns `None` if `a` is empty."
             },{
                 "name":"dropLeft",
@@ -5003,7 +5481,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) - n",
+                "space":"Array.length(a) - n",
                 "comment":"Returns a copy of array `a`, dropping the first `n` elements.\n\n Returns `[]` if `n > length(a)`."
             },{
                 "name":"dropWhile",
@@ -5018,7 +5498,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Alias for `dropWhileLeft`.\n\n\n The function `f` must be pure."
             },{
                 "name":"append",
@@ -5033,7 +5515,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) + Array.length(b)",
+                "space":"Array.length(a) + Array.length(b)",
                 "comment":"Return a new array, appending the elements `b` to elements of `a`."
             },{
                 "name":"takeWhileLeft",
@@ -5048,7 +5532,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the longest prefix of `a` that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"dropWhileRight",
@@ -5063,7 +5549,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns copy of array `a` without the longest suffix that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"rotateLeft",
@@ -5078,7 +5566,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"Array.length(a)",
                 "comment":"Rotate the contents of array `a` by `n` steps to the left."
             },{
                 "name":"sortWith!",
@@ -5093,7 +5583,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a) * Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Sort array `a` with the comparing function `cmp`. Array `a` is mutated in place.\n\n The sort implementation is quicksort."
             },{
                 "name":"groupBy",
@@ -5108,7 +5600,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[Array[a]]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Partitions `a` into subarrays such that for any two elements `x` and `y` in a subarray, `f(x, y)` is true.\n\n A subarray is created by iterating through the remaining elements of `a` from left to right and adding an\n element to the subarray if and only if doing so creates no conflicts with the elements already in the subarray.\n\n The function `f` must be pure."
             },{
                 "name":"flatMap2",
@@ -5132,7 +5626,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[c]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f) * Int32.min(Array.length(a), Array.length(b))",
                 "comment":"Concatenates the results of applying `f` pairwise to the elements of `a` and `b`."
             },{
                 "name":"repeat",
@@ -5147,7 +5643,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"n",
                 "comment":"Returns an array with the element `x` repeated `n` times.\n\n Returns `[]` if `n <= 0`."
             },{
                 "name":"exists",
@@ -5162,7 +5660,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if at least one element in `a` satisfies the predicate `f`.\n\n Returns `false` if `a` is empty.\n\n The function `f` must be pure."
             },{
                 "name":"unzip",
@@ -5176,7 +5676,9 @@ export default {
                     "type":"Array[(a, b)]"
                 }],
                 "result":"(Array[a], Array[b])",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns a pair of arrays, the first containing all first components in `a`\n and the second containing all second components in `a`."
             },{
                 "name":"findIndices",
@@ -5191,7 +5693,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns the positions of the all the elements in `a` satisfying `f`.\n\n The function `f` must be pure."
             },{
                 "name":"findLeft",
@@ -5206,7 +5710,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `a` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"filter",
@@ -5221,7 +5727,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns an array of every element in `a` that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"filterMap",
@@ -5240,7 +5748,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Collects the results of applying the partial function `f` to every element in `a`."
             },{
                 "name":"scanRight",
@@ -5253,7 +5763,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
                     "type":"b"
@@ -5262,7 +5772,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Accumulates the result of applying `f` to `xs` going right to left.\n\n That is, the result is of the form: `[..., f(xn-1, f(xn, s)), f(xn, s), s]`."
             },{
                 "name":"reduce",
@@ -5273,13 +5783,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `reduceLeft`."
             },{
                 "name":"toList",
@@ -5291,7 +5801,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Returns the array `a` as a list."
             },{
                 "name":"transformWithIndex!",
@@ -5306,7 +5818,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Apply `f` to every element in array `a` along with that element's index. Array `a` is mutated."
             },{
                 "name":"replace!",
@@ -5324,7 +5838,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Replace every occurrence of `x` by `y` in the array `a`, mutating it in place."
             },{
                 "name":"new",
@@ -5339,7 +5855,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"l",
+                "space":"l",
                 "comment":"Returns a fresh array of length `l` filled with the element `x`.\n\n Equivalent to the expression `[x; l]`."
             },{
                 "name":"slice",
@@ -5357,7 +5875,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns a fresh array with the elements from the array `a` from index `b` (inclusive) until index `e` (exclusive).\n\n Equivalent to the expression `a[b..e]`."
             },{
                 "name":"find",
@@ -5372,7 +5892,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(xs)",
+                "space":"space(f)",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"partition",
@@ -5387,7 +5909,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"(Array[a], Array[a])",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns a pair of lists `(a1, a2)`.\n\n `a1` contains all elements of `a` that satisfy the predicate `f`.\n `a2` contains all elements of `a` that do not satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"take",
@@ -5402,7 +5926,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"n",
                 "comment":"Alias for `takeLeft`."
             },{
                 "name":"isSuffixOf",
@@ -5417,7 +5943,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a1)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `a1` is a prefix of `a2`."
             },{
                 "name":"reduceRight",
@@ -5428,13 +5956,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all elements in `a` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n Returns `None` if `a` is empty."
             },{
                 "name":"isInfixOf",
@@ -5449,7 +5977,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a1)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `a1` is a prefix of `a2`."
             },{
                 "name":"updateSequence!",
@@ -5467,7 +5997,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Update the mutable array `a` with the elements starting at index `i` replaced by `sub`."
             },{
                 "name":"span",
@@ -5482,7 +6014,8 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"(Array[a], Array[a])",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
                 "comment":"Returns a pair of arrays `(a1, a2)`.\n\n `a1` is the longest prefix of `a` that satisfies the predicate `f`.\n `a2` is the remainder of `a`.\n\n The function `f` must be pure."
             },{
                 "name":"intercalate",
@@ -5497,7 +6030,9 @@ export default {
                     "type":"Array[Array[a]]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(arrs)",
+                "space":"Array.length(arrs)",
                 "comment":"Returns the concatenation of the elements in `arrs` with the elements of `sep` inserted between every two adjacent elements."
             },{
                 "name":"fold2",
@@ -5512,7 +6047,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"d -> a -> b -> d & e"
                 },{
                     "name":"c",
                     "type":"a"
@@ -5524,7 +6059,9 @@ export default {
                     "type":"Array[b]"
                 }],
                 "result":"c",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Int32.min(Array.length(a), Array.length(b))",
+                "space":"space(f)",
                 "comment":"Alias for `foldLeft2`."
             },{
                 "name":"indexOfRight",
@@ -5539,7 +6076,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"1",
                 "comment":"Optionally returns the position of the first occurence of `x` in `a`\n searching from right to left."
             },{
                 "name":"patch",
@@ -5560,7 +6099,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"Array.length(b)",
                 "comment":"Returns `b` with the `n` elements starting at index `i` replaced with the elements of `a`.\n\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `b` then no patching is done at these indices.\n If `a` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `b`, then the element at index `j` in `a` is used."
             },{
                 "name":"findIndexOfRight",
@@ -5575,7 +6116,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Optionally returns the position of the first element in `a` satisfying `f`\n searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"foldLeft",
@@ -5588,7 +6131,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"c -> a -> c & e"
                 },{
                     "name":"s",
                     "type":"a"
@@ -5597,7 +6140,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `s` and all elements in `a` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, a[0]), a[1])..., xn)`."
             },{
                 "name":"dropWhileLeft",
@@ -5612,7 +6155,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f) * Array.length(a)",
                 "comment":"Returns copy of array `a` without the longest prefix that satisfies the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"patch!",
@@ -5633,7 +6178,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"n",
+                "space":"1",
                 "comment":"Update the mutable array `b` replacing `n` elements starting at index `i` with the corresponding elements of array `a`.\n\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `b` then no patching is done at these indices.\n If `a` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `b`, then the element at index `j` in `a` is used."
             },{
                 "name":"sortWith",
@@ -5648,7 +6195,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Array.length(a)",
+                "space":"Array.length(a)",
                 "comment":"Sort array `a` with the comparing function `cmp`, returning a sorted copy.\n\n The sort implementation is quicksort."
             },{
                 "name":"findIndexOfLeft",
@@ -5663,7 +6212,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Optionally returns the position of the first element in `x` satisfying `f`.\n\n The function `f` must be pure."
             },{
                 "name":"init2",
@@ -5682,7 +6233,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"(Array[a], Array[b])",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * len",
+                "space":"space(f) * len",
                 "comment":"Build a pair of arrays of length `len` by applying `f` to the successive indices."
             },{
                 "name":"scanLeft",
@@ -5695,7 +6248,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
                     "type":"b"
@@ -5704,7 +6257,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Array[b]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Accumulates the result of applying `f` to `a` going left to right.\n\n That is, the result is of the form: `[s , f(s, x1), f(f(s, x1), x2),  ...]`."
             },{
                 "name":"findRight",
@@ -5719,7 +6272,9 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * Array.length(a)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"put",
@@ -5737,7 +6292,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"Array[a]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
                 "comment":"Stores the value `x` at position `i` in the array `a`.\n\n Equivalent to the expression `a[i] = x`."
             }]
         },
@@ -5753,7 +6310,9 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Alias for logical implication."
             },{
                 "name":"∨",
@@ -5766,7 +6325,9 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Alias for logical disjunction."
             },{
                 "name":"∧",
@@ -5779,7 +6340,9 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Alias for logical conjunction."
             },{
                 "name":"⊕",
@@ -5792,7 +6355,9 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Alias for exclusive or."
             },{
                 "name":"↔",
@@ -5805,7 +6370,9 @@ export default {
                     "type":"Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Alias for logical bi-implication."
             }]
         },
@@ -5818,7 +6385,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[SemVer]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Read a `SemVer` from an `input` String"
             }]
         },
@@ -5831,7 +6398,7 @@ export default {
                     "type":"Web"
                 }],
                 "result":"(Int32, Int32, Int32)",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the RGB-triplet for the given color `c`."
             }]
         },
@@ -5847,7 +6414,7 @@ export default {
                     "type":"SemVer"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Check whether the `specific` SemVer is compatible with the `bound` SemVer according to the SemVer specification"
             }]
         },
@@ -5857,7 +6424,7 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Option[String]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next line read from the standard input stream."
             }]
         },
@@ -5874,7 +6441,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all mappings from the mutable map `m`."
             },{
                 "name":"foldLeftWithKey",
@@ -5889,7 +6456,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"d -> b -> c -> d & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -5898,7 +6465,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all key-value pairs in the mutable map `m` going from left to right.\n\n That is, the result is of the form: `f(...f(k2, f(k1, i, v1), v2)..., vn)`."
             },{
                 "name":"foldWithKey",
@@ -5913,7 +6480,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> k -> v -> c & d"
+                    "type":"d -> k -> v -> d & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -5922,7 +6489,7 @@ export default {
                     "type":"MutMap[k, v]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `foldLeftWithKey`."
             },{
                 "name":"isEmpty",
@@ -5936,7 +6503,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if `m` is the empty map."
             },{
                 "name":"put!",
@@ -5956,7 +6523,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Updates the mutable map `m` with the binding `k -> v`. Replaces any existing binding."
             },{
                 "name":"size",
@@ -5970,7 +6537,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the size of the mutable map `m`."
             },{
                 "name":"reduceRight",
@@ -5983,13 +6550,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all values in the mutable map `m` going from right to left until a single value `v` is obtained. Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(v1, ...f(vn-2, f(vn-1, vn))...))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"forall",
@@ -6006,7 +6573,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if all mappings in the mutable map `m` satisfy the predicate function `f`.\n\n Returns `true` if `m` is the empty map.\n\n The function `f` must be pure."
             },{
                 "name":"keysOf",
@@ -6020,7 +6587,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Set[k]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the keys of the mutable map `m`."
             },{
                 "name":"adjustWithKey!",
@@ -6033,7 +6600,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"b -> c -> c & e"
                 },{
                     "name":"k",
                     "type":"a"
@@ -6042,7 +6609,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Updates the mutable map `m` with `k -> f(k, v)` if `k -> v` is in `m`.\n\n Otherwise leaves the map is unchanged."
             },{
                 "name":"memberOf",
@@ -6059,7 +6626,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if the mutable map `m` contains the key `k`."
             },{
                 "name":"findRight",
@@ -6076,7 +6643,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Optionally returns the first mapping of the mutable map `m` that satisfies the predicate function `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"getWithDefault",
@@ -6096,7 +6663,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"v",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `v` if `k -> v` is in the mutable map `m`.\n\n Otherwise returns `d`."
             },{
                 "name":"reduceLeftWithKey",
@@ -6109,13 +6676,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"b -> c -> b -> c -> (b, c) & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all mappings in the mutable map `m` going from left to right until a single mapping `(k, v)` is obtained. Returns `Some((k, v))`.\n\n That is, the result is of the form: `Some(f(...f(f(k1, v1, k2, v2), k3, v3)..., kn, vn))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"refineWithKey!",
@@ -6132,7 +6699,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all mappings `k -> v` from the mutable map `m` where `(k, v)` does not satisfy the predicate function `f`.\n\n The function `f` must be pure."
             },{
                 "name":"isProperSubmapOf",
@@ -6149,7 +6716,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if all mappings in the mutable map `m1` occur in the mutable map `m2` and `m1 != m2`."
             },{
                 "name":"adjust!",
@@ -6171,7 +6738,7 @@ export default {
                     "type":"MutMap[k, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Updates the mutable map `m` with `k -> f(v)` if `k -> v` is in `m`.\n\n Otherwise leaves the map is unchanged."
             },{
                 "name":"toImmutable",
@@ -6185,7 +6752,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Map[k, v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the mutable map `m` as an immutable map."
             },{
                 "name":"exists",
@@ -6202,7 +6769,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if at least one mapping in the mutable map `m` satisfies the predicate function `f`.\n\n Returns `false` if `m` is the empty map.\n\n The function `f` must be pure."
             },{
                 "name":"refine!",
@@ -6219,7 +6786,7 @@ export default {
                     "type":"MutMap[k, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all mappings `k -> v` from the mutable map `m` where `v` does not satisfy the predicate function `f`.\n\n The function `f` must be pure."
             },{
                 "name":"__eq",
@@ -6236,7 +6803,7 @@ export default {
                     "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if and only if `m1` and `m2` and equal, i.e. they have the same mappings."
             },{
                 "name":"transform!",
@@ -6249,13 +6816,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a & b"
+                    "type":"b -> b & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies the function `f` to every value in the mutable map `m`."
             },{
                 "name":"get",
@@ -6272,7 +6839,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `Some(v)` if `k -> v` is in the mutable map `m`.\n\n Otherwise returns `None`."
             },{
                 "name":"isSubmapOf",
@@ -6289,7 +6856,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if all mappings in the mutable map `m1` occur in the mutable map `m2`."
             },{
                 "name":"foldRight",
@@ -6313,7 +6880,7 @@ export default {
                     "type":"MutMap[k, b]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all values in the mutable map `m` going from right to left.\n\n That is, the result is of the form: `f(v1, ...f(vn-1, f(vn, i)))`."
             },{
                 "name":"toList",
@@ -6327,7 +6894,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"List[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the mutable map `m` as a list of key-value pairs."
             },{
                 "name":"mergeWith!",
@@ -6349,7 +6916,7 @@ export default {
                     "type":"MutMap[k, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Merges the mutable map `m1` into the mutable map `m2` where key collisions are resolved with the merge function `f`."
             },{
                 "name":"getOrElsePut!",
@@ -6369,7 +6936,7 @@ export default {
                     "type":"MutMap[b, a]"
                 }],
                 "result":"v",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `v` if `k -> v` is in the mutable map `m`.\n\n Otherwise updates the mutable map `m` with a new mapping `k -> d` and returns d."
             },{
                 "name":"reduceWithKey",
@@ -6382,13 +6949,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"k -> v -> k -> v -> (k, v) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
                     "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `reduceLeftWithKey`."
             },{
                 "name":"empty",
@@ -6399,7 +6966,7 @@ export default {
                 }],
                 "fparams":[],
                 "result":"MutMap[k, v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh empty mutable map."
             },{
                 "name":"reduceRightWithKey",
@@ -6412,13 +6979,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"b -> c -> b -> c -> (b, c) & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all mappings in the mutable map `m` going from right to left until a single mapping `(k, v)` is obtained. Returns `Some((k, v))`.\n\n That is, the result is of the form: `Some(f(k1, v1, ...f(kn-2, vn-2, f(kn-1, vn-1, kn, vn))...))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"mergeWithKey!",
@@ -6431,7 +6998,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b & c"
+                    "type":"b -> c -> c -> c & e"
                 },{
                     "name":"m1",
                     "type":"MutMap[a, b]"
@@ -6440,7 +7007,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Merges the mutable map `m1` into the mutable map `m2` where key collisions are resolved with the merge function `f`, taking both the key and values."
             },{
                 "name":"transformWithKey!",
@@ -6453,13 +7020,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"b -> c -> c & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies the function `f` to every value in the mutable map `m`."
             },{
                 "name":"fold",
@@ -6474,7 +7041,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> v -> b & c"
+                    "type":"c -> v -> c & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -6483,7 +7050,7 @@ export default {
                     "type":"MutMap[k, v]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"singleton",
@@ -6500,7 +7067,7 @@ export default {
                     "type":"v"
                 }],
                 "result":"MutMap[k, v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the singleton map where the key `k` is mapped to value `v`."
             },{
                 "name":"valuesOf",
@@ -6514,7 +7081,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"List[v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the values of the mutable map `m`."
             },{
                 "name":"reduceLeft",
@@ -6527,13 +7094,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"m",
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all values in the mutable map `m` going from left to right until a single value `v` is obtained. Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(...f(f(v1, v2), v3)..., vn))`\n\n Returns `None` if `m` is the empty map."
             },{
                 "name":"foreach",
@@ -6550,7 +7117,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to every element in the mutable map `m`.\n\n The function `f` must be impure."
             },{
                 "name":"toSet",
@@ -6564,7 +7131,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Set[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the mutable map `m` as a set of key-value pairs."
             },{
                 "name":"foldLeft",
@@ -6579,7 +7146,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"c -> b -> c & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -6588,7 +7155,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all values in the mutable map `m` going from left to right.\n\n That is, the result is of the form: `f(...f(f(i, v1), v2)..., vn)`."
             },{
                 "name":"findLeft",
@@ -6605,7 +7172,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Optionally returns the first mapping of the mutable map `m` that satisfies the predicate function `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"copy",
@@ -6619,7 +7186,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"MutMap[k, v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a shallow copy of the mutable map `m`."
             },{
                 "name":"count",
@@ -6636,7 +7203,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the number of mappings in the mutable map `m` that satisfy the predicate function `f`.\n\n The function `f` must be pure."
             },{
                 "name":"merge!",
@@ -6653,7 +7220,7 @@ export default {
                     "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Merges the mutable map `m1` into the mutable map `m2` in a left-biased manner.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
                 "name":"remove!",
@@ -6670,7 +7237,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes the mapping `k` from the mutable map `m`.\n\n Leaves the map unchanged if the mutable map `m` does not contain any mapping for `k`."
             },{
                 "name":"reduce",
@@ -6683,13 +7250,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"v -> v -> v & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
                     "type":"MutMap[k, v]"
                 }],
                 "result":"Option[v]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `reduceLeft`."
             },{
                 "name":"find",
@@ -6706,7 +7273,7 @@ export default {
                     "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"foldRightWithKey",
@@ -6721,7 +7288,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c -> c & d"
+                    "type":"b -> c -> d -> d & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -6730,7 +7297,7 @@ export default {
                     "type":"MutMap[a, b]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all key-value pairs in the mutable map `m` going from right to left.\n\n That is, the result is of the form: `f(k1, v1, ...f(kn-1, vn-1, f(kn, vn, i)))`."
             }]
         },
@@ -6751,7 +7318,7 @@ export default {
                     "type":"b -> b -> a"
                 }],
                 "result":"c1 -> c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The safety law asserts that the abstract function `fa` is an over-approximation of the concrete\n function `fc` according to the partial order `leq` and abstraction functions `alpha1` and `alpha2`.\n\n NB: This particular law is for binary functions."
             },{
                 "name":"monotone2",
@@ -6767,7 +7334,7 @@ export default {
                     "type":"b -> b -> c"
                 }],
                 "result":"a -> a -> Bool -> b -> b -> Bool -> c -> c -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The monotonicity law asserts that a function `f` is order-preserving w.r.t.\n the partial order `dom` on its domain and the partial order `codom` on its co-domain.\n\n NB: This particular law is for binary functions."
             },{
                 "name":"safe1",
@@ -6785,7 +7352,7 @@ export default {
                     "type":"b -> a"
                 }],
                 "result":"c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The safety law asserts that the abstract function `fa` is an over-approximation of the concrete\n function `fc` according to the partial order `leq` and abstraction function `alpha`.\n\n NB: This particular law is for unary functions."
             },{
                 "name":"monotone1",
@@ -6799,7 +7366,7 @@ export default {
                     "type":"a -> b"
                 }],
                 "result":"a -> a -> Bool -> b -> b -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The monotonicity law asserts that a function `f` is order-preserving w.r.t.\n the partial order `dom` on its domain and the partial order `codom` on its co-domain.\n\n NB: This particular law is for unary functions."
             }]
         },
@@ -6844,6 +7411,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 5-ary function `f` to the values in `v1`, `v2`, ... `v5`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v5` are `Failure(xs1)`."
             },{
                 "name":"lift10",
@@ -6910,6 +7479,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 10-ary function `f` to the values in `v1`, `v2`, ... `v10`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v10` are `Failure(xs1)`."
             },{
                 "name":"sequence",
@@ -6920,10 +7491,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"xs",
-                    "type":"List[Validation[a, b]]"
+                    "type":"List[Validation[t, b]]"
                 }],
                 "result":"Validation[List[t], e]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `Success(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Success(v_i)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated."
             },{
                 "name":"withDefault",
@@ -6940,7 +7511,9 @@ export default {
                     "type":"Validation[a, b]"
                 }],
                 "result":"Validation[t, e]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `v1` if it is `Success(v)`. Otherwise returns `v2`."
             },{
                 "name":"lift4",
@@ -6977,6 +7550,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 4-ary function `f` to the values in `v1`, `v2`, `v3` and `v4`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, `v3` and `v4` are `Failure(xs1)`."
             },{
                 "name":"lift2",
@@ -7003,7 +7578,30 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the binary function `f` to the values in `v1` and `v2`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if either or both of `v1` or `v2` are `Failure(xs1)`."
+            },{
+                "name":"traverseX",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Validation[b, e] & d"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Validation[Unit, e]",
+                "effect":"f",
+                "comment":"Returns `Success()` if each of `f(xs_i)` is `Success(_)`.\n\n Otherwise returns `Failure(e1 :: ... :: en)` with all of the failures concatenated.\n\n This function is the \"forgetful\" version of `traverse`, use it when the you want the effect\n of applying `f` to each element but do not care about collecting the results."
             },{
                 "name":"lift9",
                 "tparams":[{
@@ -7064,6 +7662,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 9-ary function `f` to the values in `v1`, `v2`, ... `v9`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v9` are `Failure(xs1)`."
             },{
                 "name":"toOption",
@@ -7077,7 +7677,9 @@ export default {
                     "type":"Validation[b, a]"
                 }],
                 "result":"Option[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Converts a Validation to an Option.\n\n Returns `Some(t)` if `v` is `Success(t)`.\n Returns `None` otherwise."
             },{
                 "name":"ap",
@@ -7099,6 +7701,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"1",
+                "space":"1",
                 "comment":"Applies the function in `v1` to the value in `v2`."
             },{
                 "name":"traverse",
@@ -7113,7 +7717,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Validation[b, d] & c"
+                    "type":"a -> Validation[b, c] & d"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -7136,7 +7740,9 @@ export default {
                     "type":"Validation[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if `v` is `Success(t)` and `f(t)` is true or if `v` is `Failure`."
             },{
                 "name":"map",
@@ -7158,6 +7764,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Success(f(v))` if `o` is `Success(v)`. Otherwise returns `v`."
             },{
                 "name":"lift8",
@@ -7214,6 +7822,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 8-ary function `f` to the values in `v1`, `v2`, ... `v8`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v8` are `Failure(xs1)`."
             },{
                 "name":"lift7",
@@ -7265,6 +7875,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 7-ary function `f` to the values in `v1`, `v2`, ... `v7`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v7` are `Failure(xs1)`."
             },{
                 "name":"toResult",
@@ -7278,7 +7890,9 @@ export default {
                     "type":"Validation[b, a]"
                 }],
                 "result":"Result[t, Nel[e]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Converts a Validation to a Result.\n\n Returns `Ok(t)` if `v` is `Success(t)`.\n Returns `Err(e)` if `v` is `Failure(e)`."
             },{
                 "name":"toList",
@@ -7292,7 +7906,9 @@ export default {
                     "type":"Validation[b, a]"
                 }],
                 "result":"List[t]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Converts a Validation to a List.\n\n Returns `t :: Nil` if `v` is `Success(v)`.\n Returns `Nil` if `v` is `Failure(e)`."
             },{
                 "name":"getWithDefault",
@@ -7309,7 +7925,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"t",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `t` if `v` is `Success(t).` Otherwise returns `d`."
             },{
                 "name":"exists",
@@ -7326,7 +7944,9 @@ export default {
                     "type":"Validation[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if `v` is `Success(t)` and `f(t)` is true.\n\n Returns `false` if `v` is `Failure`."
             },{
                 "name":"lift6",
@@ -7373,6 +7993,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 6-ary function `f` to the values in `v1`, `v2`, ... `v6`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2`, ... `v6` are `Failure(xs1)`."
             },{
                 "name":"lift3",
@@ -7404,6 +8026,8 @@ export default {
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the ternary function `f` to the values in `v1`, `v2` and `v3`.\n\n Returns the concatenation of all the failures as `Failure(xs)` if any of `v1`, `v2` and `v3` are `Failure(xs1)`."
             }]
         },
@@ -7413,7 +8037,7 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Instant",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the current time from the system clock."
             },{
                 "name":"minus",
@@ -7426,7 +8050,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Instant",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the given instant `x` minus `d` number of nano seconds."
             },{
                 "name":"after",
@@ -7439,7 +8063,7 @@ export default {
                     "type":"Instant"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if `x` is after `y`."
             },{
                 "name":"plus",
@@ -7452,7 +8076,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Instant",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the given instant `x` plus `d` number of nano seconds."
             },{
                 "name":"before",
@@ -7465,7 +8089,7 @@ export default {
                     "type":"Instant"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if `x` is before `y`."
             }]
         },
@@ -7478,7 +8102,7 @@ export default {
                     "type":"ZipInput"
                 }],
                 "result":"Result[List[{ name: String, isDirectory: Bool, stream: InputStream }], IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Reads all entries in `z` into a list of `ZipEntry`."
             },{
                 "name":"new",
@@ -7488,7 +8112,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[ZipInput, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Constructs a `ZipInput` from a `Path`."
             },{
                 "name":"close",
@@ -7498,7 +8122,7 @@ export default {
                     "type":"ZipInput"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Closes `z` and frees the resource."
             }]
         },
@@ -7514,7 +8138,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the String `s` to the StringBuilder `sb`."
             },{
                 "name":"appendInt16!",
@@ -7527,7 +8151,7 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Int16 `i` to the StringBuilder `sb`."
             },{
                 "name":"appendLines!",
@@ -7540,7 +8164,7 @@ export default {
                     "type":"Array[String]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Appends each string in the array `a` to the string builder `sb`."
             },{
                 "name":"appendLine!",
@@ -7553,7 +8177,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the String `s` followed by the system line separator to the StringBuilder `sb`."
             },{
                 "name":"appendInt64!",
@@ -7566,7 +8190,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Int64 `i` to the StringBuilder `sb`."
             },{
                 "name":"appendInt8!",
@@ -7579,7 +8203,7 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Int8 `i` to the StringBuilder `sb`."
             },{
                 "name":"appendLineWith!",
@@ -7597,7 +8221,7 @@ export default {
                     "type":"a"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Appends `f(x)` to the string builder `sb`."
             },{
                 "name":"appendLinesWith!",
@@ -7615,7 +8239,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Appends `f(x)` for each x in array `a` to the string builder `sb`."
             },{
                 "name":"intercalate!",
@@ -7631,7 +8255,7 @@ export default {
                     "type":"Array[String]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the array of strings `a` separating each pair of string with `sep` to the StringBuilder `sb`."
             },{
                 "name":"appendBigInt!",
@@ -7644,7 +8268,7 @@ export default {
                     "type":"BigInt"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the BigInt `i` to the StringBuilder `sb`."
             },{
                 "name":"appendChar!",
@@ -7657,7 +8281,7 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Char `c` to the StringBuilder `sb`."
             },{
                 "name":"appendFloat64!",
@@ -7670,7 +8294,7 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Float64 `d` to the StringBuilder `sb`."
             },{
                 "name":"length",
@@ -7680,7 +8304,7 @@ export default {
                     "type":"StringBuilder"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Return the length of the StringBuilder `sb`."
             },{
                 "name":"toString",
@@ -7690,7 +8314,7 @@ export default {
                     "type":"StringBuilder"
                 }],
                 "result":"String",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Convert the StringBuilder `sb` to a string."
             },{
                 "name":"append!",
@@ -7703,7 +8327,7 @@ export default {
                     "type":"StringBuilder"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the StringBuilder `sb2` to the end of StringBuilder `sb1`."
             },{
                 "name":"appendLineSeparator!",
@@ -7713,7 +8337,7 @@ export default {
                     "type":"StringBuilder"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the system line separator to the StringBuilder `sb`."
             },{
                 "name":"appendFloat32!",
@@ -7726,14 +8350,14 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Float32 `d` to the StringBuilder `sb`."
             },{
                 "name":"new",
                 "tparams":[],
                 "fparams":[],
                 "result":"StringBuilder",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a new mutable StringBuilder."
             },{
                 "name":"appendInt32!",
@@ -7746,7 +8370,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Append the Int32 `i` to the StringBuilder `sb`."
             }]
         },
@@ -7756,49 +8380,49 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one minute."
             },{
                 "name":"oneDay",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one 24 hour day."
             },{
                 "name":"oneMillisecond",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one millisecond."
             },{
                 "name":"oneMicrosecond",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one microsecond."
             },{
                 "name":"oneHour",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one hour."
             },{
                 "name":"oneSecond",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one second."
             },{
                 "name":"oneNanosecond",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the number of nanoseconds in one nanosecond, i.e. one."
             }]
         },
@@ -7811,7 +8435,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` hours."
             },{
                 "name":"milliseconds",
@@ -7821,7 +8445,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` milliseconds."
             },{
                 "name":"microseconds",
@@ -7831,7 +8455,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` microseconds."
             },{
                 "name":"minutes",
@@ -7841,7 +8465,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` minutes."
             },{
                 "name":"days",
@@ -7851,7 +8475,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` days."
             },{
                 "name":"nanoseconds",
@@ -7861,7 +8485,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` nanoseconds."
             },{
                 "name":"seconds",
@@ -7871,7 +8495,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Channel[Unit]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value after `n` seconds."
             }]
         },
@@ -7924,6 +8548,8 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 7-ary function `f` to the values in `o1`, `o2`, ... `o7`.\n\n Returns `None` if any of `o1`, `o2`, ... `o7` are `None`."
             },{
                 "name":"zip",
@@ -7940,25 +8566,10 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Option[(a, b)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some((v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
-            },{
-                "name":"toErr",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                },{
-                    "name":"d",
-                    "type":"a"
-                }],
-                "result":"Result[t, e]",
-                "effect":"Pure",
-                "comment":"Returns the Option value `Err(e)` if `o` is `Some(e)`. Otherwise returns `Ok(d)`."
             },{
                 "name":"map",
                 "tparams":[{
@@ -7977,6 +8588,8 @@ export default {
                 }],
                 "result":"Option[b]",
                 "effect":"e",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Some(f(v))` if `o` is `Some(v)`. Otherwise returns `None`."
             },{
                 "name":"ap",
@@ -7996,7 +8609,426 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(o1)",
+                "space":"space(o1)",
                 "comment":"Applies the function in `o1` to the value in `o2`."
+            },{
+                "name":"flatMap",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> Option[b] & c"
+                },{
+                    "name":"o",
+                    "type":"Option[a]"
+                }],
+                "result":"Option[b]",
+                "effect":"e",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Returns `f(v)` if `o` is `Some(v)`. Otherwise returns `None`."
+            },{
+                "name":"lift2",
+                "tparams":[{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> u & d"
+                },{
+                    "name":"o1",
+                    "type":"Option[t1]"
+                },{
+                    "name":"o2",
+                    "type":"Option[t2]"
+                }],
+                "result":"Option[u]",
+                "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Applies the binary function `f` to the values in `o1` and `o2`.\n\n Returns `None` if either `o1` or `o2` are `None`."
+            },{
+                "name":"lift5",
+                "tparams":[{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"t5"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
+                },{
+                    "name":"o1",
+                    "type":"Option[t1]"
+                },{
+                    "name":"o2",
+                    "type":"Option[t2]"
+                },{
+                    "name":"o3",
+                    "type":"Option[t3]"
+                },{
+                    "name":"o4",
+                    "type":"Option[t4]"
+                },{
+                    "name":"o5",
+                    "type":"Option[t5]"
+                }],
+                "result":"Option[u]",
+                "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Applies the 5-ary function `f` to the values in `o1`, `o2`, ... `o5`.\n\n Returns `None` if any of `o1`, `o2`, ... `o5` are `None`."
+            },{
+                "name":"sequence",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"List[Option[a]]"
+                }],
+                "result":"Option[List[a]]",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
+                "comment":"Returns `Some(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Some(v_i)`. Otherwise returns `None`."
+            },{
+                "name":"foldRight",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> b & c"
+                },{
+                    "name":"o",
+                    "type":"Option[a]"
+                },{
+                    "name":"z",
+                    "type":"a"
+                }],
+                "result":"b",
+                "effect":"e",
+                "comment":"Returns `f(v, z)` if `o` is `Some(v)`. Otherwise returns `z`."
+            },{
+                "name":"count",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"o",
+                    "type":"Option[a]"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Returns `1` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`.\n\n The function `f` must be pure."
+            },{
+                "name":"lift3",
+                "tparams":[{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> u & e"
+                },{
+                    "name":"o1",
+                    "type":"Option[t1]"
+                },{
+                    "name":"o2",
+                    "type":"Option[t2]"
+                },{
+                    "name":"o3",
+                    "type":"Option[t3]"
+                }],
+                "result":"Option[u]",
+                "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Applies the ternary function `f` to the values in `o1`, `o2` and `o3`.\n\n Returns `None` if any of `o1`, `o2` and `o3` are `None`."
+            },{
+                "name":"withDefault",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"o1",
+                    "type":"Option[a]"
+                },{
+                    "name":"o2",
+                    "type":"Option[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `o1` if it is `Some(v)`. Otherwise returns `o2`."
+            },{
+                "name":"unzip",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[(a, b)]"
+                }],
+                "result":"(Option[a], Option[b])",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `(Some(v1), Some(v2))` if `o` is `Some((v1, v2))`. Otherwise returns `(None, None)`."
+            },{
+                "name":"lift4",
+                "tparams":[{
+                    "name":"f"
+                },{
+                    "name":"t1"
+                },{
+                    "name":"t2"
+                },{
+                    "name":"t3"
+                },{
+                    "name":"t4"
+                },{
+                    "name":"u"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"t1 -> t2 -> t3 -> t4 -> u & f"
+                },{
+                    "name":"o1",
+                    "type":"Option[t1]"
+                },{
+                    "name":"o2",
+                    "type":"Option[t2]"
+                },{
+                    "name":"o3",
+                    "type":"Option[t3]"
+                },{
+                    "name":"o4",
+                    "type":"Option[t4]"
+                }],
+                "result":"Option[u]",
+                "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Applies the 4-ary function `f` to the values in `o1`, `o2`, `o3` and `o4`.\n\n Returns `None` if any of `o1`, `o2`, `o3` and `o4` are `None`."
+            },{
+                "name":"getWithDefault",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                },{
+                    "name":"d",
+                    "type":"a"
+                }],
+                "result":"a",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `v` if `o` is `Some(v).` Otherwise returns `d`."
+            },{
+                "name":"traverseX",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Option[b] & c"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Option[Unit]",
+                "effect":"e",
+                "comment":"Returns `Some()` if each of `f(xs_i)` is `Some(_)`. Otherwise returns `None`.\n\n This function is the \"forgetful\" version of `traverse`, use it when the you want the effect\n of applying `f` to each element but do not care about collecting the results."
+            },{
+                "name":"foreach",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a ~> Unit"
+                },{
+                    "name":"o",
+                    "type":"Option[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "time":"time(f)",
+                "space":"space(f)",
+                "comment":"Applies `f` to `v` if `o` is `Some(v)`. Otherwise does nothing.\n\n The function `f` must be impure."
+            },{
+                "name":"toErr",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                },{
+                    "name":"d",
+                    "type":"a"
+                }],
+                "result":"Result[t, e]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns the Option value `Err(e)` if `o` is `Some(e)`. Otherwise returns `Ok(d)`."
+            },{
+                "name":"foldRightM",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"f"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> Option[b] & c"
+                },{
+                    "name":"s",
+                    "type":"a"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Option[b]",
+                "effect":"f",
+                "comment":"Returns the result of applying `f` to a start value `s` and the elements in `xs`\n going from right to left.\n\n If at any step applying `f` fails (i.e. it produces a `None` value) the traversal\n of `xs` is short-circuited and `None` is returned.\n\n If `f` is successfully applied to al elements in `xs` the result is of the form:\n `Some(f(x1, ...f(xn-1, f(xn, s))...))`."
+            },{
+                "name":"toSuccess",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                },{
+                    "name":"e",
+                    "type":"a"
+                }],
+                "result":"Validation[t, e]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns the Validation value `Success(v)` if `o` is `Some(v)`. Otherwise lifts `e` into Validation's `Failure`."
+            },{
+                "name":"toFailure",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"t"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                },{
+                    "name":"d",
+                    "type":"a"
+                }],
+                "result":"Validation[t, e]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `e` into Validation's `Failure` if `o` is `Some(e)`. Otherwise returns `Success(d)`."
+            },{
+                "name":"toMap",
+                "tparams":[{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[(a, b)]"
+                }],
+                "result":"Map[k, v]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns a singleton map with the mapping `k -> v` if `o` is `Some((k, v))`. Otherwise returns the empty map."
+            },{
+                "name":"isEmpty",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                }],
+                "result":"Bool",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `true` iff `o` is `None`."
+            },{
+                "name":"toList",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"o",
+                    "type":"Option[a]"
+                }],
+                "result":"List[a]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns a one-element list of the value `v` if `o` is `Some(v)`. Otherwise returns the empty list."
             },{
                 "name":"lift10",
                 "tparams":[{
@@ -8060,332 +9092,31 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 10-ary function `f` to the values in `o1`, `o2`, ... `o10`.\n\n Returns `None` if any of `o1`, `o2`, ... `o10` are `None`."
             },{
-                "name":"flatMap",
+                "name":"foldLeftM",
                 "tparams":[{
                     "name":"a"
                 },{
                     "name":"b"
                 },{
-                    "name":"e"
+                    "name":"f"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[b] & c"
+                    "type":"b -> a -> Option[b] & c"
                 },{
-                    "name":"o",
-                    "type":"Option[a]"
+                    "name":"s",
+                    "type":"a"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
                 }],
                 "result":"Option[b]",
-                "effect":"e",
-                "comment":"Returns `f(v)` if `o` is `Some(v)`. Otherwise returns `None`."
-            },{
-                "name":"lift2",
-                "tparams":[{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> u & d"
-                },{
-                    "name":"o1",
-                    "type":"Option[t1]"
-                },{
-                    "name":"o2",
-                    "type":"Option[t2]"
-                }],
-                "result":"Option[u]",
                 "effect":"f",
-                "comment":"Applies the binary function `f` to the values in `o1` and `o2`.\n\n Returns `None` if either `o1` or `o2` are `None`."
-            },{
-                "name":"lift5",
-                "tparams":[{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"t5"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
-                },{
-                    "name":"o1",
-                    "type":"Option[t1]"
-                },{
-                    "name":"o2",
-                    "type":"Option[t2]"
-                },{
-                    "name":"o3",
-                    "type":"Option[t3]"
-                },{
-                    "name":"o4",
-                    "type":"Option[t4]"
-                },{
-                    "name":"o5",
-                    "type":"Option[t5]"
-                }],
-                "result":"Option[u]",
-                "effect":"f",
-                "comment":"Applies the 5-ary function `f` to the values in `o1`, `o2`, ... `o5`.\n\n Returns `None` if any of `o1`, `o2`, ... `o5` are `None`."
-            },{
-                "name":"sequence",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"xs",
-                    "type":"List[Option[a]]"
-                }],
-                "result":"Option[List[a]]",
-                "effect":"Pure",
-                "comment":"Returns `Some(v1 :: v2 :: ... :: vn)` if each of `xs_i` is `Some(v_i)`. Otherwise returns `None`."
-            },{
-                "name":"foldRight",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                },{
-                    "name":"e"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> b -> b & c"
-                },{
-                    "name":"o",
-                    "type":"Option[a]"
-                },{
-                    "name":"z",
-                    "type":"a"
-                }],
-                "result":"b",
-                "effect":"e",
-                "comment":"Returns `f(v, z)` if `o` is `Some(v)`. Otherwise returns `z`."
-            },{
-                "name":"count",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> Bool"
-                },{
-                    "name":"o",
-                    "type":"Option[a]"
-                }],
-                "result":"Int32",
-                "effect":"Pure",
-                "comment":"Returns `1` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `0`.\n\n The function `f` must be pure."
-            },{
-                "name":"lift3",
-                "tparams":[{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> u & e"
-                },{
-                    "name":"o1",
-                    "type":"Option[t1]"
-                },{
-                    "name":"o2",
-                    "type":"Option[t2]"
-                },{
-                    "name":"o3",
-                    "type":"Option[t3]"
-                }],
-                "result":"Option[u]",
-                "effect":"f",
-                "comment":"Applies the ternary function `f` to the values in `o1`, `o2` and `o3`.\n\n Returns `None` if any of `o1`, `o2` and `o3` are `None`."
-            },{
-                "name":"withDefault",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"o1",
-                    "type":"Option[a]"
-                },{
-                    "name":"o2",
-                    "type":"Option[a]"
-                }],
-                "result":"Option[a]",
-                "effect":"Pure",
-                "comment":"Returns `o1` if it is `Some(v)`. Otherwise returns `o2`."
-            },{
-                "name":"unzip",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"b"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[(a, b)]"
-                }],
-                "result":"(Option[a], Option[b])",
-                "effect":"Pure",
-                "comment":"Returns `(Some(v1), Some(v2))` if `o` is `Some((v1, v2))`. Otherwise returns `(None, None)`."
-            },{
-                "name":"lift4",
-                "tparams":[{
-                    "name":"f"
-                },{
-                    "name":"t1"
-                },{
-                    "name":"t2"
-                },{
-                    "name":"t3"
-                },{
-                    "name":"t4"
-                },{
-                    "name":"u"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> u & f"
-                },{
-                    "name":"o1",
-                    "type":"Option[t1]"
-                },{
-                    "name":"o2",
-                    "type":"Option[t2]"
-                },{
-                    "name":"o3",
-                    "type":"Option[t3]"
-                },{
-                    "name":"o4",
-                    "type":"Option[t4]"
-                }],
-                "result":"Option[u]",
-                "effect":"f",
-                "comment":"Applies the 4-ary function `f` to the values in `o1`, `o2`, `o3` and `o4`.\n\n Returns `None` if any of `o1`, `o2`, `o3` and `o4` are `None`."
-            },{
-                "name":"getWithDefault",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                },{
-                    "name":"d",
-                    "type":"a"
-                }],
-                "result":"a",
-                "effect":"Pure",
-                "comment":"Returns `v` if `o` is `Some(v).` Otherwise returns `d`."
-            },{
-                "name":"foreach",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a ~> Unit"
-                },{
-                    "name":"o",
-                    "type":"Option[a]"
-                }],
-                "result":"Unit",
-                "effect":"Impure",
-                "comment":"Applies `f` to `v` if `o` is `Some(v)`. Otherwise does nothing.\n\n The function `f` must be impure."
-            },{
-                "name":"toSuccess",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                },{
-                    "name":"e",
-                    "type":"a"
-                }],
-                "result":"Validation[t, e]",
-                "effect":"Pure",
-                "comment":"Returns the Validation value `Success(v)` if `o` is `Some(v)`. Otherwise lifts `e` into Validation's `Failure`."
-            },{
-                "name":"toFailure",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"t"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                },{
-                    "name":"d",
-                    "type":"a"
-                }],
-                "result":"Validation[t, e]",
-                "effect":"Pure",
-                "comment":"Returns `e` into Validation's `Failure` if `o` is `Some(e)`. Otherwise returns `Success(d)`."
-            },{
-                "name":"toMap",
-                "tparams":[{
-                    "name":"k"
-                },{
-                    "name":"v"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[(a, b)]"
-                }],
-                "result":"Map[k, v]",
-                "effect":"Pure",
-                "comment":"Returns a singleton map with the mapping `k -> v` if `o` is `Some((k, v))`. Otherwise returns the empty map."
-            },{
-                "name":"isEmpty",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` iff `o` is `None`."
-            },{
-                "name":"toList",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"o",
-                    "type":"Option[a]"
-                }],
-                "result":"List[a]",
-                "effect":"Pure",
-                "comment":"Returns a one-element list of the value `v` if `o` is `Some(v)`. Otherwise returns the empty list."
+                "comment":"Returns the result of applying `f` to a start value `s` and the elements in `xs`\n going from left to right.\n\n If at any step applying `f` fails (i.e. it produces a `None` value) the traversal\n of `xs` is short-circuited and `None` is returned.\n\n If `f` is successfully applied to all the elements in `xs` the result is of the form:\n `Some(f(...f(f(s, x1), x2)..., xn))`."
             },{
                 "name":"filter",
                 "tparams":[{
@@ -8399,7 +9130,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `o` if `o` is `Some(v)` and the predicate `f(v)` is true. Otherwise returns `None`.\n\n The function `f` must be pure."
             },{
                 "name":"exists",
@@ -8414,7 +9147,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `false`.\n\n The function `f` must be pure."
             },{
                 "name":"toOk",
@@ -8431,7 +9166,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"Result[t, e]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the Option value `Ok(v)` if `o` is `Some(v)`. Otherwise returns `Err(e)`."
             },{
                 "name":"flatMap2",
@@ -8456,6 +9193,8 @@ export default {
                 }],
                 "result":"Option[c]",
                 "effect":"e",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `f(v1, v2)` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
             },{
                 "name":"flatten",
@@ -8467,7 +9206,9 @@ export default {
                     "type":"Option[Option[a]]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `v` if `o` is `Some(v)`. Otherwise returns `None`."
             },{
                 "name":"traverse",
@@ -8480,7 +9221,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[b] & c"
+                    "type":"a -> Option[b] & c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -8504,7 +9245,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `Some(y)` if `o` is `Some(x)`. Otherwise returns `o`."
             },{
                 "name":"forall",
@@ -8519,7 +9262,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `true` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true` or if `o` is `None`.\n\n Otherwise returns `false`.\n\n The function `f` must be pure."
             },{
                 "name":"lift9",
@@ -8579,6 +9324,8 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 9-ary function `f` to the values in `o1`, `o2`, ... `o9`.\n\n Returns `None` if any of `o1`, `o2`, ... `o9` are `None`."
             },{
                 "name":"map2",
@@ -8603,6 +9350,8 @@ export default {
                 }],
                 "result":"Option[c]",
                 "effect":"e",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `Some(f(v1, v2))` if `o1` is `Some(v1)` and `o2` is `Some(v2)`. Otherwise returns `None`."
             },{
                 "name":"lift8",
@@ -8657,6 +9406,8 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 8-ary function `f` to the values in `o1`, `o2`, ... `o8`.\n\n Returns `None` if any of `o1`, `o2`, ... `o8` are `None`."
             },{
                 "name":"find",
@@ -8671,7 +9422,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Returns `o` if `o` is `Some(v)` and the predicate `f(v)` evaluates to `true`. Otherwise returns `None`.\n\n The function `f` must be pure."
             },{
                 "name":"lift6",
@@ -8716,6 +9469,8 @@ export default {
                 }],
                 "result":"Option[u]",
                 "effect":"f",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies the 6-ary function `f` to the values in `o1`, `o2`, ... `o6`.\n\n Returns `None` if any of `o1`, `o2`, ... `o6` are `None`."
             },{
                 "name":"toSet",
@@ -8727,7 +9482,9 @@ export default {
                     "type":"Option[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a one-element set of the value `v` if `o` is `Some(v)`. Otherwise returns the empty set."
             },{
                 "name":"foldLeft",
@@ -8762,7 +9519,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default blue color."
             },{
                 "name":"red",
@@ -8772,7 +9529,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default red color."
             },{
                 "name":"magenta",
@@ -8782,7 +9539,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default magenta color."
             },{
                 "name":"cyan",
@@ -8792,7 +9549,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default cyan color."
             },{
                 "name":"green",
@@ -8802,7 +9559,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default green color."
             },{
                 "name":"white",
@@ -8812,7 +9569,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default white color."
             },{
                 "name":"yellow",
@@ -8822,7 +9579,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the default yellow color."
             }]
         },
@@ -8835,7 +9592,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the character `c` as an Int32."
             },{
                 "name":"isLetter",
@@ -8845,7 +9604,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is a letter character."
             },{
                 "name":"isUpperCase",
@@ -8855,7 +9616,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is uppercase."
             },{
                 "name":"toUpperCase",
@@ -8865,7 +9628,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Char",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Converts a letter to its uppercase version.\n\n Returns the original character if it does not have a uppercase version."
             },{
                 "name":"isDigit",
@@ -8875,7 +9640,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is a recognized Unicode digit.\n This includes the ASCII range 0..9 but also Arabic-Indic digits, Devagari digits and Fullwidth digits."
             },{
                 "name":"toLowerCase",
@@ -8885,7 +9652,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Char",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Converts a letter to its lowercase version.\n\n Returns the original character if it does not have a lowercase version."
             },{
                 "name":"isOctDigit",
@@ -8895,7 +9664,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is in the range 0...7."
             },{
                 "name":"isAscii",
@@ -8905,7 +9676,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is an ascii character."
             },{
                 "name":"isLowerCase",
@@ -8915,7 +9688,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is lowercase."
             },{
                 "name":"isHexDigit",
@@ -8925,7 +9700,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is in the range 0...F."
             },{
                 "name":"toString",
@@ -8935,7 +9712,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the character `c` as a string."
             },{
                 "name":"fromInt32",
@@ -8945,7 +9724,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Char",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the respective character for the int `i`."
             },{
                 "name":"isWhiteSpace",
@@ -8955,7 +9736,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is a white space character."
             },{
                 "name":"isAsciiDigit",
@@ -8965,7 +9748,9 @@ export default {
                     "type":"Char"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the given char `c` is strictly in the range of ASCII digits 0...9."
             }]
         },
@@ -8978,7 +9763,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[Int16]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int16]`.\n\n Returns `Some(x as Int16)` if the numeric value of `x` is within the range\n of Int16, rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int16\n (i.e. -32768 to 32767), or it is NaN or infinity."
             },{
                 "name":"isNan",
@@ -8988,7 +9775,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is the NaN value of type `Float64`."
             },{
                 "name":"min",
@@ -9001,28 +9790,36 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"negativeInfinity",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the negative infinity value of type `Float64`."
             },{
                 "name":"minExponent",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum exponent that a `Float64` may have."
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by a `Float64`."
             },{
                 "name":"tryToBigInt",
@@ -9032,14 +9829,18 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[BigInt]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[BigInt]`.\n\n Returns `Some(x as BigInt)` if the numeric value of `x` is representable as a BigInt.\n\n Returns `None` if the value of `x` is NaN or infinity."
             },{
                 "name":"positiveInfinity",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the positive infinity value of type `Float64`."
             },{
                 "name":"tryToFloat32",
@@ -9049,7 +9850,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[Float32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Float32]`.\n\n Returns `Some(x as Float32)` if the numeric value of `x` is within the range\n of Float32, loss of precision may occur.\n\n Returns `None` if the numeric value of `x` is outside the range of Float32\n (i.e. 1.4E-45 to 3.4028235E38).\n\n If `x` is NaN return `Some(Float32.NaN)``, if `x` is positive or negative infinity return\n `Some` wrapping the corresponding Float32 infinity."
             },{
                 "name":"tryToInt8",
@@ -9059,7 +9862,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` is within the range\n of Int8, rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127), or it is NaN or infinity."
             },{
                 "name":"tryToInt32",
@@ -9069,14 +9874,18 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int32]`.\n\n Returns `Some(x as Int32)` if the numeric value of `x` is within the range\n of Int32, rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int32\n (i.e. -2147483648 to 2147483647), or it is NaN or infinity."
             },{
                 "name":"maxExponent",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum exponent that a `Float64` may have."
             },{
                 "name":"fromString",
@@ -9086,14 +9895,18 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Float64, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":""
             },{
                 "name":"minPositiveValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum positive number representable by a `Float64`."
             },{
                 "name":"toString",
@@ -9103,7 +9916,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"clampToFloat32",
@@ -9119,14 +9934,18 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a `Float32`.\n\n Returns `x` clamped within the Float32 range `minimum` to `maximum`."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by a `Float64`."
             },{
                 "name":"isFinite",
@@ -9136,7 +9955,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is a non-infinite and non-Nan `Float64` value."
             },{
                 "name":"clampToInt64",
@@ -9155,7 +9976,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int64`.\n\n Returns `x` clamped within the Int64 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int64 risks masking it."
             },{
                 "name":"clampToInt16",
@@ -9174,7 +9997,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int16`.\n\n Returns `x` clamped within the Int16 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int16 risks masking it."
             },{
                 "name":"tryToInt64",
@@ -9184,7 +10009,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Option[Int64]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int64]`.\n\n Returns `Some(x as Int64)` if the numeric value of `x` is within the range\n of Int64, rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int64\n (i.e. -9223372036854775808 to 9223372036854775807), or it is NaN or infinity.\n\n Note: while the range of an Int64 is precisely defined using Int64 values,\n converting this range to Float64 values is imprecise."
             },{
                 "name":"clampToInt32",
@@ -9203,7 +10030,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int32`.\n\n Returns `x` clamped within the Int32 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int32 risks masking it."
             },{
                 "name":"clampToInt8",
@@ -9222,7 +10051,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int8 risks masking it."
             },{
                 "name":"isInfinite",
@@ -9232,7 +10063,9 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is an infinite and non-Nan `Float64` value."
             },{
                 "name":"max",
@@ -9245,21 +10078,27 @@ export default {
                     "type":"Float64"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"nan",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the NaN (not a number) value of type `Float64`."
             },{
                 "name":"size",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent a `Float64`."
             }]
         },
@@ -9274,7 +10113,7 @@ export default {
                     "type":"e -> e -> Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The reflexivity law asserts that any element is less than or equal to itself."
             },{
                 "name":"panic",
@@ -9286,7 +10125,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Panics (crashes) the current process with the given message `m`."
             },{
                 "name":"decreasing",
@@ -9298,7 +10139,7 @@ export default {
                     "type":"e -> BigInt"
                 }],
                 "result":"e -> e -> Bool -> e -> e -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The decreasing law asserts that if an element `x` is strictly less than an element `y` then\n the height assigned to `x` is stricty greater than the height assigned to `y`."
             },{
                 "name":"uncurry",
@@ -9315,10 +10156,12 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> c & d & e"
+                    "type":"b -> b -> c & ((e ∧ d) ∨ (f ∧ (¬(((e ∧ d) ∧ (¬d)) ∨ ((¬(e ∧ d)) ∧ d))))) & d"
                 }],
                 "result":"a -> b -> c & (e1 ∧ e2)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the result of uncurrying the function `f`.\n That is, given the function `f: a -> b -> c`, returns a function `(a, b) -> c`"
             },{
                 "name":"identity",
@@ -9330,7 +10173,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":""
             },{
                 "name":"flip",
@@ -9348,7 +10193,9 @@ export default {
                     "type":"b -> a -> c & d"
                 }],
                 "result":"b -> a -> c & e",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the function `f` with input arguments swapped.\n That is, given the function `f: (a, b) -> c`, returns a function `(b, a) -> c`"
             },{
                 "name":"snd",
@@ -9362,7 +10209,9 @@ export default {
                     "type":"(a, b)"
                 }],
                 "result":"b",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the second component of `t`."
             },{
                 "name":"fst",
@@ -9376,7 +10225,9 @@ export default {
                     "type":"(a, b)"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the first component of `t`."
             },{
                 "name":"swap",
@@ -9390,7 +10241,9 @@ export default {
                     "type":"(a, b)"
                 }],
                 "result":"(b, a)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the pair `p` with the components swapped.\n That is, returns `(y, x)` if `p = (x, y)`."
             },{
                 "name":"constant",
@@ -9404,7 +10257,9 @@ export default {
                     "type":"a"
                 }],
                 "result":"b -> a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the constant function with return value `y`.\n That is, returns `f` such that `f(x) = y` for all inputs `x`."
             },{
                 "name":"commutative",
@@ -9418,7 +10273,7 @@ export default {
                     "type":"a -> a -> b"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The commutative law asserts that for a binary operator `f` the result of `f(x, y)` is equal to `f(y, x)`."
             },{
                 "name":"|>",
@@ -9438,6 +10293,8 @@ export default {
                 }],
                 "result":"b",
                 "effect":"e",
+                "time":"1",
+                "space":"1",
                 "comment":"Pipes the given value `x` into the function `f`.\n\n Given a value `x` and a function `f` returns `f(x)`."
             },{
                 "name":"antiSymmetric",
@@ -9449,7 +10306,7 @@ export default {
                     "type":"e -> e -> Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The anti-symmetry law asserts that if `x` is less than or equal to `y` and vice versa then the\n two elements must be equal."
             },{
                 "name":">>",
@@ -9472,7 +10329,9 @@ export default {
                     "type":"b -> a & c"
                 }],
                 "result":"a -> c & (e1 ∧ e2)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Forwards function composition. Applies the function on the left first.\n\n Given the functions `f: a -> b` and `g: b -> c` returns a function `a -> c`"
             },{
                 "name":"||>",
@@ -9494,6 +10353,8 @@ export default {
                 }],
                 "result":"c",
                 "effect":"e",
+                "time":"1",
+                "space":"1",
                 "comment":"Pipes the given pair `x` into the function `f`.\n\n Given a pair `x` and a function `f` returns `f(x)`."
             },{
                 "name":"transitive",
@@ -9505,7 +10366,7 @@ export default {
                     "type":"e -> e -> Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The transitivity law asserts that if `x` less than or equal to `y` and `y` is less than or equal\n to `z` then `x` must be less than or equal to `z`."
             },{
                 "name":"time",
@@ -9517,7 +10378,7 @@ export default {
                     "type":"a -> Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Meta-programming facility to express the time complexity of a function `f`."
             },{
                 "name":"associative",
@@ -9529,7 +10390,7 @@ export default {
                     "type":"a -> a -> a"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The associative law asserts that for a binary operator `f` the result of `f(x, f(y, z))` is equal to `f(f(x, y), z)`."
             },{
                 "name":"curry",
@@ -9547,7 +10408,9 @@ export default {
                     "type":"a -> b -> c & d"
                 }],
                 "result":"a -> b -> c & e",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the result of currying the function `f`.\n That is, given the function `f: (a, b) -> c`, returns a function `a -> b -> c`"
             },{
                 "name":"nonNegative",
@@ -9559,7 +10422,7 @@ export default {
                     "type":"e -> BigInt"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The non-negative law asserts that the co-domain of `h` is non-negative."
             },{
                 "name":"space",
@@ -9571,7 +10434,7 @@ export default {
                     "type":"a -> Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Meta-programming facility to express the space complexity of a function `f`."
             }]
         },
@@ -9586,7 +10449,7 @@ export default {
                     "type":"e"
                 }],
                 "result":"e -> e -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The least element law asserts that the bottom element `⊥` is the smallest element of a partial order `⊑`."
             },{
                 "name":"strict2",
@@ -9602,7 +10465,7 @@ export default {
                     "type":"a -> b -> c"
                 }],
                 "result":"a -> b -> c -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The strictness law asserts that a function `f` between two orders must preserve bottoms: `bot` and `cobot`.\n\n NB: This particular law is for binary functions."
             },{
                 "name":"greatestElement",
@@ -9614,7 +10477,7 @@ export default {
                     "type":"e"
                 }],
                 "result":"e -> e -> Bool -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The greatest element law asserts that the top element `⊤` is the largest element of a partial order `⊑`."
             },{
                 "name":"strict1",
@@ -9628,7 +10491,7 @@ export default {
                     "type":"a -> b"
                 }],
                 "result":"a -> b -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The strictness law asserts that a function `f` between two orders must preserve bottoms: `bot` and `cobot`.\n\n NB: This particular law is for unary functions."
             }]
         },
@@ -9640,7 +10503,7 @@ export default {
                 }],
                 "fparams":[],
                 "result":"Channel[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh unbuffered channel.\n\n An unbuffered channel has an internal capacity of `0`."
             },{
                 "name":"put",
@@ -9655,7 +10518,7 @@ export default {
                     "type":"a"
                 }],
                 "result":"Channel[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Sends the element `x` on the channel `c`.\n\n Equivalent to the expression `c <- x`."
             },{
                 "name":"get",
@@ -9667,7 +10530,7 @@ export default {
                     "type":"Channel[a]"
                 }],
                 "result":"a",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Receives an element from the channel `c`.\n\n Equivalent to the expression `<- c`."
             },{
                 "name":"newWithCapacity",
@@ -9679,7 +10542,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Channel[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh buffered channel with internal capacity `c`."
             }]
         },
@@ -9697,7 +10560,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns `ys` appended to `xs`."
             },{
                 "name":"foldRight",
@@ -9705,10 +10570,12 @@ export default {
                     "name":"a"
                 },{
                     "name":"b"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b"
+                    "type":"a -> b -> b & c"
                 },{
                     "name":"s",
                     "type":"a"
@@ -9717,7 +10584,7 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"b",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Applies `f` to a start value `s` and all elements in `xs` going from right to left.\n\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, s))...)`."
             },{
                 "name":"head",
@@ -9729,22 +10596,26 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the first element of `xs`."
             },{
                 "name":"reduceLeft",
                 "tparams":[{
                     "name":"a"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"a -> a -> a & b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Applies `f` to all elements in `xs` going from left to right until a single value `v` is obtained.\n\n That is, the result is of the form: `f(...f(f(x1, x2), x3)..., xn)`"
             },{
                 "name":"findLeft",
@@ -9759,7 +10630,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from left to right."
             },{
                 "name":"find",
@@ -9774,7 +10647,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f)",
                 "comment":"Alias for `findLeft`."
             },{
                 "name":"unzip",
@@ -9788,7 +10663,9 @@ export default {
                     "type":"Nel[(a, b)]"
                 }],
                 "result":"(Nel[a], Nel[b])",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns a pair of non-empty lists, the first containing all first components in `xs`\n and the second containing all second components in `xs`."
             },{
                 "name":"filter",
@@ -9803,7 +10680,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f) * Nel.length(xs)",
                 "comment":"Returns a list of every element in `xs` that satisfies the predicate `f`."
             },{
                 "name":"count",
@@ -9818,22 +10697,26 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f) * Nel.length(xs)",
                 "comment":"Returns the number of elements in `xs` that satisfy the predicate `f`."
             },{
                 "name":"reduce",
                 "tparams":[{
                     "name":"a"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"a -> a -> a & b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Alias for `reduceLeft`."
             },{
                 "name":"exists",
@@ -9848,7 +10731,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if at least one element in `xs` satisfies the predicate `f`."
             },{
                 "name":"flatten",
@@ -9860,22 +10745,26 @@ export default {
                     "type":"Nel[Nel[a]]"
                 }],
                 "result":"Nel[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns the concatenation of the elements in `xs`."
             },{
                 "name":"reduceRight",
                 "tparams":[{
                     "name":"a"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a"
+                    "type":"a -> a -> a & b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.\n\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`"
             },{
                 "name":"__eq",
@@ -9890,7 +10779,7 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if and only if `xs` and `ys` and equal."
             },{
                 "name":"memberOf",
@@ -9905,7 +10794,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"1",
                 "comment":"Returns `true` if and only if `xs` contains the element `a`."
             },{
                 "name":"toList",
@@ -9917,7 +10808,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `xs` as a normal list."
             },{
                 "name":"zipWith",
@@ -9939,7 +10832,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[c]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Int32.min(Nel.length(xs), Nel.length(ys))",
+                "space":"space(f) * Int32.min(Nel.length(xs), Nel.length(ys))",
                 "comment":"Returns a non-empty list where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"foldLeft",
@@ -9947,10 +10842,12 @@ export default {
                     "name":"a"
                 },{
                     "name":"b"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b"
+                    "type":"b -> a -> b & c"
                 },{
                     "name":"s",
                     "type":"a"
@@ -9959,7 +10856,7 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"b",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
             },{
                 "name":"init",
@@ -9971,7 +10868,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns all elements in `xs` without the last element."
             },{
                 "name":"forall",
@@ -9986,18 +10885,36 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f)",
                 "comment":"Returns `true` if and only if all elements in `xs` satisfy the predicate `f`."
+            },{
+                "name":"singleton",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                }],
+                "result":"Nel[a]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns a new non-empty list containing the single element `x`."
             },{
                 "name":"fold",
                 "tparams":[{
                     "name":"a"
                 },{
                     "name":"b"
+                },{
+                    "name":"e"
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b"
+                    "type":"b -> a -> b & c"
                 },{
                     "name":"s",
                     "type":"a"
@@ -10006,7 +10923,7 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"b",
-                "effect":"Pure",
+                "effect":"e",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"intersperse",
@@ -10021,7 +10938,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns `xs` with `a` inserted between every two adjacent elements."
             },{
                 "name":"map",
@@ -10041,6 +10960,8 @@ export default {
                 }],
                 "result":"Nel[b]",
                 "effect":"e",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f) * Nel.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs`.\n\n That is, the result is of the form: `f(x1) :: f(x2) :: ...`."
             },{
                 "name":"replace",
@@ -10058,7 +10979,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns `xs` with every occurrence of `x` replaced by `y`."
             },{
                 "name":"last",
@@ -10070,7 +10993,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"a",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"1",
                 "comment":"Returns the last element of `xs`."
             },{
                 "name":"zip",
@@ -10087,7 +11012,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[(a, b)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.min(Nel.length(xs), Nel.length(ys))",
+                "space":"Int32.min(Nel.length(xs), Nel.length(ys))",
                 "comment":"Returns a non-empty list where the element at index `i` is `(a, b)` where\n `a` is the element at index `i` in `xs` and `b` is the element at index `i` in `ys`.\n\n If either `xs` or `ys` becomes depleted, then no further elements are added to the resulting list."
             },{
                 "name":"permutations",
@@ -10099,7 +11026,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.factorial(Nel.length(xs))",
+                "space":"Int32.factorial(Nel.length(xs))",
                 "comment":"Returns all permutations of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first permutation and `reverse(xs)` is the last permutation."
             },{
                 "name":"tail",
@@ -10111,7 +11040,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns all elements in `xs` without the first element."
             },{
                 "name":"flatMap",
@@ -10131,6 +11062,8 @@ export default {
                 }],
                 "result":"Nel[b]",
                 "effect":"e",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"time(f) * Nel.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs` and concatenating the results."
             },{
                 "name":"findRight",
@@ -10145,7 +11078,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f)",
                 "comment":"Optionally returns the first element of `xs` that satisfies the predicate `f` when searching from right to left."
             },{
                 "name":"subsequences",
@@ -10157,7 +11092,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[List[a]]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs) * Nel.length(xs)",
+                "space":"Nel.length(xs) * Nel.length(xs)",
                 "comment":"Returns all subsequences of `xs` in lexicographical order by element indices in `xs`.\n\n That is, `xs` is the first subsequence and `Nil` is the last subsequence."
             },{
                 "name":"reverse",
@@ -10169,7 +11106,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Nel[a]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"Nel.length(xs)",
                 "comment":"Returns the reverse of `xs`."
             },{
                 "name":"length",
@@ -10181,7 +11120,9 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Nel.length(xs)",
+                "space":"1",
                 "comment":"Returns the length of `xs`."
             },{
                 "name":"mapWithIndex",
@@ -10201,6 +11142,8 @@ export default {
                 }],
                 "result":"Nel[b]",
                 "effect":"e",
+                "time":"time(f) * Nel.length(xs)",
+                "space":"space(f) * Nel.length(xs)",
                 "comment":"Returns the result of applying `f` to every element in `xs` along with that element's index.\n\n That is, the result is of the form: `f(x1, 0) :: f(x2, 1) :: ...`."
             },{
                 "name":"foreach",
@@ -10215,8 +11158,27 @@ export default {
                     "type":"Nel[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f)",
+                "space":"space(f)",
                 "comment":"Applies `f` to every element of `xs`.\n\n The function `f` must be impure."
+            },{
+                "name":"cons",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"xs",
+                    "type":"Nel[a]"
+                }],
+                "result":"Nel[a]",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns the non-empty list `xs` prefixed with the new element `x`."
             }]
         },
         "Core.Io.ZipOutput":{
@@ -10234,7 +11196,7 @@ export default {
                     "type":"ZipOutput"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Writes `a` to the entry specified by `n` in the `z` `ZipOutput`"
             },{
                 "name":"close",
@@ -10244,7 +11206,7 @@ export default {
                     "type":"ZipOutput"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Closes the `z` `ZipOutput` file"
             },{
                 "name":"new",
@@ -10254,7 +11216,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"ZipOutput",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Constructs a `ZipOutput` from an `OutputStream`"
             }]
         },
@@ -10264,7 +11226,7 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints a newline to the standard output stream."
             },{
                 "name":"printLine",
@@ -10274,7 +11236,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints the given string `s` and a newline to the standard output stream."
             },{
                 "name":"print",
@@ -10284,14 +11246,14 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints the given string `s` to the standard output stream."
             },{
                 "name":"flush",
                 "tparams":[],
                 "fparams":[],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Flushes the standard output stream."
             }]
         },
@@ -10301,28 +11263,36 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the positive infinity value of type `Float32`."
             },{
                 "name":"nan",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the NaN (not a number) value of type `Float32`."
             },{
                 "name":"minExponent",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum exponent that a `Float32` may have."
             },{
                 "name":"maxExponent",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum exponent that a `Float32` may have."
             },{
                 "name":"toString",
@@ -10332,14 +11302,18 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by a `Float32`."
             },{
                 "name":"max",
@@ -10352,14 +11326,18 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by a `Float32`."
             },{
                 "name":"toFloat64",
@@ -10369,7 +11347,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an Float64."
             },{
                 "name":"tryToInt32",
@@ -10379,7 +11359,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int32]`.\n\n Returns `Some(x as Int32)` if the numeric value of `x` is within the range of Int32,\n rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int32\n (i.e. -2147483648 to 2147483647), or it is NaN or infinity.\n\n Note: while the range of an Int32 is precisely defined using Int32 values, converting this range to\n Float32 values is imprecise."
             },{
                 "name":"min",
@@ -10392,14 +11374,18 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"size",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent a `Float32`."
             },{
                 "name":"tryToBigInt",
@@ -10409,14 +11395,18 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Option[BigInt]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[BigInt]`.\n\n Returns `Some(x as BigInt)` if the numeric value of `x` is representable as a BigInt.\n\n Returns `None` if the value of `x` is NaN or infinity."
             },{
                 "name":"negativeInfinity",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the negative infinity value of type `Float32`."
             },{
                 "name":"tryToInt8",
@@ -10426,7 +11416,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` is within the range of Int8,\n rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127), or it is NaN or infinity."
             },{
                 "name":"clampToInt16",
@@ -10445,14 +11437,18 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int16`.\n\n Returns `x` clamped within the Int16 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int16 risks masking it."
             },{
                 "name":"minPositiveValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum positive number representable by a `Float32`."
             },{
                 "name":"isInfinite",
@@ -10462,7 +11458,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is an infinite and non-Nan `Float32` value."
             },{
                 "name":"clampToInt8",
@@ -10481,7 +11479,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int8 risks masking it."
             },{
                 "name":"isFinite",
@@ -10491,7 +11491,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is a non-infinite and non-Nan `Float32` value."
             },{
                 "name":"tryToInt64",
@@ -10501,7 +11503,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Option[Int64]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int64]`.\n\n Returns `Some(x as Int64)` if the numeric value of `x` is within the range of Int64,\n rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int64\n (i.e. -9223372036854775808 to 9223372036854775807), or it is NaN or infinity.\n\n Note: while the range of an Int64 is precisely defined using Int64 values, converting\n this range to Float32 values is imprecise."
             },{
                 "name":"clampToInt32",
@@ -10520,7 +11524,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int32`.\n\n Returns `x` clamped within the Int32 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int32 risks masking it."
             },{
                 "name":"fromString",
@@ -10530,7 +11536,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Float32, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a decimal representation of `x`."
             },{
                 "name":"tryToInt16",
@@ -10540,7 +11548,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Option[Int16]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int16]`.\n\n Returns `Some(x as Int16)` if the numeric value of `x` is within the range of Int16,\n rounding `x` towards 0`.\n\n Returns `None` if the numeric value of `x` is outside the range of Int16\n (i.e. -32768 to 32767), or it is NaN or infinity."
             },{
                 "name":"clampToInt64",
@@ -10559,7 +11569,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int64`.\n\n Returns `x` clamped within the Int64 range `minimum` to `maximum`.\n\n Warning: it is recommended to test `x` for NaN (not-a-number) before calling this\n function. Relying on `nanValue` to convert NaN to a permissable Int64 risks masking it."
             },{
                 "name":"isNan",
@@ -10569,7 +11581,9 @@ export default {
                     "type":"Float32"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns true if and only if `x` is the NaN value of type `Float32`."
             }]
         },
@@ -10582,7 +11596,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` milliseconds."
             },{
                 "name":"stop",
@@ -10592,7 +11606,7 @@ export default {
                     "type":"Ticker"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":""
             },{
                 "name":"seconds",
@@ -10602,7 +11616,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` seconds."
             },{
                 "name":"minutes",
@@ -10612,7 +11626,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` minutes."
             },{
                 "name":"hours",
@@ -10622,7 +11636,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` hours."
             },{
                 "name":"nanoseconds",
@@ -10632,7 +11646,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` nanoseconds."
             },{
                 "name":"days",
@@ -10642,7 +11656,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` days."
             },{
                 "name":"tick",
@@ -10652,7 +11666,7 @@ export default {
                     "type":"Ticker"
                 }],
                 "result":"Channel[Int32]",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":""
             },{
                 "name":"microseconds",
@@ -10662,7 +11676,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Ticker",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a channel that receives the Unit value repeatedly every `n` microseconds."
             }]
         },
@@ -10677,7 +11691,7 @@ export default {
                     "type":"a"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns `true` if the given value `x` is `null`."
             }]
         },
@@ -10690,7 +11704,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an Float32.\n\n The numeric value of `x` may lose precision."
             },{
                 "name":"clampToInt8",
@@ -10706,7 +11722,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`."
             },{
                 "name":"logicalRightShift",
@@ -10719,7 +11737,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 5 bits of `distance` are considered (ie. `distance % 32`).\n A zero is shifted into the leftmost position regardless of sign extension."
             },{
                 "name":"tryToInt16",
@@ -10729,7 +11749,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Option[Int16]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int16]`.\n\n Returns `Some(x as Int16)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int16\n (i.e. -32768 to 32767)."
             },{
                 "name":"tryToInt8",
@@ -10739,7 +11761,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127)."
             },{
                 "name":"bitCount",
@@ -10749,7 +11773,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
             },{
                 "name":"dist",
@@ -10762,8 +11788,22 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
+            },{
+                "name":"log2",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int32"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns the integer binary logarithm of `x`."
             },{
                 "name":"min",
                 "tparams":[],
@@ -10775,21 +11815,27 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"size",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent an `Int32`."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by an `Int32`."
             },{
                 "name":"rotateLeft",
@@ -10802,7 +11848,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
             },{
                 "name":"setBit",
@@ -10815,7 +11863,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 31 (leftmost bit)"
             },{
                 "name":"lowestOneBit",
@@ -10825,7 +11875,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"max",
@@ -10838,7 +11890,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"toString",
@@ -10848,7 +11902,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"compare",
@@ -10861,7 +11917,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
             },{
                 "name":"clearBit",
@@ -10874,14 +11932,18 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 31 (leftmost bit)"
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by an `Int32`."
             },{
                 "name":"flipBit",
@@ -10894,8 +11956,22 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 31 (leftmost bit)"
+            },{
+                "name":"factorial",
+                "tparams":[],
+                "fparams":[{
+                    "name":"x",
+                    "type":"Int32"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "time":"Int32.factorial(x)",
+                "space":"1",
+                "comment":"Returns the factorial of `x`."
             },{
                 "name":"reverse",
                 "tparams":[],
@@ -10904,7 +11980,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
             },{
                 "name":"signum",
@@ -10914,7 +11992,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
             },{
                 "name":"numberOfTrailingZeros",
@@ -10924,7 +12004,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 32 if x=0."
             },{
                 "name":"getBit",
@@ -10937,7 +12019,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 31 (leftmost bit)"
             },{
                 "name":"fromString",
@@ -10947,7 +12031,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Int32, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Parse the string `s` as an Int32, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
             },{
                 "name":"clampToInt16",
@@ -10963,7 +12049,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int16`.\n\n Returns `x` clamped within the Int16 range `minimum` to `maximum`."
             },{
                 "name":"numberOfLeadingZeros",
@@ -10973,7 +12061,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 32 if x=0."
             },{
                 "name":"abs",
@@ -10983,7 +12073,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
             },{
                 "name":"highestOneBitPosition",
@@ -10993,7 +12085,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 31 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"highestOneBit",
@@ -11003,7 +12097,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"toBigInt",
@@ -11013,7 +12109,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a BigInt.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"toFloat64",
@@ -11023,7 +12121,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"rotateRight",
@@ -11036,7 +12136,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
             },{
                 "name":"toInt64",
@@ -11046,7 +12148,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Int64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"lowestOneBitPosition",
@@ -11056,7 +12160,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 31 (leftmost bit)\n                         -1 if x = 0"
             }]
         },
@@ -11071,7 +12177,7 @@ export default {
                     "type":"a -> a -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The upper bound law asserts that the least upper bound operator returns an element that is\n greater than or equal to each of its arguments."
             },{
                 "name":"leastUpperBound",
@@ -11083,7 +12189,7 @@ export default {
                     "type":"a -> a -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The least upper bound law asserts that the least upper bound operator returns the smallest\n element that is larger than its two arguments."
             }]
         },
@@ -11096,7 +12202,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `Console.StdOut.print`."
             },{
                 "name":"printLine",
@@ -11106,7 +12212,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `Console.StdOut.printLine`."
             },{
                 "name":"rgb",
@@ -11119,14 +12225,14 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the string `s` formatted with the given RGB color `c`."
             },{
                 "name":"readLine",
                 "tparams":[],
                 "fparams":[],
                 "result":"Option[String]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `Console.StdIn.readLine`."
             }]
         },
@@ -11139,7 +12245,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Option[List[File]], IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a list of children for the given file `f`.\n\n Returns `None` if the file `f` does not denote a directory."
             },{
                 "name":"newOutputStream",
@@ -11149,7 +12255,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[OutputStream, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Opens the specified `File` into an `OutputStream`"
             },{
                 "name":"newInputStream",
@@ -11159,7 +12265,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[InputStream, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Opens the specified `File` into an `InputStream`"
             },{
                 "name":"getParent",
@@ -11169,7 +12275,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Option[File], IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Optionally returns the file to the parent of the given file `f`.\n\n Returns `None` if `f` has no parent."
             },{
                 "name":"canonical",
@@ -11179,7 +12285,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[File, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Gets the canonical form of the `f` file"
             },{
                 "name":"resolve",
@@ -11192,7 +12298,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"File",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Appends the string `s` to the end of the path `p`"
             },{
                 "name":"new",
@@ -11202,7 +12308,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"File",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a file from the given string `s`."
             },{
                 "name":"isDirectory",
@@ -11212,7 +12318,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is a directory."
             },{
                 "name":"newFromFragments",
@@ -11222,7 +12328,7 @@ export default {
                     "type":"Nel[String]"
                 }],
                 "result":"File",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Combines every string in `n` into a single path"
             },{
                 "name":"readLines",
@@ -11232,7 +12338,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[List[String], IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a list of all the lines in the given file `f`."
             },{
                 "name":"isReadable",
@@ -11242,7 +12348,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is readable."
             },{
                 "name":"isExecutable",
@@ -11252,7 +12358,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is executable."
             },{
                 "name":"writeLines",
@@ -11265,7 +12371,7 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Writes all lines in the list `l` to the file `f`."
             },{
                 "name":"exists",
@@ -11275,7 +12381,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` exists."
             },{
                 "name":"mkdirs",
@@ -11285,7 +12391,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Creates all directories in the path `f` if they don't already exist"
             },{
                 "name":"isSymbolicLink",
@@ -11295,7 +12401,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is a symbolic link."
             },{
                 "name":"isFile",
@@ -11305,7 +12411,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is a file."
             },{
                 "name":"isWritable",
@@ -11315,7 +12421,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[Bool, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if the given file `f` is writable."
             },{
                 "name":"getName",
@@ -11325,7 +12431,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[String, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the name of the directory or file denoted by the given file `f`."
             }]
         },
@@ -11345,7 +12451,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * RedBlackTree.size(tree)",
+                "space":"space(f) * Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Optionally returns the first key-value pair in `tree` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"exists",
@@ -11362,7 +12470,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * RedBlackTree.size(tree)",
+                "space":"space(f) * Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Returns `true` if and only if at least one key-value pair in `tree` satisfies the predicate `f`.\n\n Returns `false` if `tree` is the empty tree.\n\n The function `f` must be pure."
             },{
                 "name":"size",
@@ -11376,7 +12486,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"RedBlackTree.size(tree)",
+                "space":"Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Returns the number of nodes in `tree`."
             },{
                 "name":"foldLeft",
@@ -11423,6 +12535,8 @@ export default {
                 }],
                 "result":"RedBlackTree[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(RedBlackTree.size(tree))",
+                "space":"space(f) + Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Updates `tree` with `k -> v1` if `k -> v` is in `tree` and `f(k, v) = Some(v1)`.\n\n Otherwise, returns `tree`."
             },{
                 "name":"memberOf",
@@ -11439,7 +12553,9 @@ export default {
                     "type":"RedBlackTree[k, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(RedBlackTree.size(tree))",
+                "space":"1",
                 "comment":"Returns `true` if and only if `tree` contains the key `k`."
             },{
                 "name":"findRight",
@@ -11456,7 +12572,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Option[(k, v)]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * RedBlackTree.size(tree)",
+                "space":"space(f) * Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Optionally returns the first key-value pair in `tree` that satisfies the predicate `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"reduceLeft",
@@ -11492,7 +12610,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Option[v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(RedBlackTree.size(tree))",
+                "space":"1",
                 "comment":"Returns `Some(v)` if `k -> v` is in `tree`.\n\n Otherwise returns `None`."
             },{
                 "name":"forall",
@@ -11509,7 +12629,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * RedBlackTree.size(tree)",
+                "space":"space(f) * Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Returns `true` if and only if all key-value pairs in `tree` satisfy the predicate `f`.\n\n Returns `true` if `tree` is the empty tree.\n\n The function `f` must be pure."
             },{
                 "name":"insertWith",
@@ -11535,6 +12657,8 @@ export default {
                 }],
                 "result":"RedBlackTree[k, v]",
                 "effect":"e",
+                "time":"time(f) + Int32.log2(RedBlackTree.size(tree))",
+                "space":"space(f) + Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Updates `tree` with `k -> f(k, v, v1)` if `k -> v1` is in `tree`.\n\n Otherwise, updates `tree` with `k -> v`."
             },{
                 "name":"delete",
@@ -11551,7 +12675,9 @@ export default {
                     "type":"RedBlackTree[k, v]"
                 }],
                 "result":"RedBlackTree[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(RedBlackTree.size(tree))",
+                "space":"Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Removes `k -> v` from `tree` if `tree` contains the key `k`.\n\n Otherwise, returns `tree`."
             },{
                 "name":"foldRight",
@@ -11595,7 +12721,9 @@ export default {
                     "type":"RedBlackTree[k, v]"
                 }],
                 "result":"RedBlackTree[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.log2(RedBlackTree.size(tree))",
+                "space":"Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Updates `tree` with `k -> v` if `k -> v1` is in `tree`.\n\n Otherwise, updates `tree` with `k -> v`."
             },{
                 "name":"reduceRight",
@@ -11625,7 +12753,9 @@ export default {
                 }],
                 "fparams":[],
                 "result":"RedBlackTree[k, v]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the empty tree."
             },{
                 "name":"foreach",
@@ -11642,7 +12772,9 @@ export default {
                     "type":"RedBlackTree[a, b]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"time(f) * RedBlackTree.size(tree)",
+                "space":"space(f) * Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Applies `f` to every key-value pair of `tree`.\n\n The function `f` must be impure."
             }]
         },
@@ -11655,14 +12787,18 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 15 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by an `Int16`."
             },{
                 "name":"toString",
@@ -11672,14 +12808,18 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"size",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent an `Int16`."
             },{
                 "name":"logicalRightShift",
@@ -11692,7 +12832,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 5 bits of `distance` are considered (ie. `distance % 32`).\n A zero is shifted into the leftmost position regardless of sign extension."
             },{
                 "name":"toInt32",
@@ -11702,7 +12844,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Int32.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"clearBit",
@@ -11715,7 +12859,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit)"
             },{
                 "name":"toInt64",
@@ -11725,7 +12871,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Int64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"highestOneBitPosition",
@@ -11735,7 +12883,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 15 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"reverse",
@@ -11745,7 +12895,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
             },{
                 "name":"max",
@@ -11758,7 +12910,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"compare",
@@ -11771,7 +12925,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
             },{
                 "name":"rotateLeft",
@@ -11784,7 +12940,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
             },{
                 "name":"rotateRight",
@@ -11797,7 +12955,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
             },{
                 "name":"signum",
@@ -11807,7 +12967,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
             },{
                 "name":"toFloat64",
@@ -11817,7 +12979,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"flipBit",
@@ -11830,7 +12994,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit)"
             },{
                 "name":"lowestOneBit",
@@ -11840,7 +13006,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"toFloat32",
@@ -11850,7 +13018,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float32.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"bitCount",
@@ -11860,7 +13030,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
             },{
                 "name":"dist",
@@ -11873,7 +13045,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
             },{
                 "name":"getBit",
@@ -11886,7 +13060,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit)"
             },{
                 "name":"highestOneBit",
@@ -11896,7 +13072,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"min",
@@ -11909,7 +13087,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"abs",
@@ -11919,7 +13099,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
             },{
                 "name":"numberOfTrailingZeros",
@@ -11929,7 +13111,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 16 if x=0."
             },{
                 "name":"tryToInt8",
@@ -11939,7 +13123,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127)."
             },{
                 "name":"numberOfLeadingZeros",
@@ -11949,7 +13135,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 16 if x=0."
             },{
                 "name":"toBigInt",
@@ -11959,14 +13147,18 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a BigInt.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by an `Int16`."
             },{
                 "name":"clampToInt8",
@@ -11982,7 +13174,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`."
             },{
                 "name":"setBit",
@@ -11995,7 +13189,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 15 (leftmost bit)"
             },{
                 "name":"fromString",
@@ -12005,7 +13201,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Int16, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Parse the string `s` as an Int16, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
             }]
         },
@@ -12021,7 +13219,9 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Concatenate a list of strings into a single string, inserting the separator `sep` between\n each pair of strings."
             },{
                 "name":"slice",
@@ -12037,7 +13237,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"e - b",
+                "space":"e - b",
                 "comment":"Returns the substring of `s` from index `b` (inclusive) to index `e` (exclusive).\n\n If `b` or `e` are out-of-bounds, return the empty string."
             },{
                 "name":"breakOnRight",
@@ -12050,7 +13252,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"(String, String)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(sub) * String.length(s)",
                 "comment":"Find the last instance of `sub` in string `s`, return a pair of the\n initial string including `sub` and suffix from `sub`."
             },{
                 "name":"abbreviateLeft",
@@ -12063,7 +13267,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Abbreviate the string `s` if it exceeds the width `w`.\n\n If the length of `s` exceeds `w` and `w >= 3\" then `s` is truncated and the first\n three characters are replaced with ellipses.\n\n If the length of `s` exceeds `w` and `w < 3\" then the empty string is returned."
             },{
                 "name":"indexOfLeft",
@@ -12076,7 +13282,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Return the index of the first occurence of `sub` in `s` from the left.\n\n If `sub` is not present in `s` return None.\n\n If `sub` is the empty string return None."
             },{
                 "name":"takeWhileLeft",
@@ -12089,7 +13297,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the initial prefix of string `s` where all the chars satisfy\n the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"toChunks",
@@ -12102,7 +13312,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - k",
+                "space":"String.length(s) - k",
                 "comment":"Split the string `s` into chunks of length `k`, the last chunk may be smaller than `k`.\n\n `k` should be greater than 0."
             },{
                 "name":"unfold",
@@ -12113,7 +13325,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[(Char, b)] & b"
+                    "type":"b -> Option[(Char, b)] & e"
                 },{
                     "name":"x",
                     "type":"b"
@@ -12129,7 +13341,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the upper case version of the string `s`."
             },{
                 "name":"rotateLeft",
@@ -12142,7 +13356,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Rotate the contents of string `s` by `n` steps to the left."
             },{
                 "name":"breakOnLeft",
@@ -12155,7 +13371,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"(String, String)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(sub) * String.length(s)",
                 "comment":"Find the first instance of `sub` in string `s`, return a pair of the\n prefix of string `s` up to `sub` and the rest of string `s` including `sub`."
             },{
                 "name":"endsWith",
@@ -12168,7 +13386,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s2)",
+                "space":"1",
                 "comment":"Returns `true` if the string `s1` ends with the string `s2`."
             },{
                 "name":"patch",
@@ -12187,7 +13407,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns `s` with the `n` elements starting at index `i` replaced with the elements of `sub`.\n\n If any of the indices `i, i+1, i+2, ... , i+n-1` are out of range in `s` then no patching is done at these indices.\n If `s` becomes depleted then no further patching is done.\n If patching occurs at index `i+j` in `s`, then the element at index `j` in `sub` is used."
             },{
                 "name":"indent",
@@ -12200,7 +13422,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) + n",
+                "space":"String.length(s) + n",
                 "comment":"Indent every line in string `s` by `n` spaces. `n` must be greater than `0`.\n\n If the string `s` in nonempty, the returned string normalizes line\n termination characters and adds a line terminator to the last line\n of the string if it does not already end with a newline.\n\n If the string `s` is empty, then the empty string is returned."
             },{
                 "name":"unfoldStringWithIter",
@@ -12210,7 +13434,7 @@ export default {
                     "type":"Unit ~> Option[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Build a string by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Some(s)` to signal a new substring `s`.\n\n `next` should return `None` to signal the end of building the string."
             },{
                 "name":"replaceFirstMatch",
@@ -12226,7 +13450,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) + String.length(rep)",
+                "space":"String.length(s) + String.length(rep)",
                 "comment":"Returns `s` with the first match of the regular expression `patt` replaced by the string `rep`."
             },{
                 "name":"takeLeft",
@@ -12239,7 +13465,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"n",
                 "comment":"Take the first `n` characters of string `s` from the left.\n\n If `n` extends past the end of string `s`, return all the characters\n of `s`."
             },{
                 "name":"padRight",
@@ -12255,7 +13483,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"w",
+                "space":"w",
                 "comment":"Pad the string `s` at the right with the supplied char `c` to fit the width `w`."
             },{
                 "name":"charAt",
@@ -12268,7 +13498,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Char",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the character at position `i` in the string `s`."
             },{
                 "name":"init",
@@ -12277,13 +13509,15 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Int32 -> Char & a"
+                    "type":"Int32 -> Char & e"
                 },{
                     "name":"len",
                     "type":"Int32"
                 }],
                 "result":"String",
                 "effect":"e",
+                "time":"time(f) * len",
+                "space":"space(f) * len",
                 "comment":"Build a string of length `len` by applying `f` to the successive indices."
             },{
                 "name":"intercalate",
@@ -12296,7 +13530,9 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sep) * List.length(xs)",
+                "space":"String.length(sep) * List.length(xs)",
                 "comment":"Concatenate a list of strings into a single string, inserting the separator `sep` between\n each pair of strings."
             },{
                 "name":"isWhiteSpace",
@@ -12306,7 +13542,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns `true` if and only if all chars in `s` are white space characters.\n\n Returns `true` if `s` is empty."
             },{
                 "name":"unlines",
@@ -12316,7 +13554,9 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(a)",
+                "space":"List.length(a)",
                 "comment":"Join the array of strings `a` separating each pair of strings and\n ending the result string with the system dependent line separator."
             },{
                 "name":"replaceMatches",
@@ -12332,7 +13572,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) * String.length(rep)",
+                "space":"String.length(s) * String.length(rep)",
                 "comment":"Returns `s` with every match of the regular expression `patt` replaced by the string `rep`."
             },{
                 "name":"levenshteinDistance",
@@ -12345,7 +13587,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) * String.length(t)",
+                "space":"String.length(s) * String.length(t)",
                 "comment":"Calculate the Levenshtein distance between the strings `s` and `t`.\n\n The answer is the number deletions, insertions or substitutions needed to turn\n string `s` into string `t`."
             },{
                 "name":"commonSuffix",
@@ -12358,7 +13602,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.min(String.length(s1), String.length(s2))",
+                "space":"Int32.min(String.length(s1), String.length(s2))",
                 "comment":"Return the common suffix of strings `s` and `s2`.\n\n Returns the empty string if `s1` and `s2` do not share a common suffix."
             },{
                 "name":"isMatch",
@@ -12371,7 +13617,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"1",
                 "comment":"Returns `true` if the entire string `s` is matched by the regular expression `pattern`.\n\n Note - use `isSubmatch` to search for a substring."
             },{
                 "name":"padLeft",
@@ -12387,21 +13635,10 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"w",
+                "space":"w",
                 "comment":"Pad the string `s` at the left with the supplied char `c` to fit the width `w`."
-            },{
-                "name":"isPrefixOf",
-                "tparams":[],
-                "fparams":[{
-                    "name":"sub",
-                    "type":"String"
-                },{
-                    "name":"s",
-                    "type":"String"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` if and only if `sub` is a prefix of `s`."
             },{
                 "name":"takeWhileRight",
                 "tparams":[],
@@ -12413,7 +13650,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the suffix of string `s` where all the characters satisfy\n the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"dropLeft",
@@ -12426,7 +13665,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - n",
+                "space":"String.length(s) - n",
                 "comment":"Drop the first `n` characters of string `s` from the left.\n\n If `n` extends past the end of string s, return the empty string."
             },{
                 "name":"isSubmatch",
@@ -12439,7 +13680,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"1",
                 "comment":"Returns `true` if the string `s` is matched by the regular expression `pattern` at any point."
             },{
                 "name":"foldLeft",
@@ -12469,7 +13712,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns string `s` with all leading space characters removed."
             },{
                 "name":"rotateRight",
@@ -12482,8 +13727,25 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Rotate the contents of string `s` by `n` steps to the right."
+            },{
+                "name":"contains",
+                "tparams":[],
+                "fparams":[{
+                    "name":"s",
+                    "type":"String"
+                },{
+                    "name":"sub",
+                    "type":"String"
+                }],
+                "result":"Bool",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
+                "comment":"Returns `true` if and only if `sub` is an infix of `s`."
             },{
                 "name":"map2",
                 "tparams":[{
@@ -12501,6 +13763,8 @@ export default {
                 }],
                 "result":"String",
                 "effect":"e",
+                "time":"time(f) * Int32.min(String.length(s), String.length(t))",
+                "space":"space(f) * Int32.min(String.length(s), String.length(t))",
                 "comment":"Returns a string where the element at index `i` is `f(a, b)` where\n `a` is the element at index `i` in `s` and `b` is the element at index `i` in `t`.\n\n If either `s` or `t` becomes depleted, then no further elements are added to the resulting string.\n Functionally equivalent to zipWith."
             },{
                 "name":"isEmpty",
@@ -12510,7 +13774,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `true` if the string `s` is the empty string."
             },{
                 "name":"stripSuffix",
@@ -12523,7 +13789,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - String.length(sub)",
+                "space":"String.length(s) - String.length(sub)",
                 "comment":"Returns `Some(prefix)` of string `s` if its suffix matches `sub`."
             },{
                 "name":"indexOfRightWithOffset",
@@ -12539,21 +13807,10 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"This is `indexOfRight` with a start offset.\n\n Returns `None` if `sub` is the empty string."
-            },{
-                "name":"isSuffixOf",
-                "tparams":[],
-                "fparams":[{
-                    "name":"sub",
-                    "type":"String"
-                },{
-                    "name":"s",
-                    "type":"String"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` if and only if `sub` is a suffix of `s`."
             },{
                 "name":"drop",
                 "tparams":[],
@@ -12565,7 +13822,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - n",
+                "space":"String.length(s) - n",
                 "comment":"Alias for `dropLeft`."
             },{
                 "name":"dropRight",
@@ -12578,7 +13837,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - n",
+                "space":"String.length(s) - n",
                 "comment":"Drop the last `n` characters of string `s` from the right.\n\n If `n` is greater than the length of string `s`, return the empty string."
             },{
                 "name":"commonPrefix",
@@ -12591,7 +13852,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"Int32.min(String.length(s1), String.length(s2))",
+                "space":"Int32.min(String.length(s1), String.length(s2))",
                 "comment":"Return the common prefix of strings `s` and `s2`.\n\n Returns the empty string if `s1` and `s2` do not share a common prefix."
             },{
                 "name":"indexOfLeftWithOffset",
@@ -12607,7 +13870,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"This is `indexOfLeft` with a start offset.\n\n Returns `None` if `sub` is the empty string."
             },{
                 "name":"isAscii",
@@ -12617,7 +13882,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns `true` if and only if all chars in `s` are ascii characters.\n\n Returns `true` if `s` is empty."
             },{
                 "name":"findIndexOfRight",
@@ -12630,7 +13897,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f)",
                 "comment":"Optionally return the position of the first character in `s` satisfying `f`, reading right to left.\n\n If nothing satisfies `f` return None."
             },{
                 "name":"length",
@@ -12640,7 +13909,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the length of the string `s`."
             },{
                 "name":"toLowerCase",
@@ -12650,7 +13921,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the lower case version of the string `s`."
             },{
                 "name":"findIndexOfLeft",
@@ -12663,7 +13936,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f)",
                 "comment":"Optionally returns the position of the first character in `x` satisfying `f`.\n\n Returns `None` if no character in `s` satisfies `f`."
             },{
                 "name":"zip",
@@ -12676,7 +13951,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Array[(Char, Char)]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"Int32.min(String.length(a), String.length(b))",
+                "space":"Int32.min(String.length(a), String.length(b))",
                 "comment":"Returns an array where the element at index `i` is `(x, y)` where\n `x` is the element at index `i` in `a` and `y` is the element at index `i` in `b`.\n\n If either `a` or `b` becomes depleted, then no further elements are added to the resulting array."
             },{
                 "name":"exists",
@@ -12689,7 +13966,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns `true` if and only if at least one char in `s` satisfies the predicate `f`.\n\n Returns `false` if `a` is empty."
             },{
                 "name":"split",
@@ -12702,7 +13981,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Array[String]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"String.length(s) + String.length(r)",
+                "space":"String.length(s)",
                 "comment":"Splits the string `s` around matches of the regular expression `r`."
             },{
                 "name":"findIndices",
@@ -12715,7 +13996,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the positions of the all the elements in `s` satisfying `f`.\n\n The function `f` must be pure."
             },{
                 "name":"unwords",
@@ -12725,7 +14008,9 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(a)",
+                "space":"List.length(a)",
                 "comment":"Join the array of strings `a` separating each pair of strings with a\n single space character."
             },{
                 "name":"dropWhile",
@@ -12738,7 +14023,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Alias for `dropWhileLeft`."
             },{
                 "name":"stripPrefix",
@@ -12751,7 +14038,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - String.length(sub)",
+                "space":"String.length(s) - String.length(sub)",
                 "comment":"Returns `Some(suffix)` of string `s` if its prefix matches `sub`."
             },{
                 "name":"zipWith",
@@ -12770,6 +14059,8 @@ export default {
                 }],
                 "result":"String",
                 "effect":"e",
+                "time":"Int32.min(String.length(a), String.length(b))",
+                "space":"Int32.min(String.length(a), String.length(b))",
                 "comment":"Returns a string where the element at index `i` is `f(x, y)` where\n `x` is the element at index `i` in `a` and `y` is the element at index `i` in `b`.\n\n If either `a` or `b` becomes depleted, then no further elements are added to the resulting array."
             },{
                 "name":"repeat",
@@ -12782,7 +14073,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) * n",
+                "space":"String.length(s) * n",
                 "comment":"Returns a string with the string `s` repeated `n` times.\n\n Returns the empty string if `n < 0`."
             },{
                 "name":"update",
@@ -12798,7 +14091,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns `s` with the element at index `i` replaced by `a`.\n\n Returns `s` if `i < 0` or `i > length(xs)-1`."
             },{
                 "name":"flatten",
@@ -12808,7 +14103,9 @@ export default {
                     "type":"List[String]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"List.length(xs)",
+                "space":"List.length(xs)",
                 "comment":"Concatenate a list of strings into a single string."
             },{
                 "name":"trimRight",
@@ -12818,21 +14115,10 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns string `s` with all trailing space characters removed."
-            },{
-                "name":"isInfixOf",
-                "tparams":[],
-                "fparams":[{
-                    "name":"sub",
-                    "type":"String"
-                },{
-                    "name":"s",
-                    "type":"String"
-                }],
-                "result":"Bool",
-                "effect":"Pure",
-                "comment":"Returns `true` if and only if `sub` is an infix of `s`."
             },{
                 "name":"startsWith",
                 "tparams":[],
@@ -12844,7 +14130,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s2)",
+                "space":"1",
                 "comment":"Returns `true` if the string `s1` starts with the string `s2`."
             },{
                 "name":"dropWhileRight",
@@ -12857,7 +14145,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the front of string `s` after dropping all the characters\n from the right end that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"takeRight",
@@ -12870,7 +14160,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"n",
                 "comment":"Take the last `n` characters of string `s` from the right.\n\n If `n` is greater than the length of string `s`, return all the characters\n of `s`."
             },{
                 "name":"stripIndent",
@@ -12883,7 +14175,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) + n",
+                "space":"String.length(s) + n",
                 "comment":"Strip every indented line in string `s` by `n` spaces. `n` must be greater than `0`.\n Note, tabs are counted as a single space.\n\n If the string `s` in nonempty, the returned string normalizes line\n termination characters and adds a line terminator to the last line\n of the string if it does not already end with a newline.\n\n If the string `s` is empty, then the empty string is returned."
             },{
                 "name":"takeWhile",
@@ -12896,7 +14190,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Alias for `takeWileLeft`."
             },{
                 "name":"replaceChar",
@@ -12912,7 +14208,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns `s` with every match of the character `target` replaced by the character `rep`."
             },{
                 "name":"take",
@@ -12925,7 +14223,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"n",
+                "space":"n",
                 "comment":"Alias for `takeLeft`."
             },{
                 "name":"indexOf",
@@ -12938,7 +14238,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Alias for `indexOfLeft`."
             },{
                 "name":"foldRight2",
@@ -12974,7 +14276,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"e",
+                "space":"e",
                 "comment":"Get the substring of `s` to the left of index `e` (exclusive).\n\n `sliceLeft == slice(s, 0 , e)`"
             },{
                 "name":"reverse",
@@ -12984,7 +14288,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the reverse of `s`."
             },{
                 "name":"indexOfRight",
@@ -12997,7 +14303,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Return the index of the first occurence of `sub` in `s` from the right.\n\n If `sub` is not present in `s` return None.\n\n If `sub` is the empty string return None."
             },{
                 "name":"words",
@@ -13007,7 +14315,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Split the string `s` into an list of words, dividing on one or more white space characters.\n Leading and trailing spaces are trimmed."
             },{
                 "name":"lines",
@@ -13017,7 +14327,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Split the string `s` into an array of lines, breaking on newline.\n\n Newline is recognized as any Unicode linebreak sequence including\n Windows (carriage return, line feed) or Unix (line feed)."
             },{
                 "name":"replace",
@@ -13033,7 +14345,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) * String.length(target)",
+                "space":"String.length(s) * String.length(target)",
                 "comment":"Returns `s` with every match of the substring `target` replaced by the string `rep`."
             },{
                 "name":"unfoldWithIter",
@@ -13043,7 +14357,7 @@ export default {
                     "type":"Unit ~> Option[Char]"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Build a string by applying the function `next` to `()`. `next` is expected to encapsulate\n a stateful resource such as a file handle that can be iterated.\n\n `next` should return `Some(c)` to signal a new char `c`.\n\n `next` should return `None` to signal the end of building the string."
             },{
                 "name":"unfoldString",
@@ -13054,7 +14368,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[(String, b)] & b"
+                    "type":"b -> Option[(String, b)] & e"
                 },{
                     "name":"x",
                     "type":"b"
@@ -13073,7 +14387,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"(String, String)",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Split the string `s` at the position `n` returning the left and\n right parts.\n\n If `n` exceeds the length of string `s`, return the whole string\n paired with the empty string."
             },{
                 "name":"dropWhileAround",
@@ -13086,7 +14402,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the middle of string `s` after dropping all the characters\n from both ends that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"forall",
@@ -13099,7 +14417,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns `true` if and only if all chars in `s` satisfy the predicate `f`.\n\n Returns `true` if `s` is empty."
             },{
                 "name":"foldLeft2",
@@ -13138,6 +14458,8 @@ export default {
                 }],
                 "result":"String",
                 "effect":"e",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the result of applying `f` to every character in `s`."
             },{
                 "name":"foldRight",
@@ -13170,7 +14492,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Abbreviate the string `s` if it exceeds the width `w`.\n\n If the length of `s` exceeds `w` and `w >= 3\" then `s` is truncated and the last\n three characters are replaced with ellipses.\n\n If the length of `s` exceeds `w` and `w < 3\" then the empty string is returned."
             },{
                 "name":"toArray",
@@ -13180,7 +14504,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Array[Char]",
-                "effect":"Impure",
+                "effect":"false",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the given string `s` as an array of characters."
             },{
                 "name":"indices",
@@ -13193,7 +14519,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the positions of the all the occurences of `sub` in `s`.\n\n Returns `Nil` if `sub` is the empty string."
             },{
                 "name":"toList",
@@ -13203,7 +14531,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[Char]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns the given string `s` as a list of characters."
             },{
                 "name":"trim",
@@ -13213,7 +14543,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s)",
+                "space":"String.length(s)",
                 "comment":"Returns a copy of the string `s` without trailing and leading whitespaces.\n\n Returns a new empty string if there is no characters in `s`."
             },{
                 "name":"countSubstring",
@@ -13226,7 +14558,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(sub) * String.length(s)",
+                "space":"String.length(sub) * String.length(s)",
                 "comment":"Count the occurences of `sub` in string `s`."
             },{
                 "name":"sliceRight",
@@ -13239,7 +14573,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) - b",
+                "space":"String.length(s) - b",
                 "comment":"Get the substring of `s` to the right starting at index `b` (inclusive).\n\n `sliceRight == slice(s, b , length(s))`"
             },{
                 "name":"splitOn",
@@ -13252,7 +14588,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"List[String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s) + String.length(sub)",
+                "space":"String.length(s) + String.length(sub)",
                 "comment":"Split the string `s` on matches of `sub`."
             },{
                 "name":"dropWhileLeft",
@@ -13265,7 +14603,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the tail of string `s` after dropping all the initial chars\n that satisfy the predicate `f`.\n\n The function `f` must be pure."
             },{
                 "name":"concat",
@@ -13278,7 +14618,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"String.length(s1) + String.length(s2)",
+                "space":"String.length(s1) + String.length(s2)",
                 "comment":"Returns the string `s1` followed by the string `s2`."
             },{
                 "name":"mapWithIndex",
@@ -13294,13 +14636,17 @@ export default {
                 }],
                 "result":"String",
                 "effect":"e",
+                "time":"time(f) * String.length(s)",
+                "space":"space(f) * String.length(s)",
                 "comment":"Returns the result of applying `f` to every character in `s` along with that character's index."
             },{
                 "name":"lineSeparator",
                 "tparams":[],
                 "fparams":[],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Get the system line separator."
             }]
         },
@@ -13315,7 +14661,7 @@ export default {
                     "type":"a -> a -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The greatest lower bound law asserts that the greatest lower bound operator returns the\n largest element that is smaller than its two arguments."
             },{
                 "name":"lowerBound",
@@ -13327,7 +14673,7 @@ export default {
                     "type":"a -> a -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"The lower bound law asserts that the greatest lower bound operator returns an element that\n is less than or equal to each of its arguments."
             }]
         },
@@ -13340,7 +14686,7 @@ export default {
                     "type":"File"
                 }],
                 "result":"Result[OutputStream, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Opens the specified `File` into an `OutputStream`"
             },{
                 "name":"flush",
@@ -13350,7 +14696,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Sends all bytes to the underlying resource of `s`."
             },{
                 "name":"writeBuffer",
@@ -13363,7 +14709,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Writes the buffer `b` into the `s` stream."
             },{
                 "name":"writeBufferWithOffset",
@@ -13382,7 +14728,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Writes `l` elements of the buffer `b` into the `s` stream, starting from index `o` in the buffer."
             },{
                 "name":"writeByte",
@@ -13395,7 +14741,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Writes a single byte `b` into the `s` stream."
             },{
                 "name":"close",
@@ -13405,7 +14751,7 @@ export default {
                     "type":"OutputStream"
                 }],
                 "result":"Result[Unit, IOError]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Closes the underlying resource of `s`."
             }]
         },
@@ -13418,7 +14764,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom boolean from the given random number generator `r`."
             },{
                 "name":"newWithSeed",
@@ -13428,7 +14774,7 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Random",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh random number generator initialized with the given seed `s`."
             },{
                 "name":"nextFloat32",
@@ -13438,7 +14784,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Float32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom 32-bit floating point number from the given random number generator `r`."
             },{
                 "name":"nextInt64",
@@ -13448,7 +14794,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Int64",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom 64-bit integer value from the given random number generator `r`."
             },{
                 "name":"nextNatWithMax",
@@ -13461,14 +14807,14 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom 32-bit integer value between `0` and `m` (exclusive) using the given random number generator `r`."
             },{
                 "name":"new",
                 "tparams":[],
                 "fparams":[],
                 "result":"Random",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh random number generator."
             },{
                 "name":"choose",
@@ -13483,7 +14829,7 @@ export default {
                     "type":"Array[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a pseudorandom element from the given array `a` using the random number generator `r`.\n\n Returns `None` if the given array `a` is empty."
             },{
                 "name":"nextGaussian",
@@ -13493,7 +14839,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Float64",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom Gaussian distributed 64-bit floating point number."
             },{
                 "name":"nextInt32",
@@ -13503,7 +14849,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom 32-bit integer value from the given random number generator `r`."
             },{
                 "name":"nextFloat64",
@@ -13513,7 +14859,7 @@ export default {
                     "type":"Random"
                 }],
                 "result":"Float64",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the next pseudorandom 64-bit floating point number from the given random number generator `r`."
             }]
         },
@@ -13531,7 +14877,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the number of elements in the mutable set `s` that satisfy the predicate function `f`.\n\n The function `f` must be pure."
             },{
                 "name":"empty",
@@ -13540,7 +14886,7 @@ export default {
                 }],
                 "fparams":[],
                 "result":"MutSet[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a fresh empty set."
             },{
                 "name":"clear!",
@@ -13552,7 +14898,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all elements from the mutable set `s`."
             },{
                 "name":"__eq",
@@ -13567,7 +14913,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if the mutable sets `s1` and `s2` are equal, i.e. they have the same elements."
             },{
                 "name":"reduceLeft",
@@ -13578,13 +14924,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all elements in the mutable set `s` going from left to right until a single value `v` is obtained. Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(...f(f(x1, x2), x3)..., xn))`\n\n Returns `None` if `s` is the empty set."
             },{
                 "name":"isSubsetOf",
@@ -13599,7 +14945,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns true if and only if every element in the mutable set `s1` appears in the mutable set `s2`."
             },{
                 "name":"reduce",
@@ -13610,13 +14956,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `reduceLeftOpt`."
             },{
                 "name":"foreach",
@@ -13631,7 +14977,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to every element of the mutable set `s`.\n\n The function `f` must be impure."
             },{
                 "name":"toImmutable",
@@ -13643,7 +14989,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Set[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the mutable set `s` as an immutable set."
             },{
                 "name":"exists",
@@ -13658,7 +15004,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if at least one element in the mutable set `s` satisfies the predicate function `f`.\n\n Returns `false` if `s` is the empty set.\n\n The function `f` must be pure."
             },{
                 "name":"transform!",
@@ -13669,13 +15015,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a & b"
+                    "type":"b -> b & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies the function `f` to every element in the mutable set `s`."
             },{
                 "name":"partition",
@@ -13690,7 +15036,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"(MutSet[a], MutSet[a])",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a pair of mutable sets `(s1, s2)` such that:"
             },{
                 "name":"add!",
@@ -13705,7 +15051,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Adds the element `x` to the mutable set `s`."
             },{
                 "name":"addAll!",
@@ -13720,7 +15066,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Adds all elements in the mutable set `s1` to the mutable set `s2`."
             },{
                 "name":"isEmpty",
@@ -13732,7 +15078,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns true if and only if `s` is the empty set."
             },{
                 "name":"memberOf",
@@ -13747,7 +15093,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns true if and only if `x` is a member of the mutable set `s`."
             },{
                 "name":"removeAll!",
@@ -13762,7 +15108,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all elements in the mutable set `s1` from the mutable set `s2`."
             },{
                 "name":"copy",
@@ -13774,7 +15120,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"MutSet[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns a shallow copy of the mutable set `s`."
             },{
                 "name":"toMap",
@@ -13788,7 +15134,7 @@ export default {
                     "type":"MutSet[(a, b)]"
                 }],
                 "result":"Map[a, b]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the association set `s` as a map.\n\n If `s` contains multiple mappings with the same key, `toMap` does not\n make any guarantees about which mapping will be in the resulting map."
             },{
                 "name":"singleton",
@@ -13800,7 +15146,7 @@ export default {
                     "type":"a"
                 }],
                 "result":"MutSet[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the singleton set containing `x`."
             },{
                 "name":"find",
@@ -13815,7 +15161,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `findLeft`.\n\n The function `f` must be pure."
             },{
                 "name":"toList",
@@ -13827,7 +15173,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"List[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the mutable set `s` as a list."
             },{
                 "name":"forall",
@@ -13842,7 +15188,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns `true` if and only if all elements in the mutable set `s` satisfy the predicate function `f`.\n\n Returns `true` if `s` is the empty set.\n\n The function `f` must be pure."
             },{
                 "name":"refine!",
@@ -13857,7 +15203,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all elements from the mutable set `s` that do not satisfy the predicate function `f`.\n\n The function `f` must be pure."
             },{
                 "name":"reduceRight",
@@ -13868,13 +15214,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"b -> b -> b & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to all elements in the mutable set `s` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n\n Returns `None` if `s` is the empty set."
             },{
                 "name":"retainAll!",
@@ -13889,7 +15235,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes all elements from the mutable set `s2` that are not in the mutable set `s1`."
             },{
                 "name":"fold",
@@ -13902,7 +15248,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"c -> a -> c & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -13911,7 +15257,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Alias for `foldLeft`."
             },{
                 "name":"remove!",
@@ -13926,7 +15272,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Removes the element `x` from the mutable set `s`."
             },{
                 "name":"findLeft",
@@ -13941,7 +15287,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Optionally returns the first element of the mutable set `s` that satisfies the predicate function `f` when searching from left to right.\n\n The function `f` must be pure."
             },{
                 "name":"foldLeft",
@@ -13954,7 +15300,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"c -> b -> c & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -13963,7 +15309,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all elements in the mutable set `s` going from left to right.\n\n That is, the result is of the form: `f(...f(f(i, x1), x2)..., xn)`."
             },{
                 "name":"foldRight",
@@ -13976,7 +15322,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"b -> c -> c & e"
                 },{
                     "name":"i",
                     "type":"a"
@@ -13985,7 +15331,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"b",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all elements in the mutable set `s` going from right to left.\n\n That is, the result is of the form: `f(x1, ...f(xn-1, f(xn, i))...)`."
             },{
                 "name":"replace!",
@@ -14003,7 +15349,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Replaces the element `x` with the element `y` if `x` is in the mutable set `s`.\n\n The mutable set `s` is unchanged if the element `x` is not in it."
             },{
                 "name":"isProperSubsetOf",
@@ -14018,7 +15364,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Bool",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns true if and only if every element in the mutable set `s1` appears in the mutable set `s2` and `s1 != s2`."
             },{
                 "name":"findRight",
@@ -14033,7 +15379,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Option[a]",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Optionally returns the first element of the mutable set `s` that satisfies the predicate function `f` when searching from right to left.\n\n The function `f` must be pure."
             },{
                 "name":"size",
@@ -14045,7 +15391,7 @@ export default {
                     "type":"MutSet[a]"
                 }],
                 "result":"Int32",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Returns the size of the mutable set `s`."
             }]
         },
@@ -14061,7 +15407,7 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
             },{
                 "name":"clampToInt8",
@@ -14077,14 +15423,18 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int8`.\n\n Returns `x` clamped within the Int8 range `minimum` to `maximum`."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by an `Int64`."
             },{
                 "name":"lowestOneBitPosition",
@@ -14094,7 +15444,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"dist",
@@ -14107,7 +15459,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
             },{
                 "name":"tryToInt16",
@@ -14117,7 +15471,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Option[Int16]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int16]`.\n\n Returns `Some(x as Int16)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int16\n (i.e. -32768 to 32767)."
             },{
                 "name":"clearBit",
@@ -14130,7 +15486,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
             },{
                 "name":"reverse",
@@ -14140,7 +15498,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
             },{
                 "name":"highestOneBit",
@@ -14150,7 +15510,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"bitCount",
@@ -14160,7 +15522,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
             },{
                 "name":"lowestOneBit",
@@ -14170,7 +15534,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"compare",
@@ -14183,7 +15549,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
             },{
                 "name":"logicalRightShift",
@@ -14196,7 +15564,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 6 bits of `distance` are considered (ie. `distance % 64`).\n A zero is shifted into the leftmost position regardless of sign extension."
             },{
                 "name":"clampToInt16",
@@ -14212,7 +15582,9 @@ export default {
                     "type":"Int16"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int16`.\n\n Returns `x` clamped within the Int16 range `minimum` to `maximum`."
             },{
                 "name":"numberOfLeadingZeros",
@@ -14222,7 +15594,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 64 if x=0."
             },{
                 "name":"min",
@@ -14235,7 +15609,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             },{
                 "name":"clampToInt32",
@@ -14251,7 +15627,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Int32`.\n\n Returns `x` clamped within the Int32 range `minimum` to `maximum`."
             },{
                 "name":"max",
@@ -14264,7 +15642,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"setBit",
@@ -14277,7 +15657,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
             },{
                 "name":"flipBit",
@@ -14290,7 +15672,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)"
             },{
                 "name":"tryToInt8",
@@ -14300,21 +15684,27 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Option[Int8]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int8]`.\n\n Returns `Some(x as Int8)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int8\n (i.e. -128 to 127)."
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by an `Int64`."
             },{
                 "name":"size",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent an `Int64`."
             },{
                 "name":"rotateLeft",
@@ -14327,7 +15717,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
             },{
                 "name":"abs",
@@ -14337,7 +15729,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
             },{
                 "name":"toString",
@@ -14347,7 +15741,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"toFloat32",
@@ -14357,7 +15753,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float32.\n\n Warning: The numeric value of `x` may lose precision."
             },{
                 "name":"highestOneBitPosition",
@@ -14367,7 +15765,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 63 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"numberOfTrailingZeros",
@@ -14377,7 +15777,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 64 if x=0."
             },{
                 "name":"tryToInt32",
@@ -14387,7 +15789,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Option[Int32]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an `Option[Int32]`.\n\n Returns `Some(x as Int32)` if the numeric value of `x` can be represented exactly.\n\n Returns `None` if the numeric value of `x` is outside the range of Int32\n (i.e. -2147483648 to 2147483647)."
             },{
                 "name":"toFloat64",
@@ -14397,7 +15801,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float32.\n\n Warning: The numeric value of `x` may lose precision."
             },{
                 "name":"getBit",
@@ -14410,7 +15816,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 6 rightmost bits of `position` (`position` mod 64).\n The bits of x have positions: 0 (rightmost bit) - 63 (leftmost bit)."
             },{
                 "name":"signum",
@@ -14420,7 +15828,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
             },{
                 "name":"toBigInt",
@@ -14430,7 +15840,9 @@ export default {
                     "type":"Int64"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a BigInt.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"fromString",
@@ -14440,7 +15852,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Int64, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Parse the string `s` as an Int64, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
             }]
         },
@@ -14455,7 +15869,7 @@ export default {
                     "type":"e -> e -> Bool"
                 }],
                 "result":"Bool",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":""
             }]
         },
@@ -14468,7 +15882,7 @@ export default {
                     "type":"Default"
                 }],
                 "result":"(Int32, Int32, Int32)",
-                "effect":"Pure",
+                "effect":"true",
                 "comment":"Returns the RGB-triplet for the given color `c`."
             }]
         },
@@ -14478,7 +15892,7 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Flushes the standard error stream."
             },{
                 "name":"print",
@@ -14488,7 +15902,7 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints the given string `s` to the standard error stream."
             },{
                 "name":"printLine",
@@ -14498,14 +15912,14 @@ export default {
                     "type":"String"
                 }],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints the given string `s` and a newline to the standard error stream."
             },{
                 "name":"newLine",
                 "tparams":[],
                 "fparams":[],
                 "result":"Unit",
-                "effect":"Impure",
+                "effect":"false",
                 "comment":"Prints a newline to the standard error stream."
             }]
         },
@@ -14515,7 +15929,9 @@ export default {
                 "tparams":[],
                 "fparams":[],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of bits used to represent an `Int8`."
             },{
                 "name":"numberOfLeadingZeros",
@@ -14525,7 +15941,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits preceding the\n highest-order/leftmost one-bit in `x`.\n Returns 8 if x=0."
             },{
                 "name":"toString",
@@ -14535,7 +15953,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"String",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Return a string representation of `x`."
             },{
                 "name":"setBit",
@@ -14548,7 +15968,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` set (to 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit)"
             },{
                 "name":"logicalRightShift",
@@ -14561,7 +15983,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the logical right shift of `x` by `distance`.\n Only the rightmost 5 bits of `distance` are considered (ie. `distance % 32`).\n A zero is shifted into the leftmost position regardless of sign extension."
             },{
                 "name":"bitCount",
@@ -14571,7 +15995,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of one-bits in the two's complement binary\n representation of `x`."
             },{
                 "name":"lowestOneBit",
@@ -14581,7 +16007,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"highestOneBit",
@@ -14591,7 +16019,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns a value with at most a single one-bit, in the position\n of the highest-order/leftmost one-bit in `x`.\n Returns 0 if x=0."
             },{
                 "name":"reverse",
@@ -14601,7 +16031,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the value obtained by reversing the bits in the\n two's complement binary representation of `x`."
             },{
                 "name":"fromString",
@@ -14611,7 +16043,9 @@ export default {
                     "type":"String"
                 }],
                 "result":"Result[Int8, String]",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Parse the string `s` as an Int8, leading or trailing whitespace is trimmed.\n A successful parse is wrapped with `OK(x)`, a parse failure is indicated by `Err(_)`."
             },{
                 "name":"toFloat64",
@@ -14621,7 +16055,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Float64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"toInt16",
@@ -14631,7 +16067,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int16",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an Int16.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"toInt32",
@@ -14641,7 +16079,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an Int32.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"dist",
@@ -14654,7 +16094,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the distance between `x` and `y`.\n If this distance exceeds maxValue(), -1 is returned."
             },{
                 "name":"getBit",
@@ -14667,7 +16109,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the bit of `x` at `position` (either 0 or 1).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit)"
             },{
                 "name":"lowestOneBitPosition",
@@ -14677,7 +16121,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the lowest-order/rightmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 7 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"flipBit",
@@ -14690,7 +16136,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` flipped.\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit)"
             },{
                 "name":"signum",
@@ -14700,7 +16148,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > 0, -1 if x < 0, and 0 if x = 0.\n The sign of x."
             },{
                 "name":"rotateLeft",
@@ -14713,7 +16163,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` left by `distance` bits."
             },{
                 "name":"toInt64",
@@ -14723,7 +16175,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int64",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to an Int64.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"numberOfTrailingZeros",
@@ -14733,14 +16187,18 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the number of zero bits following the\n lowest-order/rightmost one-bit in `x`.\n Returns 8 if x=0."
             },{
                 "name":"maxValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the maximum number representable by an `Int8`."
             },{
                 "name":"highestOneBitPosition",
@@ -14750,7 +16208,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the position of the highest-order/leftmost one-bit in `x`.\n Possible return values: 0 (rightmost bit) - 7 (leftmost bit)\n                         -1 if x = 0"
             },{
                 "name":"abs",
@@ -14760,7 +16220,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the absolute value of `x`.\n If the absolute value exceeds maxValue(), -1 is returned."
             },{
                 "name":"max",
@@ -14773,7 +16235,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the larger of `x` and `y`."
             },{
                 "name":"clearBit",
@@ -14786,7 +16250,9 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns `x` with the bit at position `position` cleared (to 0).\n Considers the 5 rightmost bits of `position` (`position` mod 32).\n The bits of x have positions: 0 (rightmost bit) - 7 (leftmost bit)"
             },{
                 "name":"toFloat32",
@@ -14796,7 +16262,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Float32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a Float32.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"toBigInt",
@@ -14806,7 +16274,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"BigInt",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Convert `x` to a BigInt.\n\n The numeric value of `x` is preserved exactly."
             },{
                 "name":"rotateRight",
@@ -14819,14 +16289,18 @@ export default {
                     "type":"Int32"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the the value obtained by rotating the two's complement\n binary representation of `x` right by `distance` bits."
             },{
                 "name":"minValue",
                 "tparams":[],
                 "fparams":[],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the minimum number representable by an `Int8`."
             },{
                 "name":"compare",
@@ -14839,7 +16313,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int32",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns 1 if x > y, -1 if x < y, and 0 if x = y.\n The sign of x - y."
             },{
                 "name":"min",
@@ -14852,7 +16328,9 @@ export default {
                     "type":"Int8"
                 }],
                 "result":"Int8",
-                "effect":"Pure",
+                "effect":"true",
+                "time":"1",
+                "space":"1",
                 "comment":"Returns the smaller of `x` and `y`."
             }]
         }

@@ -45,7 +45,7 @@ class DefBox extends Component {
      * Returns the return type.
      */
     getEffectSpacer() {
-        if (this.props.def.effect === "Pure")
+        if (this.props.def.effect === "true")
             return <span/>
         else
             return <span className="spacer"> &amp; </span>
@@ -55,8 +55,10 @@ class DefBox extends Component {
      * Returns the effect type.
      */
     getFormattedEffectType() {
-        if (this.props.def.effect === "Pure")
+        if (this.props.def.effect === "true")
             return <span/>
+        else if (this.props.def.effect === "false")
+            return <span className="effect">Impure</span>
         else
             return <span className="effect">{this.props.def.effect}</span>
     }
