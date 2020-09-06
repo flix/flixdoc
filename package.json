@@ -2,7 +2,7 @@
   "name": "flixdoc",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://flix.dev/api",
+  "homepage": "https://api.flix.dev/",
   "dependencies": {
     "bootstrap": "^4.5.0",
     "react": "^16.13.1",
