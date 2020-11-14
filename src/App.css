@@ -19,6 +19,8 @@ body {
     padding-right: 3vw;
 
     line-height: 1.25;
+    
+    overflow-y: scroll;
 }
 
 .menu .title {
@@ -36,7 +38,7 @@ body {
 }
 
 .menu ul {
-    margin: 0 0 0 -15px;
+    margin: 0 0 1rem -15px;
     padding: 0;
     list-style-type: none;
 }
