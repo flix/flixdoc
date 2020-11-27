@@ -33,7 +33,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & l"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -83,10 +83,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"e1 -> e2 & f"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e1]"
                 }],
                 "result":"Result[t, e2]",
                 "effect":"f",
@@ -120,7 +120,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & j"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -172,7 +172,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -223,7 +223,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & k"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -266,7 +266,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Option[t]",
                 "effect":"true",
@@ -282,10 +282,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"t"
                 }],
                 "result":"t",
                 "effect":"true",
@@ -301,7 +301,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"xs",
-                    "type":"List[Result[a, b]]"
+                    "type":"List[Result[a, e]]"
                 }],
                 "result":"Result[List[a], e]",
                 "effect":"true",
@@ -329,7 +329,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & h"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -363,10 +363,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a ~> Unit"
+                    "type":"t ~> Unit"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -382,10 +382,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -401,13 +401,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"x",
-                    "type":"a"
+                    "type":"t"
                 },{
                     "name":"y",
-                    "type":"a"
+                    "type":"t"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Result[t, e]",
                 "effect":"true",
@@ -431,7 +431,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> u & e"
+                    "type":"t1 -> t2 -> t3 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -460,10 +460,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Result[b, c] & d"
+                    "type":"a -> b -> Result[b, e] & f"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -484,10 +484,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> Result[c, b] & d"
+                    "type":"b -> a -> Result[b, e] & f"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -508,10 +508,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r1",
-                    "type":"Result[c -> b & d, a]"
+                    "type":"Result[t -> u & f, e]"
                 },{
                     "name":"r2",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Result[u, e]",
                 "effect":"f",
@@ -543,7 +543,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & i"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -618,10 +618,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Int32",
                 "effect":"true",
@@ -641,13 +641,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"a -> t -> a & f"
                 },{
                     "name":"z",
                     "type":"a"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"a",
                 "effect":"f",
@@ -667,7 +667,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Result[b, c] & d"
+                    "type":"a -> Result[b, e] & f"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -684,7 +684,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"List[t]",
                 "effect":"true",
@@ -702,7 +702,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[(b, c), a]"
+                    "type":"Result[(k, v), e]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -718,10 +718,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Option[t]",
                 "effect":"true",
@@ -737,7 +737,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Set[t]",
                 "effect":"true",
@@ -753,13 +753,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns `true` iff `r` is `Ok(v)`."
+                "comment":""
             },{
                 "name":"traverseX",
                 "tparams":[{
@@ -773,7 +773,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Result[b, c] & d"
+                    "type":"a -> Result[b, e] & f"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -794,10 +794,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"t -> a -> a & f"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 },{
                     "name":"z",
                     "type":"a"
@@ -820,10 +820,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Result[c, a] & d"
+                    "type":"t1 -> Result[t2, e] & f"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t1, e]"
                 }],
                 "result":"Result[t2, e]",
                 "effect":"f",
@@ -839,10 +839,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -864,7 +864,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> u & d"
+                    "type":"t1 -> t2 -> u & f"
                 },{
                     "name":"r1",
                     "type":"Result[t1, e]"
@@ -890,10 +890,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"t1 -> t2 & f"
                 },{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t1, e]"
                 }],
                 "result":"Result[t2, e]",
                 "effect":"f",
@@ -911,10 +911,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r1",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e1]"
                 },{
                     "name":"r2",
-                    "type":"Result[b, e2]"
+                    "type":"Result[t, e2]"
                 }],
                 "result":"Result[t, e2]",
                 "effect":"true",
@@ -930,7 +930,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"r",
-                    "type":"Result[b, a]"
+                    "type":"Result[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -939,37 +939,793 @@ export default {
                 "comment":"Returns `true` iff `r` is `Err(w)`."
             }]
         },
-        "Console.Color.Ansi":{
+        "MutList":{
             "defs":[{
-                "name":"toRGB",
-                "tparams":[],
-                "fparams":[{
-                    "name":"c",
-                    "type":"Ansi"
+                "name":"remove!",
+                "tparams":[{
+                    "name":"a"
                 }],
-                "result":"(Int32, Int32, Int32)",
-                "effect":"true",
-                "comment":"Returns the RGB-triplet for the given color `c`.\n\n Based on the Ubuntu settings.\n\n See https://en.wikipedia.org/wiki/ANSI_escape_code#Colors"
-            },{
-                "name":"downsample",
-                "tparams":[],
                 "fparams":[{
-                    "name":"c",
-                    "type":"(Int32, Int32, Int32)"
+                    "name":"i",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Removes the element at the given position `i` in the given mutable list `v`.\n\n Shifts elements as necessary. Possibly expensive operation.\n\n If the given index `i` exceeds the length of the mutable list, no element is removed."
+            },{
+                "name":"indexOfRight",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[Int32]",
+                "effect":"false",
+                "comment":"Optionally returns the position of the first occurrence of `x` in `v`\n searching from right to left."
+            },{
+                "name":"scan",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> a -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[b]",
+                "effect":"false",
+                "comment":"Alias for `scanLeft`."
+            },{
+                "name":"truncate!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"l",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Truncates the given mutable list `v` to the given length `l`.\n\n That is, after the operation, the mutable list has length at most `l`.\n\n If the given length `l` is negative, all elements are removed."
+            },{
+                "name":"foldRight",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"b",
+                "effect":"false",
+                "comment":"Applies `f` to a start value `s` and all elements in `a` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, a[0]), a[1])..., xn)`."
+            },{
+                "name":"append!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v1",
+                    "type":"MutList[a]"
+                },{
+                    "name":"v2",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Inserts all the elements in the given mutable list `v2` into the mutable list `v1`."
+            },{
+                "name":"compress!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Compresses the given mutable list `v` if needed.\n\n The mutable will be shrunk to 1/2 of its size if the load factor is less than 1/4."
+            },{
+                "name":"isEmpty",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if the given mutable list `v` is empty."
+            },{
+                "name":"head",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Optionally returns the first element of the given mutable list `v`.\n\n Returns `None` if the given mutable list `v` is empty."
+            },{
+                "name":"scanRight",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[b]",
+                "effect":"false",
+                "comment":"Accumulates the result of applying `f` to `v` going right to left."
+            },{
+                "name":"capacity",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
                 }],
                 "result":"Int32",
-                "effect":"true",
-                "comment":"Down sample the given color `c` to an ANSI color code."
+                "effect":"false",
+                "comment":"Returns the capacity of `v`."
             },{
-                "name":"toFG",
-                "tparams":[],
+                "name":"transformWithIndex!",
+                "tparams":[{
+                    "name":"a"
+                }],
                 "fparams":[{
-                    "name":"c",
-                    "type":"Ansi"
+                    "name":"f",
+                    "type":"a -> Int32 -> a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Apply `f` to every element in `v` along with that element's index."
+            },{
+                "name":"get",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"i",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"a",
+                "effect":"false",
+                "comment":"Returns the element at position `i` in the mutable list `v`."
+            },{
+                "name":"reserve!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"n",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Increases the capacity of the given mutable list `v` by at least `n`.\n\n That is, after the call, the mutable list is guaranteed to have space for at least `n` additional elements.\n\n The content of the mutable list is unchanged."
+            },{
+                "name":"map",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> b & e"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[b]",
+                "effect":"false",
+                "comment":"Apply `f` to every element in `v`.\n\n The result is a new mutable list."
+            },{
+                "name":"pop!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Optionally removes and returns the last element in the given mutable list `v`."
+            },{
+                "name":"mapWithIndex",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Int32 -> b & e"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[b]",
+                "effect":"false",
+                "comment":"Returns the result of applying `f` to every element in `v` along with that element's index."
+            },{
+                "name":"indexOfLeft",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[Int32]",
+                "effect":"false",
+                "comment":"Optionally returns the position of the first occurrence of `x` in `v`\n searching from left to right."
+            },{
+                "name":"copy",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[a]",
+                "effect":"false",
+                "comment":"Returns a shallow copy of the given mutable list `v`."
+            },{
+                "name":"foreachWithIndex",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Int32 ~> Unit"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Apply the effectful function `f` to all the elements in `v`."
+            },{
+                "name":"find",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Alias for `findLeft`."
+            },{
+                "name":"forall",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if the given predicate `f` holds for all elements of the given mutable list `v`.\n\n Returns `true` if the given mutable list `v` is empty."
+            },{
+                "name":"foldLeft",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> a -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"b",
+                "effect":"false",
+                "comment":"Applies `f` to a start value `s` and all elements in `a` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, a[0]), a[1])..., xn)`."
+            },{
+                "name":"indexOf",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[Int32]",
+                "effect":"false",
+                "comment":"Alias for `IndexOfLeft`"
+            },{
+                "name":"replace!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"y",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Replaces all occurrences of the `x` with `y` in the given mutable list `v`."
+            },{
+                "name":"findLeft",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Optionally returns the left-most element in the given mutable list `v` that satisfies the given predicate `f`.\n\n Returns `None` if no element satisfies the given predicate `f`.\n Returns `None` if the given mutable list `v` is empty."
+            },{
+                "name":"shrinkTo!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"n",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Shrinks the given mutable list `v` down to a capacity of `n` elements.\n\n Truncates the mutable list as needed."
+            },{
+                "name":"transform!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Apply `f` to every element in `v`."
+            },{
+                "name":"scanLeft",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> a -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"MutList[b]",
+                "effect":"false",
+                "comment":"Accumulates the result of applying `f` to `v` going left to right."
+            },{
+                "name":"sameElements",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v1",
+                    "type":"MutList[a]"
+                },{
+                    "name":"v2",
+                    "type":"MutList[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if the mutable lists `v1` and `v2` have the same elements, i.e. are structurally equal."
+            },{
+                "name":"formatWith",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> String"
+                },{
+                    "name":"sep",
+                    "type":"String"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"String",
+                "effect":"false",
+                "comment":"Render `v` as a String. Elements are rendered with the\n function `f` and separated with the string `sep`."
+            },{
+                "name":"reduce",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> a & e"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Alias for `reduceLeft`."
+            },{
+                "name":"reduceRight",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> a & e"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Applies `f` to all elements in `v` going from right to left until a single value `v` is obtained. Returns `Some(v)`.\n\n Returns `None` if `v` is empty."
+            },{
+                "name":"retain!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Removes all elements from the given mutable list `v` that do not satisfy the given predicate `f`."
+            },{
+                "name":"push!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Inserts the given element `x` at the end of the given mutable list `v`."
+            },{
+                "name":"new",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[],
+                "result":"MutList[a]",
+                "effect":"false",
+                "comment":""
+            },{
+                "name":"foreach",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a ~> Unit"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Apply the effectful function `f` to all the elements in `v`."
+            },{
+                "name":"reduceLeft",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> a & e"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Applies `f` to all elements in `v` going from left to right until a single value `v` is obtained. Returns `Some(v)`.\n\n Returns `None` if `v` is empty."
+            },{
+                "name":"memberOf",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if the given element `x` is a member of the given mutable list `v`."
+            },{
+                "name":"length",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
                 }],
                 "result":"Int32",
-                "effect":"true",
-                "comment":"Returns the foreground color of the given color `c`."
+                "effect":"false",
+                "comment":"Returns the number of elements in the given mutable list `v`."
+            },{
+                "name":"insert!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"x",
+                    "type":"a"
+                },{
+                    "name":"i",
+                    "type":"Int32"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Inserts the given element `x` at the given position `i` in the given mutable list `v`.\n\n Shifts elements as necessary. Possibly expensive operation.\n\n If the given index `i` exceeds the length of the mutable list, the element is inserted at the last position."
+            },{
+                "name":"exists",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if the given predicate `f` holds for at least one element of the given mutable list `v`.\n\n Returns `false` if the given mutable list `v` is empty."
+            },{
+                "name":"last",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Optionally returns the last element of the given mutable list `v`.\n\n Returns `None` if the given mutable list `v` is empty."
+            },{
+                "name":"shrink!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Shrinks the given mutable list `v` to its actual size."
+            },{
+                "name":"range",
+                "tparams":[],
+                "fparams":[{
+                    "name":"b",
+                    "type":"Int32"
+                },{
+                    "name":"e",
+                    "type":"Int32"
+                }],
+                "result":"MutList[Int32]",
+                "effect":"false",
+                "comment":"Returns a mutable list of all integers between `b` (inclusive) and `e` (exclusive).\n\n Returns an empty mutable list if `b >= e`."
+            },{
+                "name":"toImmutable",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"List[a]",
+                "effect":"false",
+                "comment":"Returns `v` as an immutable list."
+            },{
+                "name":"clear!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Removes all elements from the given mutable list `v`."
+            },{
+                "name":"fold",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"b"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"b -> a -> b & e"
+                },{
+                    "name":"s",
+                    "type":"b"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"b",
+                "effect":"false",
+                "comment":"Alias for `foldLeft`."
+            },{
+                "name":"findRight",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"false",
+                "comment":"Optionally returns the right-most element in the given mutable list `v` that satisfies the given predicate `f`.\n\n Returns `None` if no element satisfies the given predicate `f`.\n Returns `None` if the given mutable list `v` is empty."
+            },{
+                "name":"count",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Int32",
+                "effect":"false",
+                "comment":"Returns the number of elements in the given mutable list `v` that satisfies the given predicate `f`.\n\n Returns `0` if the given mutable list `v` is empty."
+            },{
+                "name":"reverse!",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"v",
+                    "type":"MutList[a]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":"Reverses the order of the elements in the given mutable list `v`."
             }]
         },
         "Map":{
@@ -1002,13 +1758,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"v -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -1039,10 +1795,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -1060,16 +1816,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"k",
                     "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1087,10 +1843,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"e",
@@ -1106,13 +1862,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1130,10 +1886,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"e",
@@ -1147,10 +1903,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -1169,10 +1925,10 @@ export default {
                     "type":"k"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"v",
                 "effect":"true",
@@ -1190,13 +1946,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> Option[a] & b"
+                    "type":"v -> v -> Option[v] & e"
                 },{
                     "name":"m1",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1212,7 +1968,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -1228,7 +1984,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"next",
-                    "type":"Unit ~> Option[(a, b)]"
+                    "type":"Unit ~> Option[(k, v)]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"false",
@@ -1244,13 +2000,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b & c"
+                    "type":"k -> v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1266,16 +2022,32 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"true",
                 "time":"time(f) * Map.size(m)",
                 "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Optionally returns the first mapping of `m` that satisfies the predicate `f` when searching from left to right.\n\n The function `f` must be pure."
+            },{
+                "name":"toMut",
+                "tparams":[{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"m",
+                    "type":"Map[k, v]"
+                }],
+                "result":"MutMap[k, v]",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `m` as a mutable set."
             },{
                 "name":"isProperSubmapOf",
                 "tparams":[{
@@ -1325,13 +2097,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[a] & b"
+                    "type":"v -> Option[v] & e"
                 },{
                     "name":"k",
                     "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1347,10 +2119,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Int32",
                 "effect":"true",
@@ -1370,10 +2142,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> k -> v -> c & d"
+                    "type":"b -> k -> v -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
                     "type":"Map[k, v]"
@@ -1390,13 +2162,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -1412,10 +2184,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"true",
@@ -1435,10 +2207,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> c & d"
+                    "type":"k -> v1 -> v2 & e"
                 },{
                     "name":"m",
-                    "type":"Map[b, a]"
+                    "type":"Map[k, v1]"
                 }],
                 "result":"Map[k, v2]",
                 "effect":"e",
@@ -1456,7 +2228,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"v -> v -> v & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
                     "type":"Map[k, v]"
@@ -1475,10 +2247,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
-                    "type":"Map[b, a]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"e",
@@ -1496,13 +2268,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c -> c & d"
+                    "type":"k -> v -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -1516,10 +2288,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -1535,10 +2307,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"true",
@@ -1554,10 +2326,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -1584,30 +2356,6 @@ export default {
                 "space":"Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the left-biased intersection of `m1` and `m2`.\n\n That is, key collisions are resolved by taking the mapping from `m1`."
             },{
-                "name":"adjustWithKey",
-                "tparams":[{
-                    "name":"e"
-                },{
-                    "name":"k"
-                },{
-                    "name":"v"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> b -> b & c"
-                },{
-                    "name":"k",
-                    "type":"a"
-                },{
-                    "name":"m",
-                    "type":"Map[a, b]"
-                }],
-                "result":"Map[k, v]",
-                "effect":"e",
-                "time":"time(f) + Int32.log2(Map.size(m))",
-                "space":"space(f) + Int32.log2(Map.size(m))",
-                "comment":"Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`. Otherwise, returns `m`."
-            },{
                 "name":"foldLeft",
                 "tparams":[{
                     "name":"b"
@@ -1620,17 +2368,60 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> v -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
                 "comment":"Applies `f` to a start value `s` and all values in `m` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, v1), v2)..., vn)`."
+            },{
+                "name":"adjustWithKey",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"k -> v -> v & e"
+                },{
+                    "name":"k",
+                    "type":"k"
+                },{
+                    "name":"m",
+                    "type":"Map[k, v]"
+                }],
+                "result":"Map[k, v]",
+                "effect":"e",
+                "time":"time(f) + Int32.log2(Map.size(m))",
+                "space":"space(f) + Int32.log2(Map.size(m))",
+                "comment":"Updates `m` with `k -> f(k, v)` if `k -> v` is in `m`. Otherwise, returns `m`."
+            },{
+                "name":"query",
+                "tparams":[{
+                    "name":"e"
+                },{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"k -> Ordering & e"
+                },{
+                    "name":"m",
+                    "type":"Map[k, v]"
+                }],
+                "result":"List[(k, v)]",
+                "effect":"e",
+                "comment":"Extracts a range of key-value pairs from the map `m`.\n\n That is, the result is a list of all pairs `(k, v)` where `p(k)` returns `Equal`."
             },{
                 "name":"filterWithKey",
                 "tparams":[{
@@ -1640,10 +2431,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -1663,10 +2454,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> v -> b & c"
+                    "type":"b -> v -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
                     "type":"Map[k, v]"
@@ -1685,13 +2476,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"k -> b -> b -> Option[b] & c"
+                    "type":"k -> v -> v -> Option[v] & e"
                 },{
                     "name":"m1",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1709,16 +2500,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b & c"
+                    "type":"k -> v -> v -> v & e"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1809,10 +2600,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"v1 -> v2 & e"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v1]"
                 }],
                 "result":"Map[k, v2]",
                 "effect":"e",
@@ -1828,10 +2619,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -1851,13 +2642,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"b -> k -> v -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -1891,7 +2682,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"s -> Option[(b, c, s)] & d"
+                    "type":"s -> Option[(k, v, s)] & e"
                 },{
                     "name":"st",
                     "type":"s"
@@ -1910,10 +2701,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
-                    "type":"Map[b, a]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"e",
@@ -1929,7 +2720,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"k -> v -> k -> v -> (k, v) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
                     "type":"Map[k, v]"
@@ -1946,32 +2737,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b ~> Unit"
+                    "type":"k -> v ~> Unit"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
                 "time":"Map.size(f) * Map.size(m)",
                 "space":"space(f) * Int32.log2(Map.size(m))",
                 "comment":"Applies `f` to every element of `xs`.\n\n The function `f` must be impure."
-            },{
-                "name":"size",
-                "tparams":[{
-                    "name":"k"
-                },{
-                    "name":"v"
-                }],
-                "fparams":[{
-                    "name":"m",
-                    "type":"Map[a, b]"
-                }],
-                "result":"Int32",
-                "effect":"true",
-                "time":"Map.size(m)",
-                "space":"Int32.log2(Map.size(m))",
-                "comment":"Returns the size of `m`."
             },{
                 "name":"unionWith",
                 "tparams":[{
@@ -1983,13 +2758,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -1997,7 +2772,7 @@ export default {
                 "space":"space(f) * Map.size(m1) * Int32.log2(Map.size(m2))",
                 "comment":"Returns the union of `m1` and `m2` where key collisions are resolved with the merge function `f`."
             },{
-                "name":"toMutable",
+                "name":"size",
                 "tparams":[{
                     "name":"k"
                 },{
@@ -2007,11 +2782,11 @@ export default {
                     "name":"m",
                     "type":"Map[k, v]"
                 }],
-                "result":"MutMap[k, v]",
-                "effect":"false",
-                "time":"1",
-                "space":"1",
-                "comment":"Returns `m` as a mutable set."
+                "result":"Int32",
+                "effect":"true",
+                "time":"Map.size(m)",
+                "space":"Int32.log2(Map.size(m))",
+                "comment":""
             },{
                 "name":"keysOf",
                 "tparams":[{
@@ -2050,10 +2825,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -2069,10 +2844,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -2090,13 +2865,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a & b"
+                    "type":"v -> v & e"
                 },{
                     "name":"k",
                     "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[k, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -2114,13 +2889,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Option[b] & c"
+                    "type":"k -> v -> Option[v] & e"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -2138,13 +2913,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b -> b & c"
+                    "type":"k -> v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 },{
                     "name":"m2",
-                    "type":"Map[a, b]"
+                    "type":"Map[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"e",
@@ -2155,23 +2930,6 @@ export default {
         },
         "List":{
             "defs":[{
-                "name":"reduceRight",
-                "tparams":[{
-                    "name":"a"
-                },{
-                    "name":"e"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> a -> a & b"
-                },{
-                    "name":"xs",
-                    "type":"List[a]"
-                }],
-                "result":"Option[a]",
-                "effect":"e",
-                "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n\n Returns `None` if `xs` is empty."
-            },{
                 "name":"foldLeft",
                 "tparams":[{
                     "name":"a"
@@ -2182,10 +2940,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2204,7 +2962,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Int32 -> b & c"
+                    "type":"a -> Int32 -> b & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2223,7 +2981,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2309,16 +3067,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"c -> a -> b -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
                 "result":"c",
                 "effect":"e",
@@ -2350,10 +3108,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2394,10 +3152,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c -> c & d"
+                    "type":"a -> b -> c -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2487,13 +3245,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
                 "result":"List[c]",
                 "effect":"e",
@@ -2511,7 +3269,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
                     "type":"b"
@@ -2562,7 +3320,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2631,7 +3389,39 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns true if and only if `xs` is the empty list, i.e. `Nil`."
+                "comment":""
+            },{
+                "name":"distinctWith",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> Bool"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"List[a]",
+                "effect":"true",
+                "comment":"Returns the list `xs` with duplicates removed using the supplied function\n `f` for comparison. The first occurence of an element is kept and except\n for the removal of subsequent duplicates the order of `xs` is preserved."
+            },{
+                "name":"reduceRight",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> a -> a & e"
+                },{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"Option[a]",
+                "effect":"e",
+                "comment":"Applies `f` to all elements in `xs` going from right to left until a single value `v` is obtained.  Returns `Some(v)`.\n\n That is, the result is of the form: `Some(f(x1, ...f(xn-2, f(xn-1, xn))...))`\n\n Returns `None` if `xs` is empty."
             },{
                 "name":"unfoldWithOkIter",
                 "tparams":[{
@@ -2678,6 +3468,18 @@ export default {
                 "time":"List.length(xs)",
                 "space":"List.length(xs)",
                 "comment":"Returns `xs` with every occurrence of `x` replaced by `y`."
+            },{
+                "name":"distinct",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"List[a]",
+                "effect":"true",
+                "comment":"Returns the list `xs` with duplicates removed. The first occurence of\n an element is kept and except for the removal of subsequent duplicates\n the order of `xs` is preserved.\n\n `distinct` uses the Flix's builtin equality test. Use `distinctWith` if you\n need a custom equality test."
             },{
                 "name":"isPrefixOf",
                 "tparams":[{
@@ -2740,7 +3542,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
                     "type":"b"
@@ -2803,6 +3605,18 @@ export default {
                 "space":"space(f) * List.length(xs)",
                 "comment":"Partitions `xs` into sublists such that for any two elements `x` and `y` in a sublist, `f(x, y)` is true.\n\n A sublist is created by iterating through the remaining elements of `xs` from left to right and adding an\n element to the sublist if and only if doing so creates no conflicts with the elements already in the sublist.\n\n The function `f` must be pure."
             },{
+                "name":"toMut",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"List[a]"
+                }],
+                "result":"MutList[a]",
+                "effect":"false",
+                "comment":"Returns `xs` as a mutable list."
+            },{
                 "name":"flatMap",
                 "tparams":[{
                     "name":"a"
@@ -2813,7 +3627,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> List[b] & c"
+                    "type":"a -> List[b] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2915,10 +3729,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"c -> a -> b -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -2965,7 +3779,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3032,7 +3846,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"s -> Option[(a, s)] & c"
+                    "type":"s -> Option[(a, s)] & e"
                 },{
                     "name":"st",
                     "type":"s"
@@ -3130,10 +3944,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3169,10 +3983,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3203,7 +4017,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3274,7 +4088,7 @@ export default {
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
                 "result":"List[(a, b)]",
                 "effect":"true",
@@ -3294,7 +4108,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3404,13 +4218,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> List[c] & d"
+                    "type":"a -> b -> List[c] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
                 },{
                     "name":"ys",
-                    "type":"List[a]"
+                    "type":"List[b]"
                 }],
                 "result":"List[c]",
                 "effect":"e",
@@ -3428,7 +4242,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -3473,20 +4287,6 @@ export default {
                 "space":"1",
                 "comment":"Returns true if and only if `xs` is the empty set."
             },{
-                "name":"toMutable",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"xs",
-                    "type":"Set[a]"
-                }],
-                "result":"MutSet[a]",
-                "effect":"false",
-                "time":"1",
-                "space":"1",
-                "comment":"Returns `xs` as a mutable set."
-            },{
                 "name":"fold",
                 "tparams":[{
                     "name":"a"
@@ -3497,10 +4297,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3519,8 +4319,8 @@ export default {
                 }],
                 "result":"Set[Set[a]]",
                 "effect":"true",
-                "time":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$7544))))",
-                "space":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$7544))))",
+                "time":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$8766))))",
+                "space":"Set.size(xs) * Binary(BitwiseLeftShift, 1i32, Apply(Def(Set.size), List(Sym(xs$8766))))",
                 "comment":"Returns all subsets of `xs`."
             },{
                 "name":"reduceLeft",
@@ -3531,7 +4331,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3553,21 +4353,6 @@ export default {
                 "time":"Set.size(xs)",
                 "space":"Set.size(xs)",
                 "comment":"Returns the set `xs` as a list."
-            },{
-                "name":"__eq",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"xs",
-                    "type":"Set[a]"
-                },{
-                    "name":"ys",
-                    "type":"Set[a]"
-                }],
-                "result":"Bool",
-                "effect":"true",
-                "comment":"Returns `true` if and only if `xs` and `ys` are equal, i.e. they have the same elements."
             },{
                 "name":"difference",
                 "tparams":[{
@@ -3605,7 +4390,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3658,7 +4443,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Set[b] & c"
+                    "type":"a -> Set[b] & e"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3730,7 +4515,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3751,10 +4536,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -3762,6 +4547,20 @@ export default {
                 "result":"b",
                 "effect":"e",
                 "comment":"Applies `f` to a start value `s` and all elements in `xs` going from left to right.\n\n That is, the result is of the form: `f(...f(f(s, x1), x2)..., xn)`."
+            },{
+                "name":"toMut",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"Set[a]"
+                }],
+                "result":"MutSet[a]",
+                "effect":"false",
+                "time":"1",
+                "space":"1",
+                "comment":"Returns `xs` as a mutable set."
             },{
                 "name":"partition",
                 "tparams":[{
@@ -3818,7 +4617,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"s -> Option[(b, s)] & c"
+                    "type":"s -> Option[(a, s)] & e"
                 },{
                     "name":"st",
                     "type":"s"
@@ -3950,10 +4749,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -4002,7 +4801,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Set[a]"
@@ -4048,6 +4847,38 @@ export default {
                 "space":"1",
                 "comment":"Returns true if and only if `x` is a member of `xs`."
             },{
+                "name":"query",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"a -> Ordering & e"
+                },{
+                    "name":"xs",
+                    "type":"Set[a]"
+                }],
+                "result":"List[a]",
+                "effect":"e",
+                "comment":"Extracts a range of elements from the set `xs`.\n\n That is, the result is a list of all elements `x` where `p(x)` returns `Equal`."
+            },{
+                "name":"__eq",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"xs",
+                    "type":"Set[a]"
+                },{
+                    "name":"ys",
+                    "type":"Set[a]"
+                }],
+                "result":"Bool",
+                "effect":"true",
+                "comment":"Returns `true` if and only if `xs` and `ys` are equal, i.e. they have the same elements."
+            },{
                 "name":"size",
                 "tparams":[{
                     "name":"a"
@@ -4060,7 +4891,7 @@ export default {
                 "effect":"true",
                 "time":"Set.size(xs)",
                 "space":"1",
-                "comment":"Returns the size of `xs`."
+                "comment":""
             },{
                 "name":"isProperSubsetOf",
                 "tparams":[{
@@ -4263,7 +5094,7 @@ export default {
                 }],
                 "result":"BigInt",
                 "effect":"true",
-                "comment":"Returns the smaller of `x` and `y`."
+                "comment":""
             },{
                 "name":"gcd",
                 "tparams":[],
@@ -4645,7 +5476,7 @@ export default {
                     "type":"Array[a]"
                 },{
                     "name":"b",
-                    "type":"Array[a]"
+                    "type":"Array[b]"
                 }],
                 "result":"Array[(a, b)]",
                 "effect":"false",
@@ -4710,7 +5541,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -4746,10 +5577,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> c -> c & e"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -4766,10 +5597,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b ~> b"
+                    "type":"a -> st ~> st"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"st"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -4826,13 +5657,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 },{
                     "name":"b",
-                    "type":"Array[a]"
+                    "type":"Array[b]"
                 }],
                 "result":"Array[c]",
                 "effect":"false",
@@ -4879,7 +5710,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Int32 -> a & b"
+                    "type":"Int32 -> a & e"
                 },{
                     "name":"len",
                     "type":"Int32"
@@ -5040,10 +5871,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> c & e"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5064,10 +5895,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"d -> a -> b -> d & e"
+                    "type":"c -> a -> b -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5093,10 +5924,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> d -> d & e"
+                    "type":"a -> b -> c -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5122,13 +5953,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 },{
                     "name":"b",
-                    "type":"Array[a]"
+                    "type":"Array[b]"
                 }],
                 "result":"Array[c]",
                 "effect":"false",
@@ -5218,7 +6049,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5273,7 +6104,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Array[b] & c"
+                    "type":"a -> Array[b] & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5294,7 +6125,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Int32 -> b & c"
+                    "type":"a -> Int32 -> b & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5617,13 +6448,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Array[c] & d"
+                    "type":"a -> b -> Array[c] & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
                 },{
                     "name":"b",
-                    "type":"Array[a]"
+                    "type":"Array[b]"
                 }],
                 "result":"Array[c]",
                 "effect":"false",
@@ -5742,7 +6573,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -5752,6 +6583,18 @@ export default {
                 "time":"time(f) * Array.length(a)",
                 "space":"space(f) * Array.length(a)",
                 "comment":"Collects the results of applying the partial function `f` to every element in `a`."
+            },{
+                "name":"toMutList",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"a",
+                    "type":"Array[a]"
+                }],
+                "result":"MutList[a]",
+                "effect":"false",
+                "comment":"Returns the array `a` as a MutList."
             },{
                 "name":"scanRight",
                 "tparams":[{
@@ -5858,7 +6701,7 @@ export default {
                 "effect":"false",
                 "time":"l",
                 "space":"l",
-                "comment":"Returns a fresh array of length `l` filled with the element `x`.\n\n Equivalent to the expression `[x; l]`."
+                "comment":""
             },{
                 "name":"slice",
                 "tparams":[{
@@ -5956,7 +6799,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -6047,10 +6890,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"d -> a -> b -> d & e"
+                    "type":"c -> a -> b -> c & e"
                 },{
                     "name":"c",
-                    "type":"a"
+                    "type":"c"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -6131,10 +6974,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> c & e"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"a",
                     "type":"Array[a]"
@@ -6227,7 +7070,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Int32 -> (a, b) & c"
+                    "type":"Int32 -> (a, b) & e"
                 },{
                     "name":"len",
                     "type":"Int32"
@@ -6343,7 +7186,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Alias for logical conjunction."
+                "comment":""
             },{
                 "name":"⊕",
                 "tparams":[],
@@ -6399,7 +7242,7 @@ export default {
                 }],
                 "result":"(Int32, Int32, Int32)",
                 "effect":"true",
-                "comment":"Returns the RGB-triplet for the given color `c`."
+                "comment":""
             }]
         },
         "Pkger.SemVer":{
@@ -6425,7 +7268,7 @@ export default {
                 "fparams":[],
                 "result":"Option[String]",
                 "effect":"false",
-                "comment":"Returns the next line read from the standard input stream."
+                "comment":""
             }]
         },
         "MutMap":{
@@ -6438,7 +7281,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6456,13 +7299,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"d -> b -> c -> d & e"
+                    "type":"b -> k -> v -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"b",
                 "effect":"false",
@@ -6480,10 +7323,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"d -> k -> v -> d & e"
+                    "type":"b -> k -> v -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
                     "type":"MutMap[k, v]"
@@ -6500,11 +7343,11 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
-                "comment":"Returns `true` if and only if `m` is the empty map."
+                "comment":""
             },{
                 "name":"put!",
                 "tparams":[{
@@ -6514,13 +7357,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"v",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6534,7 +7377,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Int32",
                 "effect":"false",
@@ -6550,10 +7393,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"false",
@@ -6567,10 +7410,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
@@ -6584,7 +7427,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Set[k]",
                 "effect":"false",
@@ -6600,13 +7443,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> c & e"
+                    "type":"k -> v -> v & e"
                 },{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6620,10 +7463,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
@@ -6637,10 +7480,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"false",
@@ -6654,13 +7497,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"v",
                 "effect":"false",
@@ -6676,10 +7519,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> b -> c -> (b, c) & e"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"false",
@@ -6693,10 +7536,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6710,10 +7553,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 },{
                     "name":"m2",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
@@ -6729,13 +7572,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a & b"
+                    "type":"v -> v & e"
                 },{
                     "name":"k",
                     "type":"k"
                 },{
                     "name":"m",
-                    "type":"MutMap[k, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6749,7 +7592,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"false",
@@ -6763,10 +7606,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
@@ -6780,10 +7623,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[k, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6816,10 +7659,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b & e"
+                    "type":"v -> v & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6833,10 +7676,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"false",
@@ -6850,10 +7693,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m1",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 },{
                     "name":"m2",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"false",
@@ -6871,13 +7714,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"v -> b -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"MutMap[k, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"b",
                 "effect":"false",
@@ -6891,7 +7734,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"List[(k, v)]",
                 "effect":"false",
@@ -6907,13 +7750,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"MutMap[k, b]"
+                    "type":"MutMap[k, v]"
                 },{
                     "name":"m2",
-                    "type":"MutMap[k, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -6927,13 +7770,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"v"
                 },{
                     "name":"m",
-                    "type":"MutMap[b, a]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"v",
                 "effect":"false",
@@ -6958,6 +7801,23 @@ export default {
                 "effect":"false",
                 "comment":"Alias for `reduceLeftWithKey`."
             },{
+                "name":"query",
+                "tparams":[{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"k -> Ordering"
+                },{
+                    "name":"m",
+                    "type":"MutMap[k, v]"
+                }],
+                "result":"List[(k, v)]",
+                "effect":"false",
+                "comment":"Extracts a range of key-value pairs from the mutable map `m`.\n\n That is, the result is a list of all pairs `(k, v)` where `p(k)` returns `Equal`."
+            },{
                 "name":"empty",
                 "tparams":[{
                     "name":"k"
@@ -6979,10 +7839,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> b -> c -> (b, c) & e"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"false",
@@ -6998,13 +7858,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> c -> c & e"
+                    "type":"k -> v -> v -> v & e"
                 },{
                     "name":"m1",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 },{
                     "name":"m2",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -7020,10 +7880,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> c & e"
+                    "type":"k -> v -> v & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -7041,10 +7901,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> v -> c & e"
+                    "type":"b -> v -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
                     "type":"MutMap[k, v]"
@@ -7078,7 +7938,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"List[v]",
                 "effect":"false",
@@ -7094,10 +7954,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"v -> v -> v & e"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"false",
@@ -7111,10 +7971,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b ~> Unit"
+                    "type":"k -> v ~> Unit"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -7128,7 +7988,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Set[(k, v)]",
                 "effect":"false",
@@ -7146,13 +8006,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> b -> c & e"
+                    "type":"b -> v -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"b",
                 "effect":"false",
@@ -7166,10 +8026,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"false",
@@ -7183,7 +8043,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"MutMap[k, v]",
                 "effect":"false",
@@ -7197,10 +8057,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Int32",
                 "effect":"false",
@@ -7231,10 +8091,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -7288,17 +8148,83 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> d -> d & e"
+                    "type":"k -> v -> b -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"m",
-                    "type":"MutMap[a, b]"
+                    "type":"MutMap[k, v]"
                 }],
                 "result":"b",
                 "effect":"false",
                 "comment":"Applies `f` to a start value `i` and all key-value pairs in the mutable map `m` going from right to left.\n\n That is, the result is of the form: `f(k1, v1, ...f(kn-1, vn-1, f(kn, vn, i)))`."
+            }]
+        },
+        "Choice":{
+            "defs":[{
+                "name":"toOption",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"isAbsent"
+                },{
+                    "name":"isPresent"
+                }],
+                "fparams":[{
+                    "name":"c",
+                    "type":"Choice[a, isAbsent, isPresent]"
+                }],
+                "result":"Option[a]",
+                "effect":"true",
+                "comment":"Returns the given choice `c` as an `Option`."
+            },{
+                "name":"unbox",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"isAbsent"
+                }],
+                "fparams":[{
+                    "name":"c",
+                    "type":"Choice[a, false, isAbsent]"
+                }],
+                "result":"a",
+                "effect":"true",
+                "comment":""
+            }]
+        },
+        "Console.Color.Ansi":{
+            "defs":[{
+                "name":"toRGB",
+                "tparams":[],
+                "fparams":[{
+                    "name":"c",
+                    "type":"Ansi"
+                }],
+                "result":"(Int32, Int32, Int32)",
+                "effect":"true",
+                "comment":"Returns the RGB-triplet for the given color `c`.\n\n Based on the Ubuntu settings.\n\n See https://en.wikipedia.org/wiki/ANSI_escape_code#Colors"
+            },{
+                "name":"downsample",
+                "tparams":[],
+                "fparams":[{
+                    "name":"c",
+                    "type":"(Int32, Int32, Int32)"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "comment":""
+            },{
+                "name":"toFG",
+                "tparams":[],
+                "fparams":[{
+                    "name":"c",
+                    "type":"Ansi"
+                }],
+                "result":"Int32",
+                "effect":"true",
+                "comment":"Returns the foreground color of the given color `c`."
             }]
         },
         "PartialOrder":{
@@ -7315,7 +8241,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"fa",
-                    "type":"b -> b -> a"
+                    "type":"a1 -> a1 -> a2"
                 }],
                 "result":"c1 -> c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
                 "effect":"true",
@@ -7331,7 +8257,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> c"
+                    "type":"a -> b -> c"
                 }],
                 "result":"a -> a -> Bool -> b -> b -> Bool -> c -> c -> Bool -> Bool",
                 "effect":"true",
@@ -7349,7 +8275,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"fa",
-                    "type":"b -> a"
+                    "type":"a1 -> a2"
                 }],
                 "result":"c1 -> c2 -> c1 -> a1 -> c2 -> a2 -> a2 -> a2 -> Bool -> Bool",
                 "effect":"true",
@@ -7367,7 +8293,7 @@ export default {
                 }],
                 "result":"a -> a -> Bool -> b -> b -> Bool -> Bool",
                 "effect":"true",
-                "comment":"The monotonicity law asserts that a function `f` is order-preserving w.r.t.\n the partial order `dom` on its domain and the partial order `codom` on its co-domain.\n\n NB: This particular law is for unary functions."
+                "comment":""
             }]
         },
         "Validation":{
@@ -7392,7 +8318,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7445,7 +8371,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & l"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7491,7 +8417,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"xs",
-                    "type":"List[Validation[t, b]]"
+                    "type":"List[Validation[t, e]]"
                 }],
                 "result":"Validation[List[t], e]",
                 "effect":"true",
@@ -7505,10 +8431,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v1",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 },{
                     "name":"v2",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Validation[t, e]",
                 "effect":"true",
@@ -7568,7 +8494,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> u & d"
+                    "type":"t1 -> t2 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7594,7 +8520,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Validation[b, e] & d"
+                    "type":"a -> Validation[b, e] & f"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -7631,7 +8557,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & k"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7674,7 +8600,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v",
-                    "type":"Validation[b, a]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Option[t]",
                 "effect":"true",
@@ -7694,16 +8620,16 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v1",
-                    "type":"Validation[a -> c & d, b]"
+                    "type":"Validation[t -> u & f, e]"
                 },{
                     "name":"v2",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
                 "time":"1",
                 "space":"1",
-                "comment":"Applies the function in `v1` to the value in `v2`."
+                "comment":""
             },{
                 "name":"traverse",
                 "tparams":[{
@@ -7717,7 +8643,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Validation[b, c] & d"
+                    "type":"a -> Validation[b, e] & f"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -7734,10 +8660,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"v",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -7757,10 +8683,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"t -> u & f"
                 },{
                     "name":"v",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Validation[u, e]",
                 "effect":"f",
@@ -7794,7 +8720,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & j"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7850,7 +8776,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & i"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -7887,7 +8813,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v",
-                    "type":"Validation[b, a]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Result[t, Nel[e]]",
                 "effect":"true",
@@ -7903,7 +8829,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v",
-                    "type":"Validation[b, a]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"List[t]",
                 "effect":"true",
@@ -7919,10 +8845,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"v",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"t"
                 }],
                 "result":"t",
                 "effect":"true",
@@ -7938,10 +8864,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Bool"
+                    "type":"t -> Bool"
                 },{
                     "name":"v",
-                    "type":"Validation[a, b]"
+                    "type":"Validation[t, e]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -7971,7 +8897,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & h"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -8013,7 +8939,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> u & e"
+                    "type":"t1 -> t2 -> t3 -> u & f"
                 },{
                     "name":"v1",
                     "type":"Validation[t1, e]"
@@ -8038,7 +8964,7 @@ export default {
                 "fparams":[],
                 "result":"Instant",
                 "effect":"false",
-                "comment":"Returns the current time from the system clock."
+                "comment":""
             },{
                 "name":"minus",
                 "tparams":[],
@@ -8358,7 +9284,7 @@ export default {
                 "fparams":[],
                 "result":"StringBuilder",
                 "effect":"false",
-                "comment":"Returns a new mutable StringBuilder."
+                "comment":""
             },{
                 "name":"appendInt32!",
                 "tparams":[],
@@ -8388,7 +9314,7 @@ export default {
                 "fparams":[],
                 "result":"Int64",
                 "effect":"true",
-                "comment":"Returns the number of nanoseconds in one 24 hour day."
+                "comment":""
             },{
                 "name":"oneMillisecond",
                 "tparams":[],
@@ -8476,7 +9402,7 @@ export default {
                 }],
                 "result":"Channel[Unit]",
                 "effect":"false",
-                "comment":"Returns a channel that receives the Unit value after `n` days."
+                "comment":""
             },{
                 "name":"nanoseconds",
                 "tparams":[],
@@ -8523,7 +9449,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & i"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -8563,7 +9489,7 @@ export default {
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
                 "result":"Option[(a, b)]",
                 "effect":"true",
@@ -8581,7 +9507,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 },{
                     "name":"o",
                     "type":"Option[a]"
@@ -8602,10 +9528,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o1",
-                    "type":"Option[a -> b & c]"
+                    "type":"Option[t -> u & f]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[t]"
                 }],
                 "result":"Option[u]",
                 "effect":"f",
@@ -8623,7 +9549,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"o",
                     "type":"Option[a]"
@@ -8646,7 +9572,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> u & d"
+                    "type":"t1 -> t2 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -8678,7 +9604,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & g"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -8725,13 +9651,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"o",
                     "type":"Option[a]"
                 },{
                     "name":"z",
-                    "type":"a"
+                    "type":"b"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -8768,7 +9694,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> u & e"
+                    "type":"t1 -> t2 -> t3 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -8881,7 +9807,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -8915,10 +9841,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[a]"
+                    "type":"Option[e]"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"t"
                 }],
                 "result":"Result[t, e]",
                 "effect":"true",
@@ -8936,10 +9862,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Option[b] & c"
+                    "type":"a -> b -> Option[b] & f"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -8956,10 +9882,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[a]"
+                    "type":"Option[t]"
                 },{
                     "name":"e",
-                    "type":"a"
+                    "type":"e"
                 }],
                 "result":"Validation[t, e]",
                 "effect":"true",
@@ -8975,10 +9901,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[a]"
+                    "type":"Option[e]"
                 },{
                     "name":"d",
-                    "type":"a"
+                    "type":"t"
                 }],
                 "result":"Validation[t, e]",
                 "effect":"true",
@@ -8994,7 +9920,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[(a, b)]"
+                    "type":"Option[(k, v)]"
                 }],
                 "result":"Map[k, v]",
                 "effect":"true",
@@ -9014,7 +9940,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns `true` iff `o` is `None`."
+                "comment":""
             },{
                 "name":"toList",
                 "tparams":[{
@@ -9058,7 +9984,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & l"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> t10 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -9106,10 +10032,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> Option[b] & c"
+                    "type":"b -> a -> Option[b] & f"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -9160,10 +10086,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"o",
-                    "type":"Option[a]"
+                    "type":"Option[t]"
                 },{
                     "name":"e",
-                    "type":"a"
+                    "type":"e"
                 }],
                 "result":"Result[t, e]",
                 "effect":"true",
@@ -9183,13 +10109,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> Option[c] & d"
+                    "type":"a -> b -> Option[c] & e"
                 },{
                     "name":"o1",
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
                 "result":"Option[c]",
                 "effect":"e",
@@ -9221,7 +10147,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Option[b] & c"
+                    "type":"a -> Option[b] & e"
                 },{
                     "name":"xs",
                     "type":"List[a]"
@@ -9293,7 +10219,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & k"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -9340,13 +10266,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 },{
                     "name":"o1",
                     "type":"Option[a]"
                 },{
                     "name":"o2",
-                    "type":"Option[a]"
+                    "type":"Option[b]"
                 }],
                 "result":"Option[c]",
                 "effect":"e",
@@ -9378,7 +10304,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & j"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -9447,7 +10373,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & h"
+                    "type":"t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> u & f"
                 },{
                     "name":"o1",
                     "type":"Option[t1]"
@@ -9497,10 +10423,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"z",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"o",
                     "type":"Option[a]"
@@ -9520,7 +10446,7 @@ export default {
                 }],
                 "result":"String",
                 "effect":"true",
-                "comment":"Returns the string `s` formatted with the default blue color."
+                "comment":""
             },{
                 "name":"red",
                 "tparams":[],
@@ -9679,7 +10605,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns `true` if the given char `c` is an ascii character."
+                "comment":""
             },{
                 "name":"isLowerCase",
                 "tparams":[],
@@ -10099,7 +11025,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent a `Float64`."
+                "comment":""
             }]
         },
         "":{
@@ -10156,7 +11082,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> c & ((e ∧ d) ∨ (f ∧ (¬(((e ∧ d) ∧ (¬d)) ∨ ((¬(e ∧ d)) ∧ d))))) & d"
+                    "type":"a -> b -> c & (('e ∧ 'd) ∨ ('f ∧ (¬((('e ∧ 'd) ∧ (¬'d)) ∨ ((¬('e ∧ 'd)) ∧ 'd))))) & e2"
                 }],
                 "result":"a -> b -> c & (e1 ∧ e2)",
                 "effect":"true",
@@ -10190,7 +11116,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> c & d"
+                    "type":"a -> b -> c & e"
                 }],
                 "result":"b -> a -> c & e",
                 "effect":"true",
@@ -10289,7 +11215,7 @@ export default {
                     "type":"a"
                 },{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -10323,10 +11249,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e1"
                 },{
                     "name":"g",
-                    "type":"b -> a & c"
+                    "type":"b -> c & e2"
                 }],
                 "result":"a -> c & (e1 ∧ e2)",
                 "effect":"true",
@@ -10349,7 +11275,7 @@ export default {
                     "type":"(a, b)"
                 },{
                     "name":"f",
-                    "type":"(a, b) -> c & d"
+                    "type":"(a, b) -> c & e"
                 }],
                 "result":"c",
                 "effect":"e",
@@ -10405,7 +11331,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c & d"
+                    "type":"a -> b -> c & e"
                 }],
                 "result":"a -> b -> c & e",
                 "effect":"true",
@@ -10450,7 +11376,7 @@ export default {
                 }],
                 "result":"e -> e -> Bool -> Bool",
                 "effect":"true",
-                "comment":"The least element law asserts that the bottom element `⊥` is the smallest element of a partial order `⊑`."
+                "comment":""
             },{
                 "name":"strict2",
                 "tparams":[{
@@ -10504,7 +11430,7 @@ export default {
                 "fparams":[],
                 "result":"Channel[a]",
                 "effect":"false",
-                "comment":"Returns a fresh unbuffered channel.\n\n An unbuffered channel has an internal capacity of `0`."
+                "comment":""
             },{
                 "name":"put",
                 "tparams":[{
@@ -10575,10 +11501,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> b & c"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10609,7 +11535,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10710,7 +11636,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10758,7 +11684,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> a -> a & b"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10829,7 +11755,7 @@ export default {
                     "type":"Nel[a]"
                 },{
                     "name":"ys",
-                    "type":"Nel[a]"
+                    "type":"Nel[b]"
                 }],
                 "result":"Nel[c]",
                 "effect":"true",
@@ -10847,10 +11773,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10902,7 +11828,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns a new non-empty list containing the single element `x`."
+                "comment":""
             },{
                 "name":"fold",
                 "tparams":[{
@@ -10914,10 +11840,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> a -> b & c"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -10953,7 +11879,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b & c"
+                    "type":"a -> b & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -11009,7 +11935,7 @@ export default {
                     "type":"Nel[a]"
                 },{
                     "name":"ys",
-                    "type":"Nel[a]"
+                    "type":"Nel[b]"
                 }],
                 "result":"Nel[(a, b)]",
                 "effect":"true",
@@ -11055,7 +11981,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> Nel[a] & c"
+                    "type":"a -> Nel[b] & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -11135,7 +12061,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Int32 -> b & c"
+                    "type":"a -> Int32 -> b & e"
                 },{
                     "name":"xs",
                     "type":"Nel[a]"
@@ -11247,7 +12173,7 @@ export default {
                 }],
                 "result":"Unit",
                 "effect":"false",
-                "comment":"Prints the given string `s` to the standard output stream."
+                "comment":""
             },{
                 "name":"flush",
                 "tparams":[],
@@ -11386,7 +12312,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent a `Float32`."
+                "comment":""
             },{
                 "name":"tryToBigInt",
                 "tparams":[],
@@ -11657,7 +12583,7 @@ export default {
                 }],
                 "result":"Ticker",
                 "effect":"false",
-                "comment":"Returns a channel that receives the Unit value repeatedly every `n` days."
+                "comment":""
             },{
                 "name":"tick",
                 "tparams":[],
@@ -11692,7 +12618,7 @@ export default {
                 }],
                 "result":"Bool",
                 "effect":"true",
-                "comment":"Returns `true` if the given value `x` is `null`."
+                "comment":""
             }]
         },
         "Int32":{
@@ -11827,7 +12753,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent an `Int32`."
+                "comment":""
             },{
                 "name":"maxValue",
                 "tparams":[],
@@ -12174,11 +13100,11 @@ export default {
                 }],
                 "fparams":[{
                     "name":"⊑",
-                    "type":"a -> a -> Bool"
+                    "type":"e -> e -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
                 "effect":"true",
-                "comment":"The upper bound law asserts that the least upper bound operator returns an element that is\n greater than or equal to each of its arguments."
+                "comment":""
             },{
                 "name":"leastUpperBound",
                 "tparams":[{
@@ -12186,7 +13112,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"⊑",
-                    "type":"a -> a -> Bool"
+                    "type":"e -> e -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
                 "effect":"true",
@@ -12233,7 +13159,7 @@ export default {
                 "fparams":[],
                 "result":"Option[String]",
                 "effect":"false",
-                "comment":"Alias for `Console.StdIn.readLine`."
+                "comment":""
             }]
         },
         "Core.Io.File":{
@@ -12445,10 +13371,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"true",
@@ -12464,10 +13390,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -12483,13 +13409,37 @@ export default {
                 }],
                 "fparams":[{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Int32",
                 "effect":"true",
                 "time":"RedBlackTree.size(tree)",
                 "space":"Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Returns the number of nodes in `tree`."
+            },{
+                "name":"queryWith",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                },{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"k -> Ordering & e"
+                },{
+                    "name":"f",
+                    "type":"k -> v -> a"
+                },{
+                    "name":"tree",
+                    "type":"RedBlackTree[k, v]"
+                }],
+                "result":"List[a]",
+                "effect":"e",
+                "comment":"Extracts a range of key-value pairs from `tree`.\n\n That is, the result is a list of all pairs `f(k, v)` where `p(k)` returns `Equal`."
             },{
                 "name":"foldLeft",
                 "tparams":[{
@@ -12503,13 +13453,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> b -> c & d"
+                    "type":"b -> k -> v -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -12525,7 +13475,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"k -> v -> Option[v] & c"
+                    "type":"k -> v -> Option[v] & e"
                 },{
                     "name":"k",
                     "type":"k"
@@ -12539,6 +13489,33 @@ export default {
                 "space":"space(f) + Int32.log2(RedBlackTree.size(tree))",
                 "comment":"Updates `tree` with `k -> v1` if `k -> v` is in `tree` and `f(k, v) = Some(v1)`.\n\n Otherwise, returns `tree`."
             },{
+                "name":"queryWithHelper",
+                "tparams":[{
+                    "name":"a"
+                },{
+                    "name":"e"
+                },{
+                    "name":"k"
+                },{
+                    "name":"v"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"k -> Ordering & e"
+                },{
+                    "name":"f",
+                    "type":"k -> v -> a"
+                },{
+                    "name":"buffer",
+                    "type":"MutList[a]"
+                },{
+                    "name":"tree",
+                    "type":"RedBlackTree[k, v]"
+                }],
+                "result":"Unit",
+                "effect":"false",
+                "comment":""
+            },{
                 "name":"memberOf",
                 "tparams":[{
                     "name":"k"
@@ -12550,7 +13527,7 @@ export default {
                     "type":"k"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[k, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -12566,10 +13543,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"true",
@@ -12587,10 +13564,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"e",
@@ -12604,10 +13581,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"k",
-                    "type":"a"
+                    "type":"k"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Option[v]",
                 "effect":"true",
@@ -12623,10 +13600,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> Bool"
+                    "type":"k -> v -> Bool"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Bool",
                 "effect":"true",
@@ -12644,7 +13621,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"k -> v -> v -> v & c"
+                    "type":"k -> v -> v -> v & e"
                 },{
                     "name":"k",
                     "type":"k"
@@ -12692,13 +13669,13 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> c -> c & d"
+                    "type":"k -> v -> b -> b & e"
                 },{
                     "name":"s",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"b",
                 "effect":"e",
@@ -12736,10 +13713,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b -> a -> b -> (a, b) & c"
+                    "type":"k -> v -> k -> v -> (k, v) & e"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Option[(k, v)]",
                 "effect":"e",
@@ -12766,10 +13743,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> b ~> Unit"
+                    "type":"k -> v ~> Unit"
                 },{
                     "name":"tree",
-                    "type":"RedBlackTree[a, b]"
+                    "type":"RedBlackTree[k, v]"
                 }],
                 "result":"Unit",
                 "effect":"false",
@@ -12820,7 +13797,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent an `Int16`."
+                "comment":""
             },{
                 "name":"logicalRightShift",
                 "tparams":[],
@@ -13501,7 +14478,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the character at position `i` in the string `s`."
+                "comment":""
             },{
                 "name":"init",
                 "tparams":[{
@@ -13693,10 +14670,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Char -> a & b"
+                    "type":"b -> Char -> b & e"
                 },{
                     "name":"x",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"String"
@@ -13753,7 +14730,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> Char -> Char & a"
+                    "type":"Char -> Char -> Char & e"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14049,7 +15026,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> Char -> Char & a"
+                    "type":"Char -> Char -> Char & e"
                 },{
                     "name":"a",
                     "type":"String"
@@ -14251,10 +15228,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> Char -> a -> a & b"
+                    "type":"Char -> Char -> b -> b & e"
                 },{
                     "name":"x",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14430,10 +15407,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"a -> Char -> Char -> a & b"
+                    "type":"b -> Char -> Char -> b & e"
                 },{
                     "name":"x",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14451,7 +15428,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> Char & a"
+                    "type":"Char -> Char & e"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14470,10 +15447,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> a -> a & b"
+                    "type":"Char -> b -> b & e"
                 },{
                     "name":"x",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14629,7 +15606,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"Char -> Int32 -> Char & a"
+                    "type":"Char -> Int32 -> Char & e"
                 },{
                     "name":"s",
                     "type":"String"
@@ -14658,7 +15635,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"⊑",
-                    "type":"a -> a -> Bool"
+                    "type":"e -> e -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
                 "effect":"true",
@@ -14670,11 +15647,11 @@ export default {
                 }],
                 "fparams":[{
                     "name":"⊑",
-                    "type":"a -> a -> Bool"
+                    "type":"e -> e -> Bool"
                 }],
                 "result":"e -> e -> e -> Bool",
                 "effect":"true",
-                "comment":"The lower bound law asserts that the greatest lower bound operator returns an element that\n is less than or equal to each of its arguments."
+                "comment":""
             }]
         },
         "Core.Io.OutputStream":{
@@ -14815,7 +15792,7 @@ export default {
                 "fparams":[],
                 "result":"Random",
                 "effect":"false",
-                "comment":"Returns a fresh random number generator."
+                "comment":""
             },{
                 "name":"choose",
                 "tparams":[{
@@ -14887,7 +15864,7 @@ export default {
                 "fparams":[],
                 "result":"MutSet[a]",
                 "effect":"false",
-                "comment":"Returns a fresh empty set."
+                "comment":""
             },{
                 "name":"clear!",
                 "tparams":[{
@@ -14924,7 +15901,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -14992,21 +15969,6 @@ export default {
                 "effect":"false",
                 "comment":"Returns the mutable set `s` as an immutable set."
             },{
-                "name":"exists",
-                "tparams":[{
-                    "name":"a"
-                }],
-                "fparams":[{
-                    "name":"f",
-                    "type":"a -> Bool"
-                },{
-                    "name":"s",
-                    "type":"MutSet[a]"
-                }],
-                "result":"Bool",
-                "effect":"false",
-                "comment":"Returns `true` if and only if at least one element in the mutable set `s` satisfies the predicate function `f`.\n\n Returns `false` if `s` is the empty set.\n\n The function `f` must be pure."
-            },{
                 "name":"transform!",
                 "tparams":[{
                     "name":"a"
@@ -15015,7 +15977,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b & e"
+                    "type":"a -> a & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -15214,7 +16176,7 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> b -> b & e"
+                    "type":"a -> a -> a & e"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -15248,10 +16210,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> a -> c & e"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -15300,10 +16262,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"c -> b -> c & e"
+                    "type":"b -> a -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -15322,10 +16284,10 @@ export default {
                 }],
                 "fparams":[{
                     "name":"f",
-                    "type":"b -> c -> c & e"
+                    "type":"a -> b -> b & e"
                 },{
                     "name":"i",
-                    "type":"a"
+                    "type":"b"
                 },{
                     "name":"s",
                     "type":"MutSet[a]"
@@ -15393,6 +16355,36 @@ export default {
                 "result":"Int32",
                 "effect":"false",
                 "comment":"Returns the size of the mutable set `s`."
+            },{
+                "name":"exists",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"f",
+                    "type":"a -> Bool"
+                },{
+                    "name":"s",
+                    "type":"MutSet[a]"
+                }],
+                "result":"Bool",
+                "effect":"false",
+                "comment":"Returns `true` if and only if at least one element in the mutable set `s` satisfies the predicate function `f`.\n\n Returns `false` if `s` is the empty set.\n\n The function `f` must be pure."
+            },{
+                "name":"query",
+                "tparams":[{
+                    "name":"a"
+                }],
+                "fparams":[{
+                    "name":"p",
+                    "type":"a -> Ordering"
+                },{
+                    "name":"s",
+                    "type":"MutSet[a]"
+                }],
+                "result":"List[a]",
+                "effect":"false",
+                "comment":"Extracts a range of elements from the set `s`.\n\n That is, the result is a list of all elements `x` where `p(x)` returns `Equal`."
             }]
         },
         "Int64":{
@@ -15705,7 +16697,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent an `Int64`."
+                "comment":""
             },{
                 "name":"rotateLeft",
                 "tparams":[],
@@ -15883,7 +16875,7 @@ export default {
                 }],
                 "result":"(Int32, Int32, Int32)",
                 "effect":"true",
-                "comment":"Returns the RGB-triplet for the given color `c`."
+                "comment":""
             }]
         },
         "Console.StdErr":{
@@ -15903,7 +16895,7 @@ export default {
                 }],
                 "result":"Unit",
                 "effect":"false",
-                "comment":"Prints the given string `s` to the standard error stream."
+                "comment":""
             },{
                 "name":"printLine",
                 "tparams":[],
@@ -15932,7 +16924,7 @@ export default {
                 "effect":"true",
                 "time":"1",
                 "space":"1",
-                "comment":"Returns the number of bits used to represent an `Int8`."
+                "comment":""
             },{
                 "name":"numberOfLeadingZeros",
                 "tparams":[],
